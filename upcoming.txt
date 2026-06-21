@@ -1,0 +1,65 @@
+now the void time should be display maybe a tool top or bubble chat to show what time is voided and in reserve/on hold state the booking should be more logic where user may only book the room if there is at least 30 min available for example at 10:15 there is booked starting then user can only book 9:45 to 10:15 so on.
+also the available time graph should also show in the reveration page to let user decide time slot more easily.
+
+add on a demo which will trigger if any member id is invalid. for redirection again to on hold state to add
+
+also making the resource type filter be multi selectable also.
+
+the time window should contain more maybe remake making it like only time where it will show like 8:00 8:15 with 15 min interval end time optional also but default will be shoing please select also for starting.
+where also addon a display available rooms only which remove all those consturciton suspend fully booked or which have slot but didn't fulfill filter requirement rooms.
+please make sure the start, end and available room only checkbox logic all work correctly.
+
+and the notes below on the bar is not correct each page have difference demo feature. maybe addon a bar above it to show.
+
+also duration in reserve page should also only allow user to book slot where is available like 9:15 only can book 30 min if 9:45 have booking
+
+where it will show minimum of 30 min with interval of 15 min until maximum 2 hours no need those bracket thing to show its max or min so on.
+
+
+
+now on my bookings status should also contain on hold and the date will auto be selectable as from which date to which date. default will show one week date. 
+where you cant select previous date unless its in history part.
+
+and the on hold up coming history filter is not require. it will only be one.
+then maybe a check history or thing like history beside to popup a history list. 
+and clicking on the on hold it should open the booking where the popup with key in id not the details page.
+
+and the section should separate into two where on hold and upcoming which will be divide into two section with divide line between them.
+
+the filter collapse button didn't collapse the filters part correctly where the box didn't stretch to bottom of the page.
+
+
+
+now the admin page
+
+just remove ethe schedule page. make sure sync any change will effect in user dashboard where the campus working hours is confirm from 8 am until 10 pm.
+
+in resources the resource schedule popup when clicking on free it will pop up a register page for admin to help manual user to book where admin should key in the details so on like user page and only available to click reserve when it hit min cap but add on a force reserved button beside which allow admin to reserved it without any user register in it.
+
+and remake the resource schedule pop up page where it will first have date select where it will filter out the date of the booking schedule
+then it will ned more details of booking where showing what time to what time is free in details and booked from what time to what time so on.
+
+and clicking on booked may allow admin to force cancel and email the user. and clicking on on hold one will allow admin to force qualify so on. so booked will not have force qualify also those email and contact should remain.
+void is also not overwriteable by admin , admin could just go cancel schedule. or modify shcdule details like the user id registed or even change the time where it will also send email to notify user.
+
+
+and the actions beside should only have edit, schedule. where the schedule is move to action not on resource row. also addon details where it bring up the details with go back button no reserved button.
+and no email host email all or remove. or reopen. where the status will be modify in edit not on outside.
+and those in adding status will get a complete button beside or remove button.
+and for suspended will get remove button.also
+
+
+
+on user tabs is quite good but manage will not sent email if account status is not change only sent email when account status is changed remove hte norify user of change button.
+
+and role should be remove. cause all user will be student.
+
+only remain the daily booking limit so on.
+
+and add a calander above to show which date used the booking like normal notion calander but addon like where if booking is use it will write booking used 1/2 if not use then it will be empty like normal calander.
+
+also resource tabs will have search room code or name also. 
+
+
+
+the edit profile part should not contain the theme change.
