@@ -5,65 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Group Name — Campus Resource Booking System (Wireframe)</title>
 <style>
-/* ============ TOKENS ============ */
 :root{
-  --bg-0:#0c0f16;          /* app base */
-  --bg-1:#12161f;          /* panel section */
-  --bg-2:#171c27;          /* card */
-  --bg-3:#1e2430;          /* raised */
-  --bg-hover:#232a38;
-  --line:#2a3242;
-  --line-soft:#222a38;
-  --txt:#e8edf5;
-  --txt-2:#aab4c5;
-  --txt-3:#6f7b8f;
-  --accent:#3fa9c9;        /* primary teal */
-  --accent-d:#2d8aa8;
-  --accent-soft:rgba(63,169,201,.14);
-  --green:#46b97a;
-  --green-soft:rgba(70,185,122,.14);
-  --amber:#e0a13a;
-  --amber-soft:rgba(224,161,58,.14);
-  --red:#e0584f;
-  --red-soft:rgba(224,88,79,.14);
-  --bookid:#c98be6;        /* booking id color (not red) */
-  --radius:14px;
-  --radius-s:10px;
-  --shadow:0 18px 50px -12px rgba(0,0,0,.6);
-  --ff: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --fmono: "JetBrains Mono", "Consolas", ui-monospace, monospace;
+  --bg-0:#0c0f16; --bg-1:#12161f; --bg-2:#171c27; --bg-3:#1e2430; --bg-hover:#232a38;
+  --line:#2b3344; --line-soft:#222a38;
+  --txt:#eef2f8; --txt-2:#b9c2d2; --txt-3:#828d9f;
+  --accent:#46a6d6; --accent-d:#2f87b3; --accent-soft:rgba(70,166,214,.15);
+  --green:#48bd7e; --green-soft:rgba(72,189,126,.15);
+  --amber:#e2a73f; --amber-soft:rgba(226,167,63,.15);
+  --red:#e85d54; --red-soft:rgba(232,93,84,.15);
+  --violet:#a679e6; --violet-soft:rgba(166,121,230,.15);
+  --blue:#5b94ee; --blue-soft:rgba(91,148,238,.15);
+  --bookid:#cf9bef;
+  --radius:14px; --radius-s:10px;
+  --shadow:0 18px 50px -14px rgba(0,0,0,.6);
+  --ff:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --fmono:"JetBrains Mono","Consolas",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{
-  font-family:var(--ff); background:var(--bg-0); color:var(--txt);
-  font-size:15.5px; line-height:1.5; overflow:hidden;
-}
+body{font-family:var(--ff);background:var(--bg-0);color:var(--txt);font-size:15.5px;line-height:1.5;overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input{font-family:inherit}
 .hidden{display:none !important}
-
-/* custom scrollbar */
-.scroll{scrollbar-width:thin; scrollbar-color:var(--line) transparent}
+.scroll{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .scroll::-webkit-scrollbar{width:10px;height:10px}
 .scroll::-webkit-scrollbar-track{background:transparent}
 .scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:20px;border:2px solid transparent;background-clip:padding-box}
-.scroll::-webkit-scrollbar-thumb:hover{background:#39435a;background-clip:padding-box}
+.scroll::-webkit-scrollbar-thumb:hover{background:#3a4459;background-clip:padding-box}
 
-/* ============ LOGIN ============ */
+/* ===== LOGIN ===== */
 #loginPage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(120% 120% at 20% 10%, #16324a 0%, #0e1622 42%, #0a0d14 100%);
-  overflow:hidden}
-#loginPage::before,#loginPage::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:flow 16s ease-in-out infinite}
-#loginPage::before{width:560px;height:560px;background:radial-gradient(circle,#2d8aa8,transparent 70%);top:-160px;left:-120px}
+  background:radial-gradient(120% 120% at 18% 8%,#14334b 0%,#0e1622 44%,#0a0d14 100%);overflow:hidden}
+#loginPage::before,#loginPage::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:flow 16s ease-in-out infinite}
+#loginPage::before{width:560px;height:560px;background:radial-gradient(circle,#2f87b3,transparent 70%);top:-160px;left:-120px}
 #loginPage::after{width:620px;height:620px;background:radial-gradient(circle,#3a6e8a,transparent 70%);bottom:-220px;right:-160px;animation-delay:-6s}
 @keyframes flow{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.12)}}
-
-.login-card{position:relative;z-index:2;display:flex;width:min(880px,92vw);min-height:430px;
-  background:rgba(18,22,31,.78);backdrop-filter:blur(18px);border:1px solid var(--line);
-  border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.login-card{position:relative;z-index:2;display:flex;width:min(880px,92vw);min-height:430px;background:rgba(18,22,31,.8);
+  backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
 .login-info{flex:1.05;padding:46px 42px;display:flex;flex-direction:column;justify-content:center;gap:18px;
-  background:linear-gradient(160deg,rgba(63,169,201,.12),transparent 60%);border-right:1px solid var(--line-soft)}
+  background:linear-gradient(160deg,rgba(70,166,214,.12),transparent 60%);border-right:1px solid var(--line-soft)}
 .login-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
 .login-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
 .login-info h1{font-size:30px;line-height:1.15;font-weight:700;letter-spacing:-.5px}
@@ -74,254 +54,276 @@ input{font-family:inherit}
 .login-form{flex:.95;padding:46px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px}
 .login-form h2{font-size:20px;font-weight:700;margin-bottom:4px}
 .login-form .sub{color:var(--txt-3);font-size:13.5px;margin-top:-10px}
-.field label{display:block;font-size:12.5px;color:var(--txt-2);margin-bottom:7px;letter-spacing:.02em}
-.field input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);
-  padding:13px 14px;color:var(--txt);font-size:15px;outline:none;transition:.15s}
+.field label{display:block;font-size:12.5px;color:var(--txt-2);margin-bottom:7px}
+.field input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);padding:13px 14px;color:var(--txt);font-size:15px;outline:none;transition:.15s}
 .field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.btn-primary{background:linear-gradient(180deg,var(--accent),var(--accent-d));color:#06222b;font-weight:700;
-  border-radius:var(--radius-s);padding:13px;font-size:15px;letter-spacing:.02em;transition:.15s;box-shadow:0 8px 22px -8px var(--accent)}
+.btn-primary{background:linear-gradient(180deg,var(--accent),var(--accent-d));color:#04222d;font-weight:700;border-radius:var(--radius-s);padding:13px;font-size:15px;transition:.15s;box-shadow:0 8px 22px -8px var(--accent)}
 .btn-primary:hover{filter:brightness(1.07);transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0)}
 
-/* ============ DASHBOARD SHELL ============ */
+/* ===== DASHBOARD SHELL ===== */
 #dashPage{position:fixed;inset:0;display:flex;flex-direction:column;padding:14px;gap:12px}
-
-/* top bar */
-.topbar{display:flex;align-items:center;gap:18px;background:var(--bg-1);border:1px solid var(--line);
-  border-radius:var(--radius);padding:14px 20px;min-height:74px;box-shadow:var(--shadow)}
+.topbar{display:flex;align-items:center;gap:18px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);padding:16px 22px;min-height:80px;box-shadow:var(--shadow)}
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
-.brand .logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,var(--accent),#2c6f88);
-  display:flex;align-items:center;justify-content:center;font-weight:800;color:#06222b;font-size:18px;flex:none}
+.brand .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(150deg,var(--accent),#2c6f88);display:flex;align-items:center;justify-content:center;font-weight:800;color:#04222d;font-size:19px;flex:none}
 .brand .b-text{min-width:0}
-.brand .b-text .g{font-weight:700;font-size:17px;letter-spacing:-.2px;white-space:nowrap}
+.brand .b-text .g{font-weight:700;font-size:18px;letter-spacing:-.2px;white-space:nowrap}
 .brand .b-text .s{font-size:12.5px;color:var(--txt-3);white-space:nowrap}
-.hours-pill{display:inline-flex;align-items:center;gap:8px;background:var(--green-soft);border:1px solid rgba(70,185,122,.3);
-  color:#7fe0a8;border-radius:30px;padding:6px 13px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.hours-pill{display:inline-flex;align-items:center;gap:8px;background:var(--green-soft);border:1px solid rgba(72,189,126,.3);color:#86e0ad;border-radius:30px;padding:7px 14px;font-size:12.5px;font-weight:600;white-space:nowrap}
 .hours-pill .d{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
 .top-spacer{flex:1}
-.clock{text-align:right;line-height:1.25;padding-right:6px}
-.clock .t{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.clock{text-align:right;line-height:1.25;padding-right:4px}
+.clock .t{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
 .clock .d{font-size:12px;color:var(--txt-3)}
-.icon-btn{width:42px;height:42px;border-radius:11px;background:var(--bg-2);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.15s;position:relative}
+.icon-btn{width:44px;height:44px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.15s}
 .icon-btn:hover{background:var(--bg-hover);color:var(--txt);border-color:#384357}
 .icon-btn svg{width:20px;height:20px}
-.avatar-btn{width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:linear-gradient(150deg,#2c6f88,#3fa9c9);
-  color:#06222b;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;transition:.15s}
+.avatar-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;transition:.15s}
 .avatar-btn:hover{filter:brightness(1.08)}
 
-/* body layout */
-.body-row{flex:1;display:flex;gap:12px;min-height:0}
-.sidebar{width:312px;flex:none;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);
-  display:flex;flex-direction:column;overflow:hidden;transition:width .22s ease,opacity .2s;box-shadow:var(--shadow)}
-.sidebar.collapsed{width:0;opacity:0;border-color:transparent;pointer-events:none}
-.sidebar-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line-soft)}
-.sidebar-head h3{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-2)}
-.filter-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
-.filter-foot{padding:14px 18px;border-top:1px solid var(--line-soft);display:flex;gap:10px}
-.fgroup label.flabel{display:block;font-size:12.5px;color:var(--txt-2);margin-bottom:8px;font-weight:600;letter-spacing:.02em}
-.input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);
-  padding:11px 13px;color:var(--txt);font-size:14.5px;outline:none;transition:.15s}
-.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.input::placeholder{color:var(--txt-3)}
-.chk{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--txt-2);padding:4px 0}
-.chk input{width:17px;height:17px;accent-color:var(--accent)}
-.btn{border:1px solid var(--line);background:var(--bg-2);color:var(--txt);border-radius:var(--radius-s);
-  padding:11px 14px;font-size:14px;font-weight:600;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn:hover{background:var(--bg-hover);border-color:#384357}
-.btn.flex1{flex:1}
-.btn.solid{background:linear-gradient(180deg,var(--accent),var(--accent-d));color:#06222b;border-color:transparent;font-weight:700}
-.btn.solid:hover{filter:brightness(1.08)}
-.btn.ghost{background:transparent}
-.btn.danger{background:var(--red-soft);border-color:rgba(224,88,79,.4);color:#ff9b94}
-.btn.danger:hover{background:rgba(224,88,79,.22)}
-.btn.sm{padding:8px 12px;font-size:13px}
-
-/* main column */
+.body-row{flex:1;display:flex;gap:12px;min-height:0;position:relative}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;gap:12px}
-.tabstrip{display:flex;align-items:center;gap:8px;background:var(--bg-1);border:1px solid var(--line);
-  border-radius:var(--radius);padding:10px 12px;box-shadow:var(--shadow)}
+.tabstrip{display:flex;align-items:center;gap:8px;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;box-shadow:var(--shadow)}
+.filters-btn{display:inline-flex;align-items:center;gap:9px;padding:10px 15px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--txt-2);font-weight:600;font-size:14px;transition:.15s}
+.filters-btn:hover{background:var(--bg-hover);color:var(--txt)}
+.filters-btn.on{background:var(--accent-soft);color:var(--accent);border-color:rgba(70,166,214,.4)}
+.filters-btn svg{width:17px;height:17px}
 .tab{padding:10px 18px;border-radius:10px;font-size:14.5px;font-weight:600;color:var(--txt-2);transition:.15s;border:1px solid transparent}
 .tab:hover{background:var(--bg-2);color:var(--txt)}
-.tab.active{background:var(--accent-soft);color:var(--accent);border-color:rgba(63,169,201,.35)}
-.collapse-toggle{width:40px;height:40px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.15s;flex:none}
-.collapse-toggle:hover{background:var(--bg-hover);color:var(--txt)}
+.tab.active{background:var(--accent-soft);color:var(--accent);border-color:rgba(70,166,214,.35)}
 .tab-spacer{flex:1}
-.mini-filter{display:flex;align-items:center;gap:6px}
+.mini-filter{display:flex;align-items:center;gap:8px}
 .seg{display:flex;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .seg button{padding:8px 13px;font-size:13px;color:var(--txt-2);font-weight:600;transition:.15s}
 .seg button.on{background:var(--accent-soft);color:var(--accent)}
 .seg button:hover:not(.on){background:var(--bg-hover);color:var(--txt)}
+.main-area{flex:1;min-height:0;display:flex;flex-direction:column}
 
-.content{flex:1;overflow-y:auto;padding-right:4px;display:flex;flex-direction:column;gap:14px}
+/* fill box (book resource / my bookings container) */
+.fillbox{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.fillbox-head{padding:15px 20px;display:flex;align-items:center;gap:12px;position:relative}
+.fillbox-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
+.fillbox-head h2{font-size:16px;font-weight:700;letter-spacing:-.2px}
+.fillbox-head .count{font-size:12.5px;color:var(--txt-3);background:var(--bg-3);padding:3px 11px;border-radius:20px}
+.fillbox-head .sp{flex:1}
+.fillbox-body{flex:1;overflow-y:auto;padding:18px 20px}
 
-/* section (collapsible) */
-.section{background:var(--bg-1);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.section-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
-.section-head:hover{background:var(--bg-2)}
-.section-head .caret{transition:.2s;color:var(--txt-3)}
-.section-head.collapsed .caret{transform:rotate(-90deg)}
-.section-head h2{font-size:16px;font-weight:700;letter-spacing:-.2px}
-.section-head .count{font-size:12.5px;color:var(--txt-3);background:var(--bg-3);padding:3px 10px;border-radius:20px}
-.section-head .sp{flex:1}
-.section-body{padding:6px 18px 20px}
-.section-body.collapsed{display:none}
+/* unified collapsible section */
+.sec{margin-bottom:4px}
+.sec-head{display:flex;align-items:center;gap:12px;padding:14px 2px;cursor:pointer;user-select:none;position:relative}
+.sec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.sec-head .caret{width:28px;height:28px;border-radius:8px;background:var(--bg-3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.2s;flex:none}
+.sec-head .caret svg{width:16px;height:16px;transition:.2s}
+.sec-head.collapsed .caret svg{transform:rotate(-90deg)}
+.sec-head:hover .caret{color:var(--txt);border-color:#3c4a60;background:var(--bg-hover)}
+.sec-head h3{font-size:15.5px;font-weight:700;color:var(--txt)}
+.sec-head .count{font-size:12px;color:var(--txt-3);background:var(--bg-3);padding:2px 11px;border-radius:20px}
+.sec-head .sp{flex:1}
+.sec-head-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sec-body{padding:16px 2px 10px}
+.sec-body.collapsed{display:none}
+.sec-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px}
+.sec-controls .ctl{min-width:168px}
+.dd-trigger>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 
-/* room grid (book resource) */
-.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
-.room-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.16s;cursor:pointer;position:relative}
-.room-card:hover{border-color:#3c4a60;transform:translateY(-2px);box-shadow:0 14px 30px -16px rgba(0,0,0,.7)}
-.room-card.fully{opacity:.5;cursor:not-allowed;filter:grayscale(.3)}
+/* sub-section with immersive divider (my bookings) */
+.subsec{margin-bottom:10px}
+.subsec-head{display:flex;align-items:center;gap:12px;padding:14px 4px;cursor:pointer;user-select:none;position:relative}
+.subsec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.subsec-head:hover h3{color:var(--txt)}
+.subsec-head .caret{transition:.2s;color:var(--txt-3);display:flex}
+.subsec-head.collapsed .caret{transform:rotate(-90deg)}
+.subsec-head h3{font-size:15px;font-weight:700;color:var(--txt-2);transition:.15s}
+.subsec-head .count{font-size:12px;color:var(--txt-3);background:var(--bg-3);padding:2px 10px;border-radius:20px}
+.subsec-head .sp{flex:1}
+.subsec-body{padding:14px 2px 8px}
+.subsec-body.collapsed{display:none}
+
+/* ===== FILTER DRAWER (slides from left) ===== */
+.filter-drawer{position:absolute;top:0;left:0;bottom:0;width:320px;background:var(--bg-1);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:24px 0 50px -18px rgba(0,0,0,.7);z-index:25;display:flex;flex-direction:column;
+  transform:translateX(calc(-100% - 20px));opacity:0;transition:transform .24s ease,opacity .2s}
+.filter-drawer.open{transform:translateX(0);opacity:1}
+.drawer-head{padding:16px 18px;display:flex;align-items:center;gap:10px;position:relative}
+.drawer-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
+.drawer-head h3{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-2)}
+.drawer-head .sp{flex:1}
+.drawer-head .x{width:34px;height:34px;border-radius:9px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.13s}
+.drawer-head .x:hover{background:var(--bg-hover);color:var(--txt)}
+.drawer-head .x svg{width:16px;height:16px}
+.filter-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
+.filter-foot{padding:14px 18px;display:flex;gap:10px;position:relative}
+.filter-foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
+.flabel{display:block;font-size:12.5px;color:var(--txt-2);margin-bottom:9px;font-weight:600}
+.input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);padding:11px 13px;color:var(--txt);font-size:14.5px;outline:none;transition:.15s}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.input::placeholder{color:var(--txt-3)}
+.chk-list{display:flex;flex-direction:column;gap:4px}
+.chk{display:flex;align-items:center;gap:11px;cursor:pointer;font-size:14px;color:var(--txt-2);padding:7px 9px;border-radius:9px;transition:.12s}
+.chk:hover{background:var(--bg-2)}
+.chk .box{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;transition:.13s}
+.chk.on .box{background:var(--accent);border-color:var(--accent);color:#04222d}
+.chk.on{color:var(--txt)}
+.chk .box svg{width:12px;height:12px;opacity:0}
+.chk.on .box svg{opacity:1}
+
+.btn{border:1px solid var(--line);background:var(--bg-2);color:var(--txt);border-radius:var(--radius-s);padding:11px 14px;font-size:14px;font-weight:600;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{background:var(--bg-hover);border-color:#384357}
+.btn.flex1{flex:1}
+.btn.solid{background:linear-gradient(180deg,var(--accent),var(--accent-d));color:#04222d;border-color:transparent;font-weight:700}
+.btn.solid:hover{filter:brightness(1.08)}
+.btn.solid:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent}
+.btn.danger{background:var(--red-soft);border-color:rgba(232,93,84,.4);color:#ffa099}
+.btn.danger:hover{background:rgba(232,93,84,.22)}
+
+/* ===== ROOM CARDS ===== */
+.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.room-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.16s;cursor:pointer;position:relative;display:flex;flex-direction:column}
+.room-card:hover{border-color:#3d4b63;transform:translateY(-2px);box-shadow:0 14px 30px -16px rgba(0,0,0,.7)}
+.room-card.fully{opacity:.5;cursor:not-allowed;filter:grayscale(.35)}
 .room-card.fully:hover{transform:none;box-shadow:none;border-color:var(--line)}
-.room-pic{height:138px;background:linear-gradient(135deg,#23303f,#161d27);position:relative;display:flex;align-items:center;justify-content:center;color:#33445a;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
-.room-pic .typebadge{position:absolute;left:12px;top:12px;background:rgba(8,12,18,.72);border:1px solid var(--line);
-  color:var(--txt-2);font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:20px;backdrop-filter:blur(6px)}
-.status-tag{position:absolute;right:12px;top:12px;font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:20px;letter-spacing:.02em;backdrop-filter:blur(6px)}
-.status-tag.available{background:var(--green-soft);color:#7fe0a8;border:1px solid rgba(70,185,122,.4)}
-.status-tag.occupied{background:var(--amber-soft);color:#f0c373;border:1px solid rgba(224,161,58,.4)}
+.room-pic{height:130px;background:linear-gradient(135deg,#24323f,#161d27);position:relative;display:flex;align-items:center;justify-content:center;color:#3a4c63;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.status-tag{position:absolute;right:12px;top:12px;font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:20px;backdrop-filter:blur(6px)}
+.status-tag.available{background:var(--green-soft);color:#86e0ad;border:1px solid rgba(72,189,126,.4)}
+.status-tag.occupied{background:var(--red-soft);color:#ff9089;border:1px solid rgba(232,93,84,.45)}
 .status-tag.fully{background:rgba(120,130,148,.18);color:#9aa6ba;border:1px solid #3a4254}
-.room-body{padding:14px 16px 16px}
+.room-body{padding:15px 16px 14px;display:flex;flex-direction:column;flex:1}
 .room-title{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.room-title .nm{font-size:16px;font-weight:700}
+.room-title .nm{font-size:16.5px;font-weight:700;color:var(--txt)}
 .room-title .cd{font-size:13px;color:var(--accent);font-family:var(--fmono);background:var(--accent-soft);padding:2px 8px;border-radius:6px}
-.room-meta{margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--txt-2)}
-.room-meta .r{display:flex;gap:8px;align-items:center}
-.room-meta .r svg{width:15px;height:15px;color:var(--txt-3);flex:none}
-.occ-line{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:13px;color:var(--amber)}
-.occ-bid{display:block;margin-top:4px;color:var(--bookid);font-family:var(--fmono);font-size:12.5px}
+.room-meta{margin-top:11px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--txt-2)}
+.occ-line{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:13px;color:#ff9089;font-weight:600}
+.occ-bid{display:block;margin-top:4px;color:var(--bookid);font-family:var(--fmono);font-size:12.5px;font-weight:400}
+.type-badge{align-self:flex-start;margin-top:13px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:8px;letter-spacing:.01em}
+.tb-discussion{background:var(--blue-soft);color:#8fb6f5;border:1px solid rgba(91,148,238,.35)}
+.tb-pod{background:var(--green-soft);color:#86e0ad;border:1px solid rgba(72,189,126,.35)}
+.tb-lab{background:var(--violet-soft);color:#c3a3f0;border:1px solid rgba(166,121,230,.35)}
+.tb-sport{background:var(--amber-soft);color:#eec888;border:1px solid rgba(226,167,63,.35)}
 
-/* long row (my bookings) */
-.booking-row{display:flex;gap:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
-  padding:14px;align-items:center;transition:.15s;cursor:pointer;margin-bottom:12px}
-.booking-row:hover{border-color:#3c4a60;background:var(--bg-hover)}
-.booking-row .thumb{width:118px;height:84px;border-radius:10px;background:linear-gradient(135deg,#23303f,#161d27);flex:none;
-  display:flex;align-items:center;justify-content:center;color:#33445a;font-size:11px;letter-spacing:.08em;position:relative}
-.booking-row .thumb .tb{position:absolute;left:8px;top:8px;background:rgba(8,12,18,.72);border:1px solid var(--line);color:var(--txt-2);font-size:10.5px;padding:3px 8px;border-radius:14px}
+/* ===== BOOKING ROWS (my bookings) ===== */
+.booking-row{display:flex;gap:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;align-items:center;transition:.15s;cursor:pointer;margin-bottom:12px}
+.booking-row:hover{border-color:#3d4b63;background:var(--bg-hover)}
+.booking-row .thumb{width:120px;height:84px;border-radius:10px;background:linear-gradient(135deg,#24323f,#161d27);flex:none;display:flex;align-items:center;justify-content:center;color:#3a4c63;font-size:11px;letter-spacing:.08em}
 .br-main{flex:1;min-width:0}
-.br-cols{display:flex;gap:26px;flex-wrap:wrap;margin-top:9px}
+.br-top{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.br-top .rn{font-size:16px;font-weight:700}
+.br-cols{display:flex;gap:26px;flex-wrap:wrap;margin-top:10px}
 .br-col .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-3);margin-bottom:3px}
 .br-col .v{font-size:14px;color:var(--txt);font-weight:600}
 .br-col .v.code{font-family:var(--fmono);color:var(--accent)}
 .br-col .v.muted{color:var(--txt-2);font-weight:500}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:20px}
-.pill.green{background:var(--green-soft);color:#7fe0a8}
-.pill.amber{background:var(--amber-soft);color:#f0c373}
-.pill.red{background:var(--red-soft);color:#ff9b94}
+.pill.green{background:var(--green-soft);color:#86e0ad}
+.pill.red{background:var(--red-soft);color:#ff9089}
 .pill.gray{background:rgba(120,130,148,.16);color:#9aa6ba}
-.pill.blue{background:var(--accent-soft);color:var(--accent)}
+.pill.blue{background:var(--blue-soft);color:#8fb6f5}
+.pill.amber{background:var(--amber-soft);color:#eec888}
+.type-chip{font-size:11px;font-weight:700;padding:4px 11px;border-radius:8px}
 
-/* ============ PANEL SYSTEM ============ */
-#backdrop{position:fixed;inset:0;background:rgba(5,8,13,.62);backdrop-filter:blur(7px);z-index:60;
-  display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .18s}
+/* ===== PANELS ===== */
+#backdrop{position:fixed;inset:0;background:rgba(5,8,13,.64);backdrop-filter:blur(7px);z-index:60;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .18s}
 #backdrop.show{opacity:1}
-.panel{background:var(--bg-1);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
-  width:min(620px,94vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;transform:scale(.97);transition:transform .18s}
+.panel{background:var(--bg-1);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);width:min(620px,94vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;transform:scale(.97);transition:transform .18s}
 #backdrop.show .panel{transform:scale(1)}
-.panel.wide{width:min(960px,96vw)}
-.panel-pic{height:190px;background:linear-gradient(135deg,#243341,#151c26);position:relative;flex:none;
-  display:flex;align-items:center;justify-content:center;color:#33445a;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
-.panel-close{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:11px;background:rgba(8,12,18,.66);
-  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt);backdrop-filter:blur(6px);transition:.15s;z-index:3}
-.panel-close:hover{background:rgba(224,88,79,.3);border-color:rgba(224,88,79,.5)}
-.panel-close svg{width:18px;height:18px}
-.panel-head{padding:18px 22px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:12px;flex:none}
+.panel.wide{width:min(980px,96vw)}
+.panel-pic{height:180px;background:linear-gradient(135deg,#25333f,#151c26);flex:none;display:flex;align-items:center;justify-content:center;color:#3a4c63;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
+.panel-head{padding:18px 22px;display:flex;align-items:center;gap:12px;flex:none;position:relative}
+.panel-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
 .panel-head h3{font-size:18px;font-weight:700}
 .panel-head .sp{flex:1}
+.panel-head .code-tag{font-family:var(--fmono);color:var(--accent);font-size:13px}
 .panel-body{padding:20px 22px;overflow-y:auto;flex:1}
-.panel-foot{padding:16px 22px;border-top:1px solid var(--line-soft);display:flex;gap:12px;justify-content:flex-end;flex:none;background:var(--bg-1)}
-
-.detail-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.panel-foot{padding:16px 22px;display:flex;gap:12px;justify-content:flex-end;flex:none;background:var(--bg-1);position:relative}
+.panel-foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.detail-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .detail-title .nm{font-size:22px;font-weight:700;letter-spacing:-.3px}
 .detail-title .cd{font-family:var(--fmono);color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:7px;font-size:14px}
-.detail-title .ty{font-size:12px;color:var(--txt-2);background:var(--bg-3);padding:4px 11px;border-radius:20px}
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
 .detail-cell{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:13px 15px}
 .detail-cell .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-3);margin-bottom:5px}
-.detail-cell .v{font-size:15.5px;font-weight:600}
+.detail-cell .v{font-size:15.5px;font-weight:600;word-break:break-word}
 .subhead{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-2);margin:6px 0 12px;font-weight:700}
 .fac-grid{display:flex;flex-wrap:wrap;gap:9px}
 .fac{background:var(--bg-2);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:13.5px;color:var(--txt-2)}
 
-/* schedule (horizontal rows) */
-.sched-row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
-.slot{flex:1 1 150px;min-width:150px;border-radius:12px;padding:13px 15px;border:1px solid;transition:.15s;position:relative}
+/* schedule slots */
+.sched-date{font-size:15.5px;font-weight:700;margin-bottom:14px;color:var(--txt)}
+.sched-rows{display:flex;flex-direction:column;gap:10px}
+.sched-row{display:flex;gap:10px}
+.field-tip{font-size:12.5px;color:#eec888;margin-top:9px}
+.slot{flex:1 1 158px;min-width:158px;border-radius:12px;padding:13px 15px;border:1px solid;transition:.15s}
 .slot .time{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-.slot .st{font-size:12px;margin-top:6px;font-weight:600;letter-spacing:.02em}
+.slot .st{font-size:12px;margin-top:6px;font-weight:600}
 .slot .range{font-size:11.5px;color:var(--txt-3);margin-top:3px}
-.slot.avail{background:var(--green-soft);border-color:rgba(70,185,122,.4);cursor:pointer}
-.slot.avail:hover{background:rgba(70,185,122,.24);transform:translateY(-2px)}
-.slot.avail .st{color:#7fe0a8}
-.slot.booked{background:var(--red-soft);border-color:rgba(224,88,79,.4)}
-.slot.booked .st{color:#ff9b94}
+.slot.avail{background:var(--green-soft);border-color:rgba(72,189,126,.4);cursor:pointer}
+.slot.avail:hover{background:rgba(72,189,126,.26);transform:translateY(-2px)}
+.slot.avail .st{color:#86e0ad}
+.slot.booked{background:var(--red-soft);border-color:rgba(232,93,84,.4)}
+.slot.booked .st{color:#ff9089}
 .slot.booked .bid{font-family:var(--fmono);font-size:11.5px;color:var(--bookid);margin-top:5px}
 
-/* booking form rows */
 .form-row{display:flex;gap:14px;margin-bottom:16px}
 .form-row .fgroup{flex:1}
-.info-strip{display:flex;flex-wrap:wrap;gap:18px;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.info-strip{display:flex;flex-wrap:wrap;gap:20px;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;margin-bottom:18px}
 .info-strip .it .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-3);margin-bottom:4px}
 .info-strip .it .v{font-size:15px;font-weight:700}
 .info-strip .it .v.code{font-family:var(--fmono);color:var(--accent)}
-.dur-box{display:flex;align-items:center;justify-content:space-between;background:var(--accent-soft);border:1px solid rgba(63,169,201,.3);
-  border-radius:12px;padding:13px 16px;margin-bottom:16px}
-.dur-box .lab{font-size:13px;color:var(--txt-2)}
+.dur-box{display:flex;align-items:center;justify-content:space-between;background:var(--accent-soft);border:1px solid rgba(70,166,214,.3);border-radius:12px;padding:13px 16px;margin-bottom:16px}
+.dur-box .lab{font-size:13.5px;color:var(--txt-2);font-weight:600}
 .dur-box .val{font-size:16px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
-
-/* student id chips */
-.id-add{display:flex;gap:10px;margin-bottom:14px}
+.id-add{display:flex;gap:10px;margin-bottom:8px}
 .id-add .input{flex:1}
-.id-list{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.id-hint{font-size:12px;color:var(--txt-3);margin:0 0 14px}
+.id-list{display:flex;flex-direction:column;gap:8px}
 .id-chip{display:flex;align-items:center;gap:12px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
 .id-chip .num{width:24px;height:24px;border-radius:7px;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--txt-3);font-weight:700;flex:none}
 .id-chip .sid{font-family:var(--fmono);font-weight:700;color:var(--txt)}
 .id-chip .nm{color:var(--txt-2);font-size:13.5px}
 .id-chip .you{font-size:10.5px;background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:20px;font-weight:700}
 .id-chip .sp{flex:1}
-.id-chip .rm{width:28px;height:28px;border-radius:8px;color:var(--txt-3);display:flex;align-items:center;justify-content:center;transition:.15s}
-.id-chip .rm:hover{background:var(--red-soft);color:#ff9b94}
-.cap-hint{font-size:13px;color:var(--txt-2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.id-chip .rm{width:28px;height:28px;border-radius:8px;color:var(--txt-3);display:flex;align-items:center;justify-content:center;transition:.13s}
+.id-chip .rm:hover{background:var(--red-soft);color:#ff9089}
+.id-chip .rm svg{width:15px;height:15px}
+.cap-hint{font-size:13.5px;color:var(--txt-2);margin-bottom:13px}
 .cap-hint b{color:var(--txt)}
-
-/* numbered student list (member view) */
 .num-list{display:flex;flex-direction:column;gap:7px}
 .num-list .item{display:flex;align-items:center;gap:12px;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:9px;padding:9px 13px}
 .num-list .item .n{width:22px;height:22px;border-radius:6px;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--txt-3);font-weight:700}
 .num-list .item .sid{font-family:var(--fmono);font-weight:700}
 .num-list .item .nm{color:var(--txt-2);font-size:13.5px}
+.warn-note{background:var(--amber-soft);border:1px solid rgba(226,167,63,.4);color:#eec888;border-radius:11px;padding:12px 15px;font-size:13.5px;margin-top:18px;line-height:1.5}
+.warn-note b{color:#f3d9a2}
 
-/* small message panel */
 .msg-panel{width:min(440px,92vw);text-align:center;padding:30px 26px}
-.msg-icon{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.msg-icon{width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
 .msg-icon.ok{background:var(--green-soft);color:var(--green)}
 .msg-icon.err{background:var(--red-soft);color:var(--red)}
 .msg-icon.warn{background:var(--amber-soft);color:var(--amber)}
-.msg-icon svg{width:34px;height:34px}
+.msg-icon svg{width:32px;height:32px}
 .msg-panel h3{font-size:20px;margin-bottom:8px}
 .msg-panel p{color:var(--txt-2);font-size:14.5px;margin-bottom:22px}
 
-/* ============ PROFILE DROPDOWN ============ */
-.pop-menu{position:fixed;z-index:55;background:var(--bg-1);border:1px solid var(--line);border-radius:14px;
-  box-shadow:var(--shadow);width:300px;overflow:hidden;animation:popin .14s ease}
+/* profile dropdown */
+.pop-menu{position:fixed;z-index:100;background:var(--bg-1);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);width:300px;overflow:hidden;animation:popin .14s ease}
 @keyframes popin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.pm-head{padding:16px 18px;border-bottom:1px solid var(--line-soft);display:flex;gap:13px;align-items:center}
-.pm-head .av{width:46px;height:46px;border-radius:12px;background:linear-gradient(150deg,#2c6f88,#3fa9c9);color:#06222b;
-  font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.pm-head{padding:16px 18px;display:flex;gap:13px;align-items:center;position:relative}
+.pm-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
+.pm-head .av{width:46px;height:46px;border-radius:12px;background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
 .pm-head .nm{font-weight:700;font-size:15px}
 .pm-head .sid{font-family:var(--fmono);font-size:12.5px;color:var(--txt-3)}
 .pm-head .role{font-size:11px;color:var(--accent);background:var(--accent-soft);padding:2px 9px;border-radius:20px;margin-top:4px;display:inline-block;font-weight:700}
 .pm-item{display:flex;align-items:center;gap:11px;padding:13px 18px;font-size:14px;color:var(--txt-2);transition:.13s;cursor:pointer}
 .pm-item:hover{background:var(--bg-2);color:var(--txt)}
 .pm-item svg{width:18px;height:18px}
-.pm-item.signout{color:#ff9b94;border-top:1px solid var(--line-soft)}
+.pm-item.signout{color:#ff9089;position:relative}
+.pm-item.signout::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
 .pm-item.signout:hover{background:var(--red-soft)}
 
-/* ============ CHAT DRAWER (no blur) ============ */
-#chatDrawer{position:fixed;top:0;right:0;height:100%;width:380px;max-width:92vw;background:var(--bg-1);
-  border-left:1px solid var(--line);box-shadow:-20px 0 50px -20px rgba(0,0,0,.6);z-index:50;
-  transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
+/* chat drawer */
+#chatDrawer{position:fixed;top:0;right:0;height:100%;width:380px;max-width:92vw;background:var(--bg-1);border-left:1px solid var(--line);box-shadow:-20px 0 50px -20px rgba(0,0,0,.6);z-index:50;transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
 #chatDrawer.open{transform:translateX(0)}
-.chat-head{padding:18px 20px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:11px}
+.chat-head{padding:18px 20px;display:flex;align-items:center;gap:11px;position:relative}
+.chat-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
 .chat-head .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
 .chat-head h3{font-size:16px;font-weight:700}
 .chat-head .sub{font-size:12px;color:var(--txt-3)}
@@ -329,111 +331,117 @@ input{font-family:inherit}
 .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
 .bubble{max-width:84%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.45}
 .bubble.bot{background:var(--bg-2);border:1px solid var(--line-soft);align-self:flex-start;border-bottom-left-radius:4px}
-.bubble.me{background:var(--accent-soft);border:1px solid rgba(63,169,201,.3);color:var(--txt);align-self:flex-end;border-bottom-right-radius:4px}
-.chat-foot{padding:14px 16px;border-top:1px solid var(--line-soft);display:flex;gap:10px}
+.bubble.me{background:var(--accent-soft);border:1px solid rgba(70,166,214,.3);color:var(--txt);align-self:flex-end;border-bottom-right-radius:4px}
+.chat-foot{padding:14px 16px;display:flex;gap:10px;position:relative}
+.chat-foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 10%,var(--line) 90%,transparent)}
 .chat-foot .input{flex:1}
+.chat-suggest{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 14px}
+.chat-chip{font-size:12.5px;padding:8px 13px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);color:var(--txt-2);transition:.13s}
+.chat-chip:hover{background:var(--bg-hover);color:var(--txt)}
+.bubble .act{margin-top:10px;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;padding:9px 14px;border-radius:9px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(70,166,214,.4);cursor:pointer}
+.bubble .act:hover{background:rgba(70,166,214,.24)}
 
-/* ============ CUSTOM DROPDOWN ============ */
+/* custom dropdown */
 .dd{position:relative;width:100%}
-.dd-trigger{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);
-  padding:11px 13px;font-size:14.5px;color:var(--txt);display:flex;align-items:center;justify-content:space-between;gap:8px;transition:.15s}
-.dd-trigger:hover{border-color:#384357}
+.dd-trigger{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-s);padding:11px 13px;font-size:14.5px;color:var(--txt);display:flex;align-items:center;justify-content:space-between;gap:8px;transition:.15s}
+.dd-trigger:hover:not(:disabled){border-color:#384357}
 .dd-trigger.open{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .dd-trigger.placeholder{color:var(--txt-3)}
-.dd-trigger:disabled{opacity:.5;cursor:not-allowed}
+.dd-trigger:disabled{opacity:.45;cursor:not-allowed}
 .dd-trigger svg{width:16px;height:16px;color:var(--txt-3);transition:.18s}
 .dd-trigger.open svg{transform:rotate(180deg)}
-.dd-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg-3);border:1px solid var(--line);
-  border-radius:var(--radius-s);box-shadow:var(--shadow);z-index:30;max-height:230px;overflow-y:auto;padding:6px;animation:popin .13s}
+.dd-menu{position:fixed;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--radius-s);box-shadow:var(--shadow);z-index:90;max-height:240px;overflow-y:auto;padding:6px;animation:popin .12s}
 .dd-opt{padding:10px 12px;border-radius:8px;font-size:14px;color:var(--txt-2);cursor:pointer;display:flex;align-items:center;gap:10px;transition:.12s}
 .dd-opt:hover{background:var(--bg-hover);color:var(--txt)}
 .dd-opt.sel{background:var(--accent-soft);color:var(--accent)}
-.dd-opt .ck{width:16px;height:16px;border-radius:5px;border:1.5px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center}
-.dd-opt.sel .ck{background:var(--accent);border-color:var(--accent);color:#06222b}
-.dd-opt .ck svg{width:11px;height:11px}
 
-/* ============ CUSTOM CALENDAR ============ */
+/* calendars */
 .cal{background:var(--bg-3);border:1px solid var(--line);border-radius:14px;padding:16px;width:316px}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .cal-head .my{font-weight:700;font-size:15px}
-.cal-nav{width:32px;height:32px;border-radius:9px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.13s}
+.cal-nav{width:32px;height:32px;border-radius:9px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.13s;font-size:18px}
 .cal-nav:hover:not(:disabled){background:var(--bg-hover);color:var(--txt)}
 .cal-nav:disabled{opacity:.35;cursor:not-allowed}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .cal-dow{text-align:center;font-size:11px;color:var(--txt-3);font-weight:700;padding:4px 0;text-transform:uppercase}
-.cal-day{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;color:var(--txt-2);cursor:pointer;transition:.12s;border:1px solid transparent;position:relative}
+.cal-day{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;color:var(--txt-2);cursor:pointer;transition:.12s;border:1px solid transparent}
 .cal-day:hover:not(.disabled):not(.empty){background:var(--bg-hover)}
 .cal-day.disabled{color:var(--txt-3);opacity:.32;cursor:not-allowed}
 .cal-day.empty{cursor:default}
 .cal-day.today{border-color:var(--accent)}
-.cal-day.sel{background:var(--accent);color:#06222b;font-weight:700}
+.cal-day.sel{background:var(--accent);color:#04222d;font-weight:700}
 .cal-day.range{background:var(--accent-soft);color:var(--accent)}
-.cal-day .lim{font-size:8.5px;margin-top:1px;font-weight:700}
-.cal-day .lim.full{color:#ff9b94}
-.cal-day .lim.part{color:var(--amber)}
-.cal-day.weekend{color:var(--txt-3);opacity:.55}
+.cal-day.weekend{color:var(--txt-3);opacity:.5}
+
+/* wide booking calendar (profile) */
+.bcal{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:22px}
+.bcal-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.bcal-head .title{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-2);font-weight:700}
+.bcal-head .sp{flex:1}
+.bcal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.bcal-dow{text-align:left;font-size:11.5px;color:var(--txt-3);font-weight:700;padding:0 4px 4px}
+.bcal-day{min-height:64px;border-radius:11px;background:var(--bg-1);border:1px solid var(--line-soft);padding:9px 10px;display:flex;flex-direction:column;gap:6px}
+.bcal-day .dn{font-size:13px;color:var(--txt);font-weight:700;width:28px;height:28px;border-radius:8px;background:var(--bg-2);border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center}
+.bcal-day.empty{background:transparent;border-color:transparent}
+.bcal-day.today{border-color:var(--accent)}
+.bcal-day.today .dn{background:var(--accent);color:#04222d;border-color:transparent}
+.bcal-day.weekend{opacity:.45}
+.bcal-day .used{font-size:10px;font-weight:700;font-family:var(--fmono);padding:2px 8px;border-radius:20px;align-self:flex-start}
+.bcal-day.part{border-color:rgba(72,189,126,.4)}
+.bcal-day.part .used{background:var(--green-soft);color:#86e0ad}
+.bcal-day.full{border-color:rgba(232,93,84,.5)}
+.bcal-day.full .used{background:var(--red-soft);color:#ff9089}
+.bcal-sum{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:16px;padding:13px 16px;background:var(--bg-1);border:1px solid var(--line-soft);border-radius:11px}
+.bcal-sum .s .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--txt-3);margin-bottom:3px}
+.bcal-sum .s .v{font-size:17px;font-weight:700;color:var(--txt)}
 
 /* tooltip */
-.tip{position:fixed;z-index:80;background:#05080d;border:1px solid var(--accent);color:var(--txt);
-  font-size:12.5px;padding:8px 12px;border-radius:9px;max-width:250px;box-shadow:var(--shadow);pointer-events:none;opacity:0;transition:.12s}
+.tip{position:fixed;z-index:95;background:#05080d;border:1px solid var(--accent);color:var(--txt);font-size:12.5px;padding:8px 12px;border-radius:9px;max-width:250px;box-shadow:var(--shadow);pointer-events:none;opacity:0;transition:.12s}
 .tip.show{opacity:1}
 .tip b{color:var(--accent)}
 
-/* ============ DEBUG BUBBLE ============ */
+/* debug bubble */
 #debugBubble{position:fixed;left:18px;bottom:18px;z-index:70;opacity:.35;transition:opacity .18s}
 #debugBubble:hover{opacity:1}
-.debug-fab{width:52px;height:52px;border-radius:16px;background:linear-gradient(150deg,#7b3fc9,#c93f9a);color:#fff;
-  display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -10px rgba(123,63,201,.7);border:1px solid rgba(255,255,255,.15)}
+.debug-fab{width:52px;height:52px;border-radius:16px;background:linear-gradient(150deg,#7b3fc9,#c93f9a);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -10px rgba(123,63,201,.7);border:1px solid rgba(255,255,255,.15)}
 .debug-fab svg{width:24px;height:24px}
-.debug-menu{position:absolute;left:0;bottom:64px;width:288px;background:var(--bg-1);border:1px solid #5a3a8a;
-  border-radius:14px;box-shadow:var(--shadow);overflow:hidden;max-height:70vh;display:flex;flex-direction:column}
-.debug-menu .dh{padding:13px 16px;border-bottom:1px solid var(--line-soft);font-size:13px;font-weight:700;color:#c98bff;letter-spacing:.04em}
+.debug-menu{position:absolute;left:0;bottom:64px;width:290px;background:var(--bg-1);border:1px solid #5a3a8a;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;max-height:72vh;display:flex;flex-direction:column}
+.debug-menu .dh{padding:13px 16px;font-size:13px;font-weight:700;color:#c98bff;letter-spacing:.04em;border-bottom:1px solid var(--line-soft)}
+.debug-menu .note{padding:11px 16px;font-size:11.5px;color:#c4a8ef;line-height:1.45;background:rgba(123,63,201,.1);border-bottom:1px solid var(--line-soft)}
+.debug-menu .grp{padding:11px 14px 4px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#9a86c4;font-weight:700}
 .debug-menu .dl{overflow-y:auto;padding:8px}
 .debug-menu .di{padding:10px 12px;border-radius:9px;font-size:13.5px;color:var(--txt-2);cursor:pointer;transition:.12s}
 .debug-menu .di:hover{background:rgba(123,63,201,.18);color:var(--txt)}
 .empty-state{text-align:center;padding:50px 20px;color:var(--txt-3)}
-.empty-state svg{width:46px;height:46px;margin-bottom:14px;opacity:.5}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN PAGE ============ -->
+<!-- LOGIN -->
 <div id="loginPage">
   <div class="login-card">
     <div class="login-info">
       <div class="login-badge"><span class="dot"></span> Group Name</div>
       <h1>Campus Resource<br>Booking <span>System</span></h1>
       <p>Reserve discussion rooms, study pods, lab workstations and sports facilities across campus. Find an open slot, pick your time, and book in seconds.</p>
-      <div class="login-hours">
-        <span>Open</span><b>Mon–Fri, 08:00–22:00</b><span>· Closed weekends</span>
-      </div>
+      <div class="login-hours"><span>Open</span><b>Mon–Fri, 08:00–22:00</b><span>· Closed weekends</span></div>
     </div>
     <div class="login-form">
       <h2>Sign in</h2>
       <div class="sub">Use your campus Student ID</div>
-      <div class="field">
-        <label>Student ID</label>
-        <input id="loginId" type="text" placeholder="e.g. 0378974" maxlength="7" autocomplete="off">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input id="loginPw" type="password" placeholder="••••••••">
-      </div>
+      <div class="field"><label>Student ID</label><input id="loginId" type="text" placeholder="e.g. 1000001" maxlength="7" autocomplete="off"></div>
+      <div class="field"><label>Password</label><input id="loginPw" type="password" placeholder="••••••••"></div>
       <button class="btn-primary" id="signInBtn">Sign in</button>
     </div>
   </div>
 </div>
 
-<!-- ============ DASHBOARD ============ -->
+<!-- DASHBOARD -->
 <div id="dashPage" class="hidden">
-  <!-- TOP BAR -->
   <div class="topbar">
     <div class="brand">
       <div class="logo">G</div>
-      <div class="b-text">
-        <div class="g">Group Name</div>
-        <div class="s">Campus Resource Booking System</div>
-      </div>
+      <div class="b-text"><div class="g">Group Name</div><div class="s">Campus Resource Booking System</div></div>
     </div>
     <div class="hours-pill"><span class="d"></span> Open now · 08:00–22:00 (Mon–Fri)</div>
     <div class="top-spacer"></div>
@@ -444,15 +452,14 @@ input{font-family:inherit}
     <button class="icon-btn" id="chatBtn" title="Booking assistant">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.3-.5L3 21l1.6-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
     </button>
-    <button class="avatar-btn" id="avatarBtn">TH</button>
+    <button class="avatar-btn" id="avatarBtn">AM</button>
   </div>
 
-  <!-- BODY -->
-  <div class="body-row">
-    <!-- SIDEBAR (filters – book resource only) -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-head">
-        <h3>Filters</h3>
+  <div class="body-row" id="bodyRow">
+    <aside class="filter-drawer" id="filterDrawer">
+      <div class="drawer-head">
+        <h3>Filters</h3><div class="sp"></div>
+        <button class="x" id="drawerClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div class="filter-body scroll" id="filterBody"></div>
       <div class="filter-foot">
@@ -461,54 +468,36 @@ input{font-family:inherit}
       </div>
     </aside>
 
-    <!-- MAIN -->
     <div class="main">
       <div class="tabstrip">
-        <button class="collapse-toggle" id="sideToggle" title="Hide filters">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
-        </button>
         <button class="tab active" data-tab="book">Book resource</button>
         <button class="tab" data-tab="mine">My bookings</button>
-        <div class="tab-spacer"></div>
-        <div class="mini-filter" id="bookMiniFilter">
-          <div class="seg" id="statusSeg">
-            <button class="on" data-st="all">All</button>
-            <button data-st="available">Available</button>
-            <button data-st="occupied">Occupied</button>
-            <button data-st="fully">Fully booked</button>
-          </div>
-          <div id="sortDdMount"></div>
-        </div>
       </div>
-      <div class="content scroll" id="content"></div>
+      <div class="main-area" id="mainArea"></div>
     </div>
   </div>
 </div>
 
-<!-- CHAT DRAWER (no blur, background clickable) -->
+<!-- CHAT DRAWER -->
 <div id="chatDrawer">
-  <div class="chat-head">
-    <span class="dot"></span>
+  <div class="chat-head"><span class="dot"></span>
     <div><h3>Booking assistant</h3><div class="sub">Ask about rooms, slots &amp; rules</div></div>
     <div class="sp"></div>
     <button class="icon-btn" id="chatClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
   <div class="chat-body scroll" id="chatBody">
-    <div class="bubble bot">Hi! I can help you find an open room or explain booking rules. Try “any free study pod after 2pm?”</div>
-    <div class="bubble me">Any free lab workstation today?</div>
-    <div class="bubble bot">Lab Workstation B-204 is available now until 22:00. Want me to open its schedule?</div>
+    <div class="bubble bot">Hi! I can help you find an open room or explain booking rules. Tap a suggestion or type below.</div>
   </div>
-  <div class="chat-foot">
-    <input class="input" id="chatInput" placeholder="Type a message…">
-    <button class="btn solid" id="chatSend">Send</button>
+  <div class="chat-suggest" id="chatSuggest">
+    <button class="chat-chip" data-q="find">Find me a free room</button>
+    <button class="chat-chip" data-q="full">Is the lab free now?</button>
   </div>
+  <div class="chat-foot"><input class="input" id="chatInput" placeholder="Type a message…"><button class="btn solid" id="chatSend">Send</button></div>
 </div>
 
-<!-- PROFILE MENU + TOOLTIP + DEBUG (injected) -->
 <div id="popLayer"></div>
 <div class="tip" id="tip"></div>
 
-<!-- DEBUG BUBBLE -->
 <div id="debugBubble">
   <div class="debug-menu hidden" id="debugMenu">
     <div class="dh">DEBUG · trigger any UI</div>
@@ -519,625 +508,551 @@ input{font-family:inherit}
   </button>
 </div>
 
-<!-- PANEL BACKDROP -->
 <div id="backdrop" class="hidden"></div>
-
 <script>
 /* =========================================================
-   Group Name — Campus Resource Booking System (Wireframe)
-   Single-file behaviour. Dummy data only.
+   Group Name — Campus Resource Booking System (Wireframe v2)
 ========================================================= */
-
-/* ---------- tiny helpers ---------- */
-const $ = s => document.querySelector(s);
-const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
-const pad = n => String(n).padStart(2, '0');
-const m2t = m => `${pad(Math.floor(m/60))}:${pad(m%60)}`;          // minutes -> "HH:MM"
-const m2t12 = m => { let h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM',h12=h%12||12; return `${h12}:${pad(mm)} ${ap}`; };
-const ICON = {
-  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+const $=s=>document.querySelector(s);
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const pad=n=>String(n).padStart(2,'0');
+const m2t=m=>`${pad(Math.floor(m/60))}:${pad(m%60)}`;
+function nowMin(){ const d=new Date(); let m=d.getHours()*60+d.getMinutes(); if(m<=480||m>=1320)m=600; return m; }
+function fmtDur(m){ const h=Math.floor(m/60),mm=m%60; return h?(mm?`${h}h ${mm}m`:`${h}h`):`${mm}m`; }
+const ICON={
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>',
-  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
-  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M21 20a6 6 0 0 0-4-5.6"/></svg>',
   ck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>',
   ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 7L10 17l-5-5"/></svg>',
   err:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>',
-  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>',
-  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.4"/></svg>',
   user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
   out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>',
 };
 
-/* ---------- current user ---------- */
-const ME = {
-  sid:'0378974', name:'Tan Jing Hong', role:'Student',
-  schoolEmail:'0378974@sd.taylors.edu.my', personalEmail:'jinghong.tan@gmail.com',
-  faculty:'Faculty of Innovation & Technology', school:'School of Computer Science',
-  programme:'BSc (Hons) Computer Science', lastLogin:'23 Jun 2026, 09:14', joined:'15 Sep 2025',
-  dailyLimitMin:240,
+/* ---------- dummy current user ---------- */
+const ME={
+  sid:'1000001', initials:'AM', name:'Alex Morgan', role:'Student',
+  schoolEmail:'1000001@student.example.edu', personalEmail:'alex.morgan@example.com',
+  faculty:'Faculty of Computing', school:'School of Computer Science',
+  programme:'BSc (Hons) Software Engineering', lastLogin:'23 Jun 2026, 09:14', joined:'15 Sep 2025',
 };
-/* dummy known student ids (anything else = "not found") */
-const KNOWN_IDS = {'0378974':'Tan Jing Hong','0371122':'Lim Wei Sheng','0365540':'Nur Aisyah','0388210':'Rajesh Kumar','0392001':'Chloe Tan','0359988':'Daniel Wong'};
+const KNOWN_IDS={'1000001':'Alex Morgan','1000002':'Jordan Lee','1000003':'Sam Patel','1000004':'Riley Chen','1000005':'Casey Nur','1000006':'Taylor Wong'};
 
-/* ---------- rooms (dummy) ---------- */
-const FAC = ['Projector','Whiteboard','HDMI','Air-con','Power outlets','Wi-Fi 6','Conference camera','Adjustable desks'];
-let ROOMS = [
-  { id:'R1', name:'Discussion Room Alpha', code:'DR-101', type:'Discussion Room', building:'Building 1',
-    location:'Building 1 · Level 2 · West Wing', capMin:2, capMax:8, status:'available',
-    facilities:['Projector','Whiteboard','HDMI','Air-con','Power outlets'],
-    bookings:[{s:600,e:720,bid:'LDRBS_013282'}],   // 10:00-12:00 booked
-    scenario:'normal', tip:'<b>Normal flow.</b> Available now. Adding a valid 7-digit ID works and booking succeeds.' },
+/* ---------- room type colour map ---------- */
+const TYPE_CLASS={'Discussion Room':'tb-discussion','Study Pod':'tb-pod','Lab Workstation':'tb-lab','Sports Facility':'tb-sport'};
 
-  { id:'R2', name:'Study Pod Birch', code:'SP-204', type:'Study Pod', building:'Building 2',
-    location:'Building 2 · Level 1 · Quiet Zone', capMin:1, capMax:4, status:'occupied',
-    occUntil:780, occBid:'LDRBS_013209',
-    facilities:['Whiteboard','Power outlets','Wi-Fi 6','Air-con'],
-    bookings:[{s:480,e:780,bid:'LDRBS_013209'}],   // 08:00-13:00 in progress
-    scenario:'normal', tip:'<b>Occupied state.</b> In use now — shows “occupied until” + booking ID on its own line.' },
+/* ---------- rooms ---------- */
+let ROOMS=[
+  {id:'R1',name:'Discussion Room Alpha',code:'DR-101',type:'Discussion Room',building:'Building 1',
+   location:'Building 1 · Level 2 · West Wing',capMin:2,capMax:8,status:'available',
+   facilities:['Projector','Whiteboard','HDMI','Air-con','Power outlets'],
+   bookings:[{s:600,e:720,bid:'CRBS_13282'}],
+   scenario:'normal',tip:'<b>Normal flow.</b> Available now. Adding a valid 7-digit ID works and booking succeeds.'},
 
-  { id:'R3', name:'Lab Workstation Cobalt', code:'LW-309', type:'Lab Workstation', building:'Building 3',
-    location:'Building 3 · Level 3 · Computing Lab', capMin:1, capMax:2, status:'fully',
-    facilities:['Dual monitors','Adjustable desks','Power outlets','Wi-Fi 6'],
-    bookings:[{s:480,e:1320,bid:'—'}],
-    scenario:'normal', tip:'<b>Fully booked.</b> Dimmed & not clickable for scheduling — detail panel shows only a Close button.' },
+  {id:'R2',name:'Study Pod Birch',code:'SP-204',type:'Study Pod',building:'Building 2',
+   location:'Building 2 · Level 1 · Quiet Zone',capMin:1,capMax:4,status:'occupied',
+   occUntil:780,occBid:'CRBS_13209',
+   facilities:['Whiteboard','Power outlets','Wi-Fi 6','Air-con'],
+   bookings:[{s:480,e:780,bid:'CRBS_13209'}],
+   scenario:'normal',tip:'<b>Occupied state.</b> In use now — shows occupied-until in red + booking ID on its own line.'},
 
-  { id:'R4', name:'Discussion Room Delta', code:'DR-118', type:'Discussion Room', building:'Building 1',
-    location:'Building 1 · Level 4 · East Wing', capMin:2, capMax:6, status:'available',
-    facilities:['Projector','Whiteboard','Conference camera','Air-con','HDMI'],
-    bookings:[{s:840,e:900,bid:'LDRBS_013134'}],   // 14:00-15:00 booked
-    scenario:'idnotfound', tip:'<b>Invalid-ID demo.</b> Any extra ID you add here always returns “Student ID not found”.' },
+  {id:'R3',name:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',building:'Building 3',
+   location:'Building 3 · Level 3 · Computing Lab',capMin:1,capMax:2,status:'fully',
+   facilities:['Dual monitors','Adjustable desks','Power outlets','Wi-Fi 6'],
+   bookings:[{s:480,e:1320,bid:'—'}],
+   scenario:'normal',tip:'<b>Fully booked.</b> Dimmed & not clickable — detail panel shows only a Close button.'},
 
-  { id:'R5', name:'Sports Facility Court A', code:'SF-001', type:'Sports Facility', building:'Building 5',
-    location:'Building 5 · Ground · Sports Complex', capMin:4, capMax:10, status:'available',
-    facilities:['Changing rooms','Scoreboard','Floodlights','Equipment store'],
-    bookings:[],
-    scenario:'limithit', tip:'<b>Daily-limit demo.</b> Reserving here triggers “Daily booking limit reached (240 min)”.' },
+  {id:'R4',name:'Discussion Room Delta',code:'DR-118',type:'Discussion Room',building:'Building 1',
+   location:'Building 1 · Level 4 · East Wing',capMin:2,capMax:6,status:'available',
+   facilities:['Projector','Whiteboard','Conference camera','Air-con','HDMI'],
+   bookings:[{s:840,e:900,bid:'CRBS_13134'}],
+   scenario:'idnotfound',tip:'<b>Invalid-ID demo.</b> Any extra ID you add here always returns “Student ID not found”.'},
 
-  { id:'R6', name:'Study Pod Cedar', code:'SP-210', type:'Study Pod', building:'Building 2',
-    location:'Building 2 · Level 2 · Quiet Zone', capMin:1, capMax:4, status:'available',
-    facilities:['Whiteboard','Power outlets','Wi-Fi 6'],
-    bookings:[{s:540,e:570,bid:'LDRBS_013043'},{s:600,e:660,bid:'LDRBS_013289'}], // 9-9:30 & 10-11
-    scenario:'normal', tip:'<b>Split availability.</b> Two booked gaps — shows multiple available/booked boxes in the schedule.' },
+  {id:'R5',name:'Sports Facility Court A',code:'SF-001',type:'Sports Facility',building:'Building 5',
+   location:'Building 5 · Ground · Sports Complex',capMin:4,capMax:10,status:'available',
+   facilities:['Changing rooms','Scoreboard','Floodlights','Equipment store'],
+   bookings:[],
+   scenario:'limithit',tip:'<b>Daily-limit demo.</b> Reserving here triggers “Daily booking limit reached (240 min)”.'},
+
+  {id:'R6',name:'Study Pod Cedar',code:'SP-210',type:'Study Pod',building:'Building 2',
+   location:'Building 2 · Level 2 · Quiet Zone',capMin:1,capMax:4,status:'available',
+   facilities:['Whiteboard','Power outlets','Wi-Fi 6'],
+   bookings:[{s:540,e:570,bid:'CRBS_13043'},{s:600,e:660,bid:'CRBS_13289'}],
+   scenario:'normal',tip:'<b>Split availability.</b> Two booked gaps — schedule shows several available/booked boxes.'},
+
+  {id:'R7',name:'Lab Workstation Quartz',code:'LW-411',type:'Lab Workstation',building:'Building 4',
+   location:'Building 4 · Level 1 · Maker Lab',capMin:1,capMax:2,status:'available',
+   facilities:['Dual monitors','3D printer','Power outlets','Wi-Fi 6'],
+   bookings:[{s:540,e:570,bid:'CRBS_77001'},{s:600,e:660,bid:'CRBS_77002'},{s:690,e:720,bid:'CRBS_77003'},
+             {s:780,e:840,bid:'CRBS_77004'},{s:900,e:960,bid:'CRBS_77005'},{s:1020,e:1080,bid:'CRBS_77006'},
+             {s:1140,e:1200,bid:'CRBS_77007'}],
+   scenario:'normal',tip:'<b>Busy schedule demo.</b> Many bookings → schedule wraps into multiple rows and scrolls.'},
 ];
 
-/* ---------- my bookings (dummy) ---------- */
-const UPCOMING = [
-  { bid:'LDRBS_014002', room:'Discussion Room Alpha', code:'DR-101', type:'Discussion Room', date:'25 Jun 2026',
-    day:'Wednesday', from:570, to:690, createdBy:'0378974', role:'creator',
-    students:['0378974','0371122','0365540'], status:'confirmed' },
-  { bid:'LDRBS_014019', room:'Lab Workstation Cobalt', code:'LW-309', type:'Lab Workstation', date:'26 Jun 2026',
-    day:'Thursday', from:840, to:960, createdBy:'0371122', role:'member',
-    students:['0371122','0378974','0388210'], status:'confirmed' },
+/* ---------- my bookings ---------- */
+const UPCOMING=[
+  {bid:'CRBS_14002',room:'Discussion Room Alpha',code:'DR-101',type:'Discussion Room',date:'25 Jun 2026',day:'Wednesday',
+   from:570,to:690,createdBy:'1000001',role:'creator',students:['1000001','1000002','1000003'],status:'confirmed'},
+  {bid:'CRBS_14019',room:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',date:'26 Jun 2026',day:'Thursday',
+   from:840,to:960,createdBy:'1000002',role:'member',students:['1000002','1000001','1000004'],status:'confirmed'},
+  {bid:'CRBS_14033',room:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',date:'27 Jun 2026',day:'Friday',
+   from:600,to:660,createdBy:'1000001',role:'creator',students:['1000001'],status:'confirmed'},
+  {bid:'CRBS_14040',room:'Study Pod Cedar',code:'SP-210',type:'Study Pod',date:'29 Jun 2026',day:'Monday',
+   from:720,to:780,createdBy:'1000001',role:'creator',students:['1000002','1000003'],status:'confirmed'},
 ];
-const HISTORY = [
-  { bid:'LDRBS_013770', room:'Study Pod Birch', code:'SP-204', type:'Study Pod', date:'18 Jun 2026',
-    from:600, to:720, createdBy:'0378974', students:['0378974','0365540'], end:'Session ended' },
-  { bid:'LDRBS_013640', room:'Sports Facility Court A', code:'SF-001', type:'Sports Facility', date:'12 Jun 2026',
-    from:960, to:1080, createdBy:'0371122', students:['0371122','0378974','0392001','0359988'], end:'Cancelled' },
-  { bid:'LDRBS_013555', room:'Discussion Room Delta', code:'DR-118', type:'Discussion Room', date:'05 Jun 2026',
-    from:540, to:600, createdBy:'0378974', students:['0378974'], end:'Released' },
+const INPROGRESS=[
+  {bid:'CRBS_13990',room:'Discussion Room Alpha',code:'DR-101',type:'Discussion Room',date:'23 Jun 2026',day:'Tuesday',from:600,to:720,endsIn:45,createdBy:'1000001',role:'creator',students:['1000001','1000002'],status:'inprogress'},
+  {bid:'CRBS_13995',room:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',date:'23 Jun 2026',day:'Tuesday',from:540,to:660,endsIn:20,createdBy:'1000004',role:'member',students:['1000004','1000001','1000003'],status:'inprogress'},
+];
+const HISTORY=[
+  {bid:'CRBS_13770',room:'Study Pod Birch',code:'SP-204',type:'Study Pod',date:'18 Jun 2026',from:600,to:720,createdBy:'1000001',students:['1000001','1000003'],end:'Session ended'},
+  {bid:'CRBS_13705',room:'Discussion Room Alpha',code:'DR-101',type:'Discussion Room',date:'16 Jun 2026',from:780,to:900,createdBy:'1000001',students:['1000001','1000002'],end:'Cancelled by user'},
+  {bid:'CRBS_13640',room:'Sports Facility Court A',code:'SF-001',type:'Sports Facility',date:'12 Jun 2026',from:960,to:1080,createdBy:'1000002',students:['1000002','1000001','1000005','1000006'],end:'Cancelled by admin'},
+  {bid:'CRBS_13555',room:'Discussion Room Delta',code:'DR-118',type:'Discussion Room',date:'05 Jun 2026',from:540,to:600,createdBy:'1000001',students:['1000001'],end:'Released by user'},
+  {bid:'CRBS_13500',room:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',date:'03 Jun 2026',from:600,to:720,createdBy:'1000003',students:['1000003','1000001'],end:'Released by admin'},
+  {bid:'CRBS_13420',room:'Study Pod Cedar',code:'SP-210',type:'Study Pod',date:'01 Jun 2026',from:840,to:900,createdBy:'1000001',students:['1000001','1000005'],end:'No-show'},
 ];
 
 /* =========================================================
-   PANEL SYSTEM (one panel at a time; backdrop click = nothing)
+   PANEL SYSTEM (one panel; backdrop click = nothing)
 ========================================================= */
-const backdrop = $('#backdrop');
-function openPanel(node){
-  backdrop.innerHTML=''; backdrop.appendChild(node);
-  backdrop.classList.remove('hidden');
-  requestAnimationFrame(()=>backdrop.classList.add('show'));
-}
-function closePanel(){
-  backdrop.classList.remove('show');
-  setTimeout(()=>{backdrop.classList.add('hidden');backdrop.innerHTML='';},180);
-}
-backdrop.addEventListener('click',e=>{ /* clicking darkened area does nothing on purpose */ });
-
-/* generic message panel */
+const backdrop=$('#backdrop');
+function openPanel(node){ backdrop.innerHTML=''; backdrop.appendChild(node); backdrop.classList.remove('hidden'); requestAnimationFrame(()=>backdrop.classList.add('show')); }
+function closePanel(){ backdrop.classList.remove('show'); setTimeout(()=>{backdrop.classList.add('hidden');backdrop.innerHTML='';},180); }
+function swapPanel(fn){ closePanel(); setTimeout(fn,190); }
+backdrop.addEventListener('click',()=>{});
 function msgPanel({kind='ok',title,text,buttons}){
   const p=el('div','panel msg-panel');
-  p.innerHTML=`<div class="msg-icon ${kind}">${ICON[kind]||ICON.ok}</div>
-    <h3>${title}</h3><p>${text}</p>`;
-  const foot=el('div','',''); foot.style.cssText='display:flex;gap:12px;justify-content:center';
-  buttons.forEach(b=>{ const btn=el('button','btn '+(b.cls||''),b.label); btn.onclick=b.onClick; foot.appendChild(btn); });
+  p.innerHTML=`<div class="msg-icon ${kind}">${ICON[kind]||ICON.ok}</div><h3>${title}</h3><p>${text}</p>`;
+  const foot=el('div'); foot.style.cssText='display:flex;gap:12px;justify-content:center';
+  buttons.forEach(b=>{const btn=el('button','btn '+(b.cls||''),b.label);btn.onclick=b.onClick;foot.appendChild(btn);});
   p.appendChild(foot); openPanel(p);
 }
 
 /* =========================================================
-   CUSTOM DROPDOWN
+   CUSTOM DROPDOWN (portal menu, drop-up aware)
 ========================================================= */
 let openDD=null;
-document.addEventListener('click',()=>{ if(openDD){openDD.close();openDD=null;} },true);
-function makeDropdown({options,placeholder='Please select',multi=false,value=null,disabled=false,onChange=()=>{}}){
+document.addEventListener('click',e=>{ if(openDD&&!openDD.menu.contains(e.target)&&!openDD.trig.contains(e.target))openDD.close(); });
+window.addEventListener('resize',()=>{if(openDD)openDD.close();});
+function makeDropdown({options=[],placeholder='Please select',multi=false,value=null,disabled=false,onChange=()=>{}}){
   const wrap=el('div','dd');
-  const trig=el('button','dd-trigger'+(disabled?'':''));
-  trig.disabled=disabled;
-  let sel = multi ? (value||[]) : (value??null);
-  const label=()=>{
-    if(multi) return sel.length? `${sel.length} selected` : placeholder;
-    const o=options.find(o=>o.v===sel); return o? o.l : placeholder;
-  };
-  const paint=()=>{ trig.innerHTML=`<span>${label()}</span>${ICON.chev}`;
-    trig.classList.toggle('placeholder', multi? sel.length===0 : sel==null); };
+  const trig=el('button','dd-trigger'); trig.disabled=disabled;
+  let sel=multi?(value||[]):(value??null);
+  let menu=null;
+  const label=()=>{ if(multi)return sel.length?`${sel.length} selected`:placeholder; const o=options.find(o=>o.v===sel); return o?o.l:placeholder; };
+  const paint=()=>{ trig.innerHTML=`<span>${label()}</span>${ICON.chev}`; trig.classList.toggle('placeholder',multi?sel.length===0:sel==null); };
   paint();
-  const menu=el('div','dd-menu scroll'); menu.style.display='none';
-  const render=()=>{ menu.innerHTML='';
-    options.forEach(o=>{
-      const isSel=multi? sel.includes(o.v): sel===o.v;
-      const opt=el('div','dd-opt'+(isSel?' sel':''));
-      opt.innerHTML = multi? `<span class="ck">${isSel?ICON.ck:''}</span><span>${o.l}</span>` : `<span>${o.l}</span>`;
+  function renderOpts(){ menu.innerHTML='';
+    options.forEach(o=>{ const isSel=multi?sel.includes(o.v):sel===o.v;
+      const opt=el('div','dd-opt'+(isSel?' sel':''),`<span>${o.l}</span>`);
       opt.onclick=ev=>{ ev.stopPropagation();
-        if(multi){ sel.includes(o.v)? sel=sel.filter(x=>x!==o.v): sel.push(o.v); render(); paint(); onChange(sel); }
-        else { sel=o.v; paint(); close(); onChange(sel); }
-      };
-      menu.appendChild(opt);
-    });
-  };
-  const open=()=>{ if(disabled||trig.disabled) return; if(openDD)openDD.close(); render(); menu.style.display='block'; trig.classList.add('open'); openDD={close}; };
-  const close=()=>{ menu.style.display='none'; trig.classList.remove('open'); if(openDD&&openDD.close===close)openDD=null; };
-  trig.onclick=e=>{ e.stopPropagation(); menu.style.display==='block'?close():open(); };
-  wrap.appendChild(trig); wrap.appendChild(menu);
-  wrap._set=v=>{ sel=v; paint(); }; wrap._get=()=>sel;
-  wrap._enable=()=>{ trig.disabled=false; }; wrap._disable=()=>{ trig.disabled=true; close(); };
+        if(multi){ sel.includes(o.v)?sel=sel.filter(x=>x!==o.v):sel.push(o.v); renderOpts(); paint(); onChange(sel); }
+        else { sel=o.v; paint(); close(); onChange(sel); } };
+      menu.appendChild(opt); });
+  }
+  function position(){ const r=trig.getBoundingClientRect(); menu.style.left=r.left+'px'; menu.style.width=Math.max(r.width,150)+'px'; menu.style.top='-9999px';
+    const mh=menu.offsetHeight, below=window.innerHeight-r.bottom;
+    if(below<mh+14&&r.top>below){ menu.style.top=(r.top-mh-6)+'px'; } else { menu.style.top=(r.bottom+6)+'px'; } }
+  function open(){ if(disabled||trig.disabled)return; if(openDD)openDD.close(); menu=el('div','dd-menu scroll'); document.body.appendChild(menu); renderOpts(); position(); trig.classList.add('open'); openDD={close,trig,menu}; }
+  function close(){ if(menu){menu.remove();menu=null;} trig.classList.remove('open'); if(openDD&&openDD.trig===trig)openDD=null; }
+  trig.onclick=e=>{ e.stopPropagation(); menu?close():open(); };
+  wrap.appendChild(trig);
+  wrap._set=v=>{sel=v;paint();}; wrap._get=()=>sel;
   return wrap;
 }
 
 /* =========================================================
-   CUSTOM CALENDAR
+   DATE CALENDARS
 ========================================================= */
-const TODAY=new Date(2026,5,23); // wireframe "today" = 23 Jun 2026
+const TODAY=new Date(2026,5,23);
 function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
-function makeCalendar({mode='single',min=TODAY,value=null,limits={},allowPast=false,blockWeekend=false,onSelect=()=>{}}){
+function makeCalendar({mode='single',min=TODAY,value=null,allowPast=false,blockWeekend=false,onSelect=()=>{}}){
   const wrap=el('div','cal');
   let view=new Date((value&&value.from)||value||TODAY); view.setDate(1);
-  let sel = mode==='range' ? (value||{from:null,to:null}) : (value||null);
+  let sel=mode==='range'?(value||{from:null,to:null}):(value||null);
   const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   function render(){
     wrap.innerHTML='';
     const head=el('div','cal-head');
-    const prevBtn=el('button','cal-nav','‹'), nextBtn=el('button','cal-nav','›');
-    const limitMonth=new Date(allowPast?2024:TODAY.getFullYear(),allowPast?0:TODAY.getMonth(),1);
-    if(view<=limitMonth) prevBtn.disabled=true;
-    prevBtn.onclick=()=>{view.setMonth(view.getMonth()-1);render();};
-    nextBtn.onclick=()=>{view.setMonth(view.getMonth()+1);render();};
-    head.append(prevBtn, el('div','my',`${MN[view.getMonth()]} ${view.getFullYear()}`), nextBtn);
+    const prev=el('button','cal-nav','‹'),next=el('button','cal-nav','›');
+    const limM=new Date(allowPast?2024:TODAY.getFullYear(),allowPast?0:TODAY.getMonth(),1);
+    if(view<=limM)prev.disabled=true;
+    prev.onclick=()=>{view.setMonth(view.getMonth()-1);render();};
+    next.onclick=()=>{view.setMonth(view.getMonth()+1);render();};
+    head.append(prev,el('div','my',`${MN[view.getMonth()]} ${view.getFullYear()}`),next);
     wrap.appendChild(head);
-    const grid=el('div','cal-grid');
-    DOW.forEach(d=>grid.appendChild(el('div','cal-dow',d)));
+    const grid=el('div','cal-grid'); DOW.forEach(d=>grid.appendChild(el('div','cal-dow',d)));
     const first=new Date(view.getFullYear(),view.getMonth(),1).getDay();
     const days=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
     for(let i=0;i<first;i++)grid.appendChild(el('div','cal-day empty'));
     for(let d=1;d<=days;d++){
-      const date=new Date(view.getFullYear(),view.getMonth(),d);
-      const cell=el('div','cal-day');
-      const key=ymd(date);
-      const past = !allowPast && date<min && key!==ymd(min);
-      const isWeekend=[0,6].includes(date.getDay());
-      const blocked = past || (blockWeekend && isWeekend);
-      let inner=`<span>${d}</span>`;
-      if(limits[key]) inner+=`<span class="lim ${limits[key].used>=limits[key].cap?'full':'part'}">${limits[key].used}/${limits[key].cap}</span>`;
-      cell.innerHTML=inner;
+      const date=new Date(view.getFullYear(),view.getMonth(),d),key=ymd(date),cell=el('div','cal-day',`<span>${d}</span>`);
+      const wknd=[0,6].includes(date.getDay());
+      const blocked=(!allowPast&&date<min&&key!==ymd(min))||(blockWeekend&&wknd);
       if(key===ymd(TODAY))cell.classList.add('today');
-      if(isWeekend)cell.classList.add('weekend');
-      if(blocked){cell.classList.add('disabled');}
+      if(wknd)cell.classList.add('weekend');
+      if(blocked)cell.classList.add('disabled');
       else{
         if(mode==='single'&&sel&&key===ymd(sel))cell.classList.add('sel');
-        if(mode==='range'){
-          if(sel.from&&key===ymd(sel.from))cell.classList.add('sel');
-          if(sel.to&&key===ymd(sel.to))cell.classList.add('sel');
-          if(sel.from&&sel.to&&date>sel.from&&date<sel.to)cell.classList.add('range');
-        }
-        cell.onclick=()=>{
-          if(mode==='single'){sel=date;onSelect(date);}
-          else{
-            if(!sel.from||(sel.from&&sel.to)){sel={from:date,to:null};}
-            else if(date<sel.from){sel={from:date,to:null};}
-            else{sel.to=date;onSelect({...sel});}
-          }
-          render();
-        };
+        if(mode==='range'){ if(sel.from&&key===ymd(sel.from))cell.classList.add('sel'); if(sel.to&&key===ymd(sel.to))cell.classList.add('sel'); if(sel.from&&sel.to&&date>sel.from&&date<sel.to)cell.classList.add('range'); }
+        cell.onclick=()=>{ if(mode==='single'){sel=date;onSelect(date);} else{ if(!sel.from||(sel.from&&sel.to))sel={from:date,to:null}; else if(date<sel.from)sel={from:date,to:null}; else{sel.to=date;onSelect({...sel});} } render(); };
       }
       grid.appendChild(cell);
     }
     wrap.appendChild(grid);
   }
-  render();
-  return wrap;
+  render(); return wrap;
+}
+function datePopover(anchor,onPick,opts={}){
+  const pop=el('div','pop-menu'); pop.style.width='auto';
+  pop.appendChild(makeCalendar({...opts,onSelect:v=>{onPick(v);pop.remove();}}));
+  const r=anchor.getBoundingClientRect();
+  $('#popLayer').appendChild(pop);
+  pop.style.left=Math.min(r.left,innerWidth-340)+'px';
+  pop.style.top=(r.bottom+340>innerHeight?r.top-pop.offsetHeight-6:r.bottom+6)+'px';
+  setTimeout(()=>document.addEventListener('click',function h(e){if(!pop.contains(e.target)&&e.target!==anchor){pop.remove();document.removeEventListener('click',h);}}),0);
+}
+
+/* wide booking calendar (profile) — Monday first, display only */
+function makeBookingCalendar(limits){
+  const wrap=el('div','bcal');
+  let view=new Date(TODAY); view.setDate(1);
+  const MN=['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+  const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  function render(){
+    wrap.innerHTML='';
+    const head=el('div','bcal-head');
+    head.innerHTML=`<div class="title">Booking calendar — ${MN[view.getMonth()]} ${view.getFullYear()}</div><div class="sp"></div>`;
+    const prev=el('button','cal-nav','‹'),next=el('button','cal-nav','›');
+    if(view.getFullYear()===TODAY.getFullYear()&&view.getMonth()<=TODAY.getMonth())prev.disabled=true;
+    prev.onclick=()=>{view.setMonth(view.getMonth()-1);render();};
+    next.onclick=()=>{view.setMonth(view.getMonth()+1);render();};
+    head.append(prev,next); wrap.appendChild(head);
+
+    // month summary
+    let usedMin=0,daysBooked=0;
+    Object.keys(limits).forEach(k=>{ const d=new Date(k); if(d.getMonth()===view.getMonth()&&d.getFullYear()===view.getFullYear()){ usedMin+=limits[k].used; daysBooked++; } });
+    const sum=el('div','bcal-sum');
+    sum.innerHTML=`
+      <div class="s"><div class="k">Booked this month</div><div class="v">${(usedMin/60).toFixed(1)}h</div></div>
+      <div class="s"><div class="k">Days with bookings</div><div class="v">${daysBooked}</div></div>
+      <div class="s"><div class="k">Daily cap</div><div class="v">4h / day</div></div>`;
+    wrap.appendChild(sum);
+
+    const grid=el('div','bcal-grid'); DOW.forEach(d=>grid.appendChild(el('div','bcal-dow',d)));
+    const firstJs=new Date(view.getFullYear(),view.getMonth(),1).getDay();
+    const offset=(firstJs+6)%7;
+    const days=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+    for(let i=0;i<offset;i++)grid.appendChild(el('div','bcal-day empty'));
+    for(let d=1;d<=days;d++){
+      const date=new Date(view.getFullYear(),view.getMonth(),d),key=ymd(date),wknd=[0,6].includes(date.getDay());
+      const cell=el('div','bcal-day'); cell.innerHTML=`<div class="dn">${d}</div>`;
+      if(key===ymd(TODAY))cell.classList.add('today');
+      if(wknd)cell.classList.add('weekend');
+      const L=limits[key];
+      if(L){ const full=L.used>=L.cap; cell.classList.add(full?'full':'part'); cell.innerHTML+=`<div class="used">used ${L.used/60}h / ${L.cap/60}h</div>`; }
+      grid.appendChild(cell); // display only — intentionally not clickable
+    }
+    wrap.appendChild(grid);
+  }
+  render(); return wrap;
 }
 
 /* =========================================================
-   LOGIN
+   LOGIN + CLOCK
 ========================================================= */
-$('#signInBtn').onclick=()=>{
-  $('#loginPage').classList.add('hidden');
-  $('#dashPage').classList.remove('hidden');
-  renderFilters(); switchTab('book'); startClock();
-};
+$('#signInBtn').onclick=()=>{ $('#loginPage').classList.add('hidden'); $('#dashPage').classList.remove('hidden'); renderFilters(); switchTab('book'); startClock(); };
 $('#loginId').addEventListener('keydown',e=>{if(e.key==='Enter')$('#loginPw').focus();});
 $('#loginPw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#signInBtn').click();});
+function startClock(){ const u=()=>{const d=new Date(); $('#clkTime').textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; $('#clkDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'short',year:'numeric'});}; u(); setInterval(u,1000); }
 
 /* =========================================================
-   CLOCK (live)
+   FILTER DRAWER + TABS
 ========================================================= */
-function startClock(){
-  const upd=()=>{
-    const d=new Date();
-    $('#clkTime').textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-    $('#clkDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'short',year:'numeric'});
-  };
-  upd(); setInterval(upd,1000);
-}
-
-/* =========================================================
-   SIDEBAR / TABS
-========================================================= */
-let curTab='book', statusFilter='all', sortMode='soonest';
-$('#sideToggle').onclick=()=>$('#sidebar').classList.toggle('collapsed');
+let curTab='book',statusFilter='all',sortMode='soonest';
+const drawer=$('#filterDrawer');
+$('#drawerClose').onclick=()=>toggleDrawer(false);
+function toggleDrawer(force){ const open=force!==undefined?force:!drawer.classList.contains('open'); drawer.classList.toggle('open',open); const fb=document.querySelector('.filters-btn'); if(fb)fb.classList.toggle('on',open); }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchTab(t.dataset.tab));
 function switchTab(tab){
   curTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-  const showFilters = tab==='book';
-  $('#sidebar').style.display=showFilters?'':'none';
-  $('#bookMiniFilter').style.display=showFilters?'':'none';
-  if(tab==='book')renderRooms(); else renderMine();
+  if(tab!=='book')toggleDrawer(false);
+  tab==='book'?renderRooms():renderMine();
 }
-$('#statusSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
-  statusFilter=b.dataset.st; $('#statusSeg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); renderRooms();
-});
 
-/* sort dropdown */
-const sortDD=makeDropdown({options:[
-  {v:'soonest',l:'Soonest available'},{v:'az',l:'Name A–Z'},{v:'za',l:'Name Z–A'},{v:'cap',l:'Largest capacity'}
-],value:'soonest',onChange:v=>{sortMode=v;renderRooms();}});
-sortDD.style.width='180px';
-$('#sortDdMount').appendChild(sortDD);
-
-/* filters sidebar */
+function checkbox(text){ const c=el('label','chk',`<span class="box">${ICON.ck}</span><span>${text}</span>`); c.onclick=()=>c.classList.toggle('on'); return c; }
 function renderFilters(){
   const b=$('#filterBody'); b.innerHTML='';
-  const search=el('div','fgroup'); search.innerHTML=`<label class="flabel">Search</label>`;
-  const inp=el('input','input'); inp.placeholder='Room name or code…'; search.appendChild(inp); b.appendChild(search);
+  const g1=el('div'); g1.innerHTML=`<label class="flabel">Search</label>`; const inp=el('input','input'); inp.placeholder='Room name or code…'; g1.appendChild(inp); b.appendChild(g1);
 
-  const g2=el('div','fgroup'); g2.innerHTML=`<label class="flabel">Resource type</label>`;
-  g2.appendChild(makeDropdown({multi:true,placeholder:'Any type',options:[
-    {v:'Discussion Room',l:'Discussion rooms'},{v:'Study Pod',l:'Study pods'},
-    {v:'Lab Workstation',l:'Lab workstations'},{v:'Sports Facility',l:'Sports facilities'}]})); b.appendChild(g2);
+  const g2=el('div'); g2.innerHTML=`<label class="flabel">Resource type</label>`; const l2=el('div','chk-list');
+  ['Discussion rooms','Study pods','Lab workstations','Sports facilities'].forEach(t=>l2.appendChild(checkbox(t))); g2.appendChild(l2); b.appendChild(g2);
 
-  const g3=el('div','fgroup'); g3.innerHTML=`<label class="flabel">Buildings</label>`;
-  g3.appendChild(makeDropdown({multi:true,placeholder:'Any building',options:[
-    {v:'b1',l:'Building 1'},{v:'b2',l:'Building 2'},{v:'b3',l:'Building 3'},{v:'b4',l:'Building 4'},{v:'b5',l:'Building 5'}]})); b.appendChild(g3);
+  const g3=el('div'); g3.innerHTML=`<label class="flabel">Buildings</label>`; const l3=el('div','chk-list');
+  ['Building 1','Building 2','Building 3','Building 4','Building 5'].forEach(t=>l3.appendChild(checkbox(t))); g3.appendChild(l3); b.appendChild(g3);
 
-  const g4=el('div','fgroup'); g4.innerHTML=`<label class="flabel">Date</label>`;
+  const g4=el('div'); g4.innerHTML=`<label class="flabel">Date</label>`;
   const dateBtn=el('button','dd-trigger placeholder'); dateBtn.innerHTML=`<span>Select a date</span>${ICON.chev}`;
-  dateBtn.onclick=e=>{e.stopPropagation();openDatePopover(dateBtn,d=>{dateBtn.classList.remove('placeholder');dateBtn.querySelector('span').textContent=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});});};
+  dateBtn.onclick=e=>{e.stopPropagation();datePopover(dateBtn,d=>{dateBtn.classList.remove('placeholder');dateBtn.querySelector('span').textContent=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});},{blockWeekend:true});};
   g4.appendChild(dateBtn); b.appendChild(g4);
 
   const timeOpts=[]; for(let m=480;m<=1320;m+=15)timeOpts.push({v:m,l:m2t(m)});
-  const g5=el('div','fgroup'); g5.innerHTML=`<label class="flabel">Start time</label>`;
-  g5.appendChild(makeDropdown({placeholder:'Please select',options:timeOpts})); b.appendChild(g5);
-  const g6=el('div','fgroup'); g6.innerHTML=`<label class="flabel">End time</label>`;
-  g6.appendChild(makeDropdown({placeholder:'Please select',options:timeOpts})); b.appendChild(g6);
+  const g5=el('div');
+  const row=el('div','form-row'); row.style.marginBottom='0';
+  const c1=el('div','fgroup'),c2=el('div','fgroup');
+  c1.innerHTML=`<label class="flabel">Start time</label>`; c2.innerHTML=`<label class="flabel">End time</label>`;
+  c1.appendChild(makeDropdown({placeholder:'Please select',options:timeOpts}));
+  c2.appendChild(makeDropdown({placeholder:'Please select',options:timeOpts}));
+  row.append(c1,c2); g5.appendChild(row); b.appendChild(g5);
 
-  const g7=el('div','fgroup');
-  g7.innerHTML=`<label class="chk"><input type="checkbox"> Display available rooms only</label>`; b.appendChild(g7);
+  const g6=el('div'); g6.appendChild(checkbox('Display available rooms only')); b.appendChild(g6);
 }
-function openDatePopover(anchor,onPick){
-  const pop=el('div','pop-menu'); pop.style.width='auto';
-  const cal=makeCalendar({mode:'single',blockWeekend:true,onSelect:d=>{onPick(d);pop.remove();}});
-  pop.appendChild(cal);
-  const r=anchor.getBoundingClientRect();
-  pop.style.left=Math.min(r.left,innerWidth-340)+'px'; pop.style.top=(r.bottom+6)+'px';
-  $('#popLayer').appendChild(pop);
-  setTimeout(()=>document.addEventListener('click',function h(e){if(!pop.contains(e.target)){pop.remove();document.removeEventListener('click',h);}}),0);
-}
-$('#applyFilter').onclick=()=>renderRooms();
+$('#applyFilter').onclick=()=>{renderRooms();toggleDrawer(false);};
 $('#resetFilter').onclick=()=>{renderFilters();renderRooms();};
 
+/* reusable collapsible section (used by book resource + my bookings) */
+function makeSection({title,count='',open=true}){
+  const wrap=el('div','sec');
+  wrap.innerHTML=`<div class="sec-head${open?'':' collapsed'}"><span class="caret">${ICON.chev}</span><h3>${title}</h3><span class="count">${count}</span><div class="sp"></div></div><div class="sec-body${open?'':' collapsed'}"></div>`;
+  const head=wrap.querySelector('.sec-head'),body=wrap.querySelector('.sec-body');
+  head.onclick=e=>{ if(e.target.closest('.dd')||e.target.closest('.dd-trigger'))return; body.classList.toggle('collapsed'); head.classList.toggle('collapsed'); };
+  return {wrap,head,body};
+}
+
 /* =========================================================
-   BOOK RESOURCE — room cards
+   BOOK RESOURCE
 ========================================================= */
-function nextAvailMin(r){
-  if(r.status==='fully')return 1e9;
-  let t=480; const bs=[...r.bookings].sort((a,b)=>a.s-b.s);
-  for(const b of bs){ if(t<b.s)return t; t=Math.max(t,b.e); }
-  return t<1320? t : 1e9;
-}
+function nextAvailMin(r){ if(r.status==='fully')return 1e9; let t=480; for(const b of [...r.bookings].sort((a,b)=>a.s-b.s)){ if(t<b.s)return t; t=Math.max(t,b.e);} return t<1320?t:1e9; }
 function renderRooms(){
-  const c=$('#content'); c.innerHTML='';
-  let list=ROOMS.filter(r=> statusFilter==='all'?true:r.status===statusFilter);
-  list=[...list].sort((a,b)=>{
-    if(sortMode==='az')return a.name.localeCompare(b.name);
-    if(sortMode==='za')return b.name.localeCompare(a.name);
-    if(sortMode==='cap')return b.capMax-a.capMax;
-    return nextAvailMin(a)-nextAvailMin(b);
-  });
-  const sect=el('div','section');
-  sect.innerHTML=`<div class="section-head"><span class="caret">${ICON.chev}</span><h2>Book resource</h2><span class="count">${list.length} rooms</span><div class="sp"></div></div>`;
-  const body=el('div','section-body'); const grid=el('div','room-grid');
-  sect.querySelector('.section-head').onclick=()=>{body.classList.toggle('collapsed');sect.querySelector('.section-head').classList.toggle('collapsed');};
+  const area=$('#mainArea'); area.innerHTML='';
+  let list=ROOMS.filter(r=>statusFilter==='all'||r.status===statusFilter);
+  list=[...list].sort((a,b)=>{ if(sortMode==='az')return a.name.localeCompare(b.name); if(sortMode==='za')return b.name.localeCompare(a.name); if(sortMode==='cap')return b.capMax-a.capMax; return nextAvailMin(a)-nextAvailMin(b); });
+  const box=el('div','fillbox');
+  const body=el('div','fillbox-body scroll');
+  const sec=makeSection({title:'Available resources',count:`${list.length} rooms`,open:true});
+
+  const ctrls=el('div','sec-controls'); ctrls.style.alignItems='center'; ctrls.onclick=e=>e.stopPropagation();
+  const fbtn=el('button','filters-btn'+(drawer.classList.contains('open')?' on':''),`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filters`);
+  fbtn.onclick=()=>toggleDrawer();
+  const seg=el('div','seg');
+  [['all','All'],['available','Available'],['occupied','Occupied'],['fully','Fully booked']].forEach(([v,l])=>{ const bn=el('button',statusFilter===v?'on':'',l); bn.onclick=()=>{statusFilter=v;renderRooms();}; seg.appendChild(bn); });
+  const sort=makeDropdown({value:sortMode,options:[{v:'soonest',l:'Soonest available'},{v:'az',l:'Name A–Z'},{v:'za',l:'Name Z–A'},{v:'cap',l:'Largest capacity'}],onChange:v=>{sortMode=v;renderRooms();}});
+  sort.style.width='178px';
+  ctrls.append(fbtn,seg,sort);
+  sec.body.appendChild(ctrls);
+
+  const grid=el('div','room-grid');
+  if(!list.length)grid.innerHTML=`<div class="empty-state">No rooms match this filter.</div>`;
   list.forEach(r=>grid.appendChild(roomCard(r)));
-  if(!list.length)grid.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18"/></svg><div>No rooms match this filter.</div></div>`;
-  body.appendChild(grid); sect.appendChild(body); c.appendChild(sect);
+  sec.body.appendChild(grid); body.appendChild(sec.wrap); box.appendChild(body); area.appendChild(box);
 }
-function statusTag(r){
-  if(r.status==='available')return `<span class="status-tag available">AVAILABLE</span>`;
-  if(r.status==='occupied')return `<span class="status-tag occupied">OCCUPIED</span>`;
-  return `<span class="status-tag fully">FULLY BOOKED</span>`;
-}
+function statusTag(r){ return r.status==='available'?`<span class="status-tag available">AVAILABLE</span>`:r.status==='occupied'?`<span class="status-tag occupied">OCCUPIED</span>`:`<span class="status-tag fully">FULLY BOOKED</span>`; }
 function roomCard(r){
   const card=el('div','room-card'+(r.status==='fully'?' fully':''));
-  let occ='';
-  if(r.status==='occupied')occ=`<div class="occ-line">Occupied until ${m2t(r.occUntil)}<span class="occ-bid">${r.occBid}</span></div>`;
+  let occ=''; if(r.status==='occupied')occ=`<div class="occ-line">Occupied until ${m2t(r.occUntil)}<span class="occ-bid">${r.occBid}</span></div>`;
   card.innerHTML=`
-    <div class="room-pic">PREVIEW IMAGE<span class="typebadge">${r.type}</span>${statusTag(r)}</div>
+    <div class="room-pic">PREVIEW IMAGE${statusTag(r)}</div>
     <div class="room-body">
       <div class="room-title"><span class="nm">${r.name}</span><span class="cd">${r.code}</span></div>
-      <div class="room-meta">
-        <div class="r">${ICON.pin}${r.location}</div>
-        <div class="r">${ICON.users}Capacity ${r.capMin}–${r.capMax}</div>
-      </div>${occ}
+      <div class="room-meta"><div>${r.location}</div><div>Capacity ${r.capMin} - ${r.capMax}</div></div>
+      ${occ}
+      <div class="type-badge ${TYPE_CLASS[r.type]}">${r.type}</div>
     </div>`;
   attachTip(card,r.tip);
   card.onclick=()=>openRoomDetail(r);
   return card;
 }
 
-/* =========================================================
-   ROOM DETAIL PANEL
-========================================================= */
-function openRoomDetail(r){
+/* room detail */
+function openRoomDetail(r,opts={}){
   const p=el('div','panel');
   p.innerHTML=`
-    <div class="panel-pic">PREVIEW IMAGE
-      <button class="panel-close">${ICON.close}</button></div>
+    <div class="panel-pic">PREVIEW IMAGE</div>
     <div class="panel-body scroll">
-      <div class="detail-title"><span class="nm">${r.name}</span><span class="cd">${r.code}</span><span class="ty">${r.type}</span></div>
+      <div class="detail-title"><span class="nm">${r.name}</span><span class="cd">${r.code}</span><span class="type-badge ${TYPE_CLASS[r.type]}" style="margin:0">${r.type}</span></div>
       <div class="detail-grid">
         <div class="detail-cell"><div class="k">Location</div><div class="v">${r.location}</div></div>
-        <div class="detail-cell"><div class="k">Capacity</div><div class="v">${r.capMin}–${r.capMax} people</div></div>
+        <div class="detail-cell"><div class="k">Capacity</div><div class="v">${r.capMin} - ${r.capMax} people</div></div>
       </div>
       <div class="subhead">Facilities</div>
       <div class="fac-grid">${r.facilities.map(f=>`<span class="fac">${f}</span>`).join('')}</div>
     </div>
     <div class="panel-foot"></div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
   const foot=p.querySelector('.panel-foot');
-  const closeBtn=el('button','btn','Close'); closeBtn.onclick=closePanel; foot.appendChild(closeBtn);
-  if(r.status!=='fully'){
-    const sched=el('button','btn solid','Schedule'); sched.onclick=()=>openSchedule(r); foot.appendChild(sched);
-  }
+  if(opts.back){ const back=el('button','btn solid','Back'); back.onclick=opts.back; foot.appendChild(back); }
+  else{ const close=el('button','btn','Close'); close.onclick=closePanel; foot.appendChild(close);
+    if(r.status!=='fully'){ const s=el('button','btn solid','Schedule'); s.onclick=()=>openSchedule(r); foot.appendChild(s); } }
   openPanel(p);
 }
 
-/* =========================================================
-   SCHEDULE PANEL (horizontal rows, multiple boxes)
-========================================================= */
-function buildSlots(r){
-  const out=[]; let t=480; const bs=[...r.bookings].sort((a,b)=>a.s-b.s);
-  for(const b of bs){
-    if(t<b.s)out.push({type:'avail',s:t,e:b.s});
-    out.push({type:'booked',s:b.s,e:b.e,bid:b.bid});
-    t=Math.max(t,b.e);
-  }
-  if(t<1320)out.push({type:'avail',s:t,e:1320});
-  if(out.length===0)out.push({type:'avail',s:480,e:1320});
-  return out;
-}
+/* schedule */
+function buildSlots(r){ const out=[]; let t=480; for(const b of [...r.bookings].sort((a,b)=>a.s-b.s)){ if(t<b.s)out.push({type:'avail',s:t,e:b.s}); out.push({type:'booked',s:b.s,e:b.e,bid:b.bid}); t=Math.max(t,b.e);} if(t<1320)out.push({type:'avail',s:t,e:1320}); if(!out.length)out.push({type:'avail',s:480,e:1320}); return out; }
 function availSlotsOnly(r){ return buildSlots(r).filter(s=>s.type==='avail'); }
-function openSchedule(r){
-  closePanel();
-  setTimeout(()=>{
+function availForModify(room,b){ const others=(room.bookings||[]).filter(x=>!(x.s<b.to&&x.e>b.from)); return availSlotsOnly({bookings:others}); }
+function slotBox(r,s,interactive){
+  const box=el('div','slot '+(s.type==='avail'?'avail':'booked'));
+  if(s.type==='avail'){
+    box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">Available</div><div class="range">${Math.round((s.e-s.s)/6)/10} h window</div>`;
+    if(interactive){ box.onclick=()=>openTimeSelect(r,s); } else { box.style.cursor='default'; }
+  }else{
+    const now=nowMin(), live=now>=s.s&&now<s.e;
+    const st=live?`In progress · ends in ${fmtDur(s.e-now)}`:'Booked';
+    box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">${st}</div><div class="bid">${s.bid}</div>`;
+  }
+  return box;
+}
+function openSchedule(r,opts={}){
+  swapPanel(()=>{
     const slots=buildSlots(r);
     const p=el('div','panel wide');
     p.innerHTML=`
-      <div class="panel-head"><h3>Today's schedule — ${r.name}</h3>
-        <span class="ty" style="font-family:var(--fmono);color:var(--accent)">${r.code}</span><div class="sp"></div>
-        <button class="panel-close" style="position:static">${ICON.close}</button></div>
+      <div class="panel-head"><h3>Schedule — ${r.name}</h3><span class="code-tag">${r.code}</span><div class="sp"></div></div>
       <div class="panel-body scroll">
-        <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">Showing 23 Jun 2026 · Operating hours 08:00–22:00. Pick any available block to choose a start &amp; end time. No minimum gap — even short windows are bookable.</div>
-        <div class="sched-row" id="schedRow"></div>
+        <div class="sched-date">Tuesday, 23 June 2026</div>
+        <div class="sched-rows" id="schedRows"></div>
       </div>
-      <div class="panel-foot"><button class="btn" id="schClose">Close</button></div>`;
-    p.querySelector('.panel-close').onclick=closePanel;
-    p.querySelector('#schClose').onclick=closePanel;
-    const row=p.querySelector('#schedRow');
-    slots.forEach(s=>{
-      const box=el('div','slot '+(s.type==='avail'?'avail':'booked'));
-      if(s.type==='avail'){
-        box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">Available</div><div class="range">${Math.round((s.e-s.s)/60*10)/10} h window</div>`;
-        box.onclick=()=>openTimeSelect(r,s);
-      }else{
-        box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">Booked · in progress</div><div class="bid">${s.bid}</div>`;
-      }
-      row.appendChild(box);
-    });
+      <div class="panel-foot"></div>`;
+    const rows=p.querySelector('#schedRows');
+    for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(s=>row.appendChild(slotBox(r,s,!opts.readonly))); rows.appendChild(row); }
+    const foot=p.querySelector('.panel-foot');
+    if(opts.back){ const b=el('button','btn solid','Back'); b.onclick=opts.back; foot.appendChild(b); }
+    else { const c=el('button','btn solid','Close'); c.onclick=closePanel; foot.appendChild(c); }
     openPanel(p);
-  },190);
+  });
 }
 
-/* =========================================================
-   TIME SELECT + STUDENT IDs + RESERVE
-========================================================= */
-let BK=null; // booking session state
-function openTimeSelect(r,clickedSlot){
-  closePanel();
-  setTimeout(()=>{
-    BK={ r, ids:[ME.sid], start:null, end:null };
-    renderTimeSelect(clickedSlot);
-  },190);
-}
-function renderTimeSelect(clickedSlot){
-  const r=BK.r;
-  const avail=availSlotsOnly(r);
-  // ALL start options across every available slot (even if user clicked a different one)
-  const startOpts=[];
-  avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
-
+/* time select */
+let BK=null;
+function openTimeSelect(r,clicked){ swapPanel(()=>{ BK={r,ids:[ME.sid],start:null,end:null}; renderTimeSelect(clicked); }); }
+function renderTimeSelect(clicked){
+  const r=BK.r, avail=availSlotsOnly(r);
+  const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
   const p=el('div','panel');
   p.innerHTML=`
-    <div class="panel-head"><h3>Choose your time</h3><div class="sp"></div>
-      <button class="panel-close" style="position:static">${ICON.close}</button></div>
+    <div class="panel-head"><h3>Choose your time</h3><div class="sp"></div></div>
     <div class="panel-body scroll">
       <div class="info-strip">
         <div class="it"><div class="k">Room</div><div class="v">${r.name}</div></div>
         <div class="it"><div class="k">Code</div><div class="v code">${r.code}</div></div>
+        <div class="it"><div class="k">Location</div><div class="v">${r.location||'—'}</div></div>
+        <div class="it"><div class="k">Capacity</div><div class="v">${r.capMin} - ${r.capMax} people</div></div>
         <div class="it"><div class="k">Date</div><div class="v">Tue, 23 Jun 2026</div></div>
-        <div class="it"><div class="k">Booking ID</div><div class="v code">LDRBS_NEW</div></div>
       </div>
       <div class="form-row">
         <div class="fgroup"><label class="flabel">Start time</label><div id="startMount"></div></div>
         <div class="fgroup"><label class="flabel">End time</label><div id="endMount"></div></div>
       </div>
       <div class="dur-box"><span class="lab" id="rangeLab">Select a start and end time</span><span class="val" id="durVal">—</span></div>
-
       <div class="subhead">Group members · need ${r.capMin}–${r.capMax} people</div>
-      <div class="cap-hint">${ICON.users}<span>Add student IDs (7 digits). You're added by default. Add at least <b>${r.capMin}</b> to enable booking.</span></div>
-      <div class="id-add">
-        <input class="input" id="idInput" placeholder="e.g. 0371122" maxlength="7" inputmode="numeric">
-        <button class="btn solid" id="idAddBtn">Add</button>
-      </div>
-      <div style="font-size:12px;color:var(--txt-3);margin:-6px 0 12px">Demo IDs that exist: 0371122 · 0365540 · 0388210 · 0392001 · 0359988</div>
+      <div class="cap-hint">Add student IDs (7 digits). You're added by default. Add at least <b>${r.capMin}</b> to enable booking.</div>
+      <div class="id-add"><input class="input" id="idInput" placeholder="e.g. 1000002" maxlength="7" inputmode="numeric"><button class="btn solid" id="idAddBtn">Add</button></div>
+      <div class="id-hint">Demo IDs that exist: 1000002 · 1000003 · 1000004 · 1000005 · 1000006</div>
       <div class="id-list" id="idList"></div>
     </div>
-    <div class="panel-foot">
-      <button class="btn" id="bkBack">Back</button>
-      <button class="btn solid" id="bkReserve" disabled>Reserve booking</button>
-    </div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
+    <div class="panel-foot"><button class="btn" id="bkBack">Back</button><button class="btn solid" id="bkReserve" disabled>Reserve booking</button></div>`;
   p.querySelector('#bkBack').onclick=()=>openSchedule(r);
-
-  // start dropdown
   const endMount=p.querySelector('#endMount');
-  let endDD=makeDropdown({placeholder:'Please select',disabled:true});
-  endMount.appendChild(endDD);
+  endMount.appendChild(makeDropdown({placeholder:'Please select',disabled:true}));
   const startDD=makeDropdown({placeholder:'Please select',options:startOpts,onChange:v=>{
-    BK.start=v; BK.end=null;
-    const slot=startOpts.find(o=>o.v===v);
-    const endMax=Math.min(v+120, slot.slotEnd);
+    BK.start=v; BK.end=null; const slot=startOpts.find(o=>o.v===v); const endMax=Math.min(v+120,slot.slotEnd);
     const eo=[]; for(let m=v+15;m<=endMax;m+=15)eo.push({v:m,l:m2t(m)});
     const fresh=makeDropdown({placeholder:'Please select',options:eo,onChange:ev=>{BK.end=ev;updateDur();}});
-    endMount.innerHTML=''; endMount.appendChild(fresh); endDD=fresh; fresh._enable();
-    updateDur();
+    endMount.innerHTML=''; endMount.appendChild(fresh); updateDur();
   }});
   p.querySelector('#startMount').appendChild(startDD);
-
-  function updateDur(){
-    const rl=p.querySelector('#rangeLab'), dv=p.querySelector('#durVal');
-    if(BK.start!=null&&BK.end!=null){
-      rl.textContent=`${m2t(BK.start)} → ${m2t(BK.end)}`;
-      dv.textContent=`${BK.end-BK.start} min`;
-    }else if(BK.start!=null){ rl.textContent=`${m2t(BK.start)} → select end`; dv.textContent='—'; }
-    else { rl.textContent='Select a start and end time'; dv.textContent='—'; }
-    refreshReserve();
-  }
-
-  // id management
+  function updateDur(){ const rl=p.querySelector('#rangeLab'),dv=p.querySelector('#durVal');
+    if(BK.start!=null&&BK.end!=null){rl.textContent=`${m2t(BK.start)} → ${m2t(BK.end)}`;dv.textContent=`${BK.end-BK.start} min`;}
+    else if(BK.start!=null){rl.textContent=`${m2t(BK.start)} → select end`;dv.textContent='—';}
+    else{rl.textContent='Select a start and end time';dv.textContent='—';} refresh(); }
   const idList=p.querySelector('#idList');
-  function renderIds(){
-    idList.innerHTML='';
-    BK.ids.forEach((id,i)=>{
-      const chip=el('div','id-chip');
-      const nm=KNOWN_IDS[id]||'Unknown';
-      chip.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${nm}</span>
-        ${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span>
-        <button class="rm" title="Remove">${ICON.close}</button>`;
-      chip.querySelector('.rm').onclick=()=>{BK.ids.splice(i,1);renderIds();refreshReserve();};
-      idList.appendChild(chip);
-    });
-    refreshReserve();
-  }
-  function refreshReserve(){
-    const ok = BK.ids.length>=r.capMin && BK.ids.length<=r.capMax && BK.start!=null && BK.end!=null;
-    p.querySelector('#bkReserve').disabled=!ok;
-  }
-  p.querySelector('#idAddBtn').onclick=()=>{
-    const v=p.querySelector('#idInput').value.trim();
-    if(!/^\d{7}$/.test(v)){ shakeInput(p.querySelector('#idInput')); return; }
-    if(BK.ids.includes(v)){ dupIdPanel(()=>renderTimeSelectResume(clickedSlot)); return; }
-    if(r.scenario==='idnotfound' || !KNOWN_IDS[v]){ idNotFoundPanel(()=>renderTimeSelectResume(clickedSlot)); return; }
-    if(BK.ids.length>=r.capMax){ msgPanel({kind:'warn',title:'Room is full',text:`This room allows up to ${r.capMax} people.`,buttons:[{label:'OK',cls:'solid',onClick:()=>renderTimeSelectResume(clickedSlot)}]}); return; }
-    BK.ids.push(v); p.querySelector('#idInput').value=''; renderIds();
-  };
+  function renderIds(){ idList.innerHTML='';
+    BK.ids.forEach((id,i)=>{ const chip=el('div','id-chip');
+      chip.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
+      chip.querySelector('.rm').onclick=()=>{BK.ids.splice(i,1);renderIds();refresh();}; idList.appendChild(chip); }); refresh(); }
+  function refresh(){ p.querySelector('#bkReserve').disabled=!(BK.ids.length>=r.capMin&&BK.ids.length<=r.capMax&&BK.start!=null&&BK.end!=null); }
+  p.querySelector('#idAddBtn').onclick=()=>{ const v=p.querySelector('#idInput').value.trim();
+    if(!/^\d{7}$/.test(v))return shake(p.querySelector('#idInput'));
+    if(BK.ids.includes(v))return dupIdPanel(()=>renderTimeSelect(clicked));
+    if(r.scenario==='idnotfound'||!KNOWN_IDS[v])return idNotFoundPanel(()=>renderTimeSelect(clicked));
+    if(BK.ids.length>=r.capMax)return msgPanel({kind:'warn',title:'Room is full',text:`This room allows up to ${r.capMax} people.`,buttons:[{label:'Back to booking',cls:'solid',onClick:()=>renderTimeSelect(clicked)}]});
+    BK.ids.push(v); p.querySelector('#idInput').value=''; renderIds(); };
   p.querySelector('#idInput').addEventListener('keydown',e=>{if(e.key==='Enter')p.querySelector('#idAddBtn').click();});
-
-  p.querySelector('#bkReserve').onclick=()=>{
-    if(r.scenario==='limithit'){ limitPanel(); return; }
-    successPanel(r);
-  };
-
-  openPanel(p);
-  renderIds();
-  // restore selection if resuming
-  if(BK.start!=null){ startDD._set(BK.start); }
+  p.querySelector('#bkReserve').onclick=()=>{ if(r.scenario==='limithit')return limitPanel(); successPanel(r); };
+  openPanel(p); renderIds();
+  if(BK.start!=null)startDD._set(BK.start);
 }
-function renderTimeSelectResume(slot){ renderTimeSelect(slot); }
-
-function shakeInput(node){ node.style.borderColor='var(--red)'; setTimeout(()=>node.style.borderColor='',700); }
-
-/* popups within booking flow */
-function idNotFoundPanel(back){
-  msgPanel({kind:'err',title:'Student ID not found',text:'That ID isn’t registered in the system. Check the number and try again.',
-    buttons:[{label:'Back to booking',cls:'solid',onClick:back}]});
-}
-function dupIdPanel(back){
-  msgPanel({kind:'warn',title:'Already added',text:'That student ID is already in this booking.',
-    buttons:[{label:'Back to booking',cls:'solid',onClick:back}]});
-}
-function limitPanel(){
-  msgPanel({kind:'warn',title:'Daily booking limit reached',text:'One or more members have used their 240-minute daily limit. Cancelling an existing booking frees the time back up.',
-    buttons:[{label:'Close',cls:'',onClick:closePanel}]});
-}
-function successPanel(r){
-  msgPanel({kind:'ok',title:'Booking confirmed',text:`Your reservation for ${r.name} (${r.code}) has been created. Booking ID: LDRBS_014027.`,
-    buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('book');}}]});
-}
+function shake(n){ n.style.borderColor='var(--red)'; setTimeout(()=>n.style.borderColor='',700); }
+function idNotFoundPanel(back){ msgPanel({kind:'err',title:'Student ID not found',text:'That ID isn’t registered in the system. Check the number and try again.',buttons:[{label:'Back to booking',cls:'solid',onClick:back}]}); }
+function dupIdPanel(back){ msgPanel({kind:'warn',title:'Already added',text:'That student ID is already in this booking.',buttons:[{label:'Back to booking',cls:'solid',onClick:back}]}); }
+function limitPanel(){ msgPanel({kind:'warn',title:'Daily booking limit reached',text:'One or more members have used their 240-minute daily limit. Cancelling an existing booking frees the time back up.',buttons:[{label:'Close',onClick:closePanel}]}); }
+function successPanel(r){ msgPanel({kind:'ok',title:'Booking confirmed',text:`Your reservation for ${r.name} (${r.code}) has been created. Booking ID: CRBS_14027.`,buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('book');}}]}); }
 
 /* =========================================================
    MY BOOKINGS
 ========================================================= */
-let histType='all', histRange={from:new Date(2026,5,1),to:TODAY};
+let histType='all',histRange={from:new Date(2026,5,1),to:TODAY};
+let upShow='all',upSort='soonest',histSort='recent';
+function sortBookings(list,mode){ const a=[...list];
+  if(mode==='az')return a.sort((x,y)=>x.room.localeCompare(y.room));
+  if(mode==='latest'||mode==='recent')return a.sort((x,y)=>new Date(y.date)-new Date(x.date));
+  return a.sort((x,y)=>new Date(x.date)-new Date(y.date)); }
+function endPill(end){ if(/Cancelled|No-show/.test(end))return 'red'; if(/Released/.test(end))return 'gray'; return 'green'; }
 function renderMine(){
-  const c=$('#content'); c.innerHTML='';
-  /* --- upcoming --- */
-  const up=el('div','section');
-  up.innerHTML=`<div class="section-head"><span class="caret">${ICON.chev}</span><h2>Upcoming &amp; confirmed</h2><span class="count">${UPCOMING.length}</span><div class="sp"></div></div><div class="section-body"></div>`;
-  const upHead=up.querySelector('.section-head'), upBody=up.querySelector('.section-body');
-  upHead.onclick=()=>{upBody.classList.toggle('collapsed');upHead.classList.toggle('collapsed');};
-  UPCOMING.forEach(b=>upBody.appendChild(bookingRow(b,'up')));
-  c.appendChild(up);
+  const area=$('#mainArea'); area.innerHTML='';
+  const box=el('div','fillbox');
+  const body=el('div','fillbox-body scroll');
 
-  /* --- history (collapsed default) --- */
-  const hs=el('div','section');
-  hs.innerHTML=`<div class="section-head collapsed"><span class="caret">${ICON.chev}</span><h2>History</h2><span class="count">${HISTORY.length}</span><div class="sp"></div></div><div class="section-body collapsed"></div>`;
-  const hsHead=hs.querySelector('.section-head'), hsBody=hs.querySelector('.section-body');
-  hsHead.onclick=e=>{ if(e.target.closest('.dd')||e.target.closest('.dd-menu'))return; hsBody.classList.toggle('collapsed');hsHead.classList.toggle('collapsed'); };
-  // history filter
-  const fr=el('div',''); fr.style.cssText='display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:6px 0 16px';
-  const dFrom=el('div',''); dFrom.style.minWidth='150px'; dFrom.innerHTML=`<label class="flabel">From / to date</label>`;
-  const dateBtn=el('button','dd-trigger'); dateBtn.innerHTML=`<span>${histRange.from.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})} – ${histRange.to.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</span>${ICON.chev}`;
-  dateBtn.onclick=e=>{e.stopPropagation();openRangePopover(dateBtn,rg=>{histRange=rg;dateBtn.querySelector('span').textContent=`${rg.from.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})} – ${rg.to.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}`;});};
-  dFrom.appendChild(dateBtn);
-  const tWrap=el('div',''); tWrap.style.minWidth='170px'; tWrap.innerHTML=`<label class="flabel">End reason</label>`;
-  tWrap.appendChild(makeDropdown({value:'all',options:[{v:'all',l:'All reasons'},{v:'Session ended',l:'Session ended'},{v:'Cancelled',l:'Cancelled'},{v:'Released',l:'Released'}],onChange:v=>{histType=v;repaintHist();}}));
-  fr.append(dFrom,tWrap); hsBody.appendChild(fr);
-  const histWrap=el('div',''); hsBody.appendChild(histWrap);
-  function repaintHist(){ histWrap.innerHTML=''; HISTORY.filter(h=>histType==='all'||h.end===histType).forEach(h=>histWrap.appendChild(historyRow(h))); }
-  repaintHist();
-  c.appendChild(hs);
+  if(INPROGRESS.length){
+    const ip=makeSection({title:'In progress',count:`${INPROGRESS.length}`,open:true});
+    const ipw=el('div'); ip.body.appendChild(ipw);
+    INPROGRESS.forEach(b=>ipw.appendChild(inProgressRow(b)));
+    body.appendChild(ip.wrap);
+  }
+
+  const up=makeSection({title:'Upcoming &amp; confirmed',count:`${UPCOMING.length}`,open:true});
+  const upCtl=el('div','sec-controls');
+  const u1=el('div','ctl'); u1.innerHTML=`<label class="flabel">Show</label>`; u1.appendChild(makeDropdown({value:upShow,options:[{v:'all',l:'All bookings'},{v:'creator',l:'Created by me'},{v:'member',l:'I am a member'}],onChange:v=>{upShow=v;paintUp();}}));
+  const u2=el('div','ctl'); u2.innerHTML=`<label class="flabel">Sort by</label>`; u2.appendChild(makeDropdown({value:upSort,options:[{v:'soonest',l:'Soonest first'},{v:'latest',l:'Latest first'},{v:'az',l:'Room A–Z'}],onChange:v=>{upSort=v;paintUp();}}));
+  upCtl.append(u1,u2); up.body.appendChild(upCtl);
+  const uw=el('div'); up.body.appendChild(uw);
+  function paintUp(){ uw.innerHTML=''; const f=UPCOMING.filter(b=>upShow==='all'||(upShow==='creator'&&b.role==='creator')||(upShow==='member'&&b.role==='member')); const s=sortBookings(f,upSort); if(!s.length){uw.innerHTML='<div class="empty-state">No bookings match.</div>';return;} s.forEach(b=>uw.appendChild(bookingRow(b))); }
+  paintUp();
+  body.appendChild(up.wrap);
+
+  const hs=makeSection({title:'History',count:`${HISTORY.length}`,open:false});
+  const fr=el('div','sec-controls');
+  const dF=el('div','ctl'); dF.innerHTML=`<label class="flabel">From / to date</label>`;
+  const dBtn=el('button','dd-trigger'); const lab=()=>`${histRange.from.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})} – ${histRange.to.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}`;
+  dBtn.innerHTML=`<span>${lab()}</span>${ICON.chev}`;
+  dBtn.onclick=e=>{e.stopPropagation();datePopover(dBtn,rg=>{histRange=rg;dBtn.querySelector('span').textContent=lab();},{mode:'range',allowPast:true,value:histRange});};
+  dF.appendChild(dBtn);
+  const tW=el('div','ctl'); tW.innerHTML=`<label class="flabel">End reason</label>`;
+  tW.appendChild(makeDropdown({value:histType,options:[{v:'all',l:'All reasons'},{v:'Session ended',l:'Session ended'},{v:'Cancelled by user',l:'Cancelled by user'},{v:'Cancelled by admin',l:'Cancelled by admin'},{v:'Released by user',l:'Released by user'},{v:'Released by admin',l:'Released by admin'},{v:'No-show',l:'No-show'}],onChange:v=>{histType=v;paintHist();}}));
+  const hS=el('div','ctl'); hS.innerHTML=`<label class="flabel">Sort by</label>`;
+  hS.appendChild(makeDropdown({value:histSort,options:[{v:'recent',l:'Most recent'},{v:'oldest',l:'Oldest first'},{v:'az',l:'Room A–Z'}],onChange:v=>{histSort=v;paintHist();}}));
+  fr.append(dF,tW,hS); hs.body.appendChild(fr);
+  const hw=el('div'); hs.body.appendChild(hw);
+  function paintHist(){ hw.innerHTML=''; const f=HISTORY.filter(h=>histType==='all'||h.end===histType); const s=sortBookings(f,histSort); if(!s.length){hw.innerHTML='<div class="empty-state">No history matches.</div>';return;} s.forEach(h=>hw.appendChild(historyRow(h))); }
+  paintHist();
+  body.appendChild(hs.wrap);
+
+  box.appendChild(body); area.appendChild(box);
 }
-function bookingRow(b,kind){
+function bookingRow(b){
   const row=el('div','booking-row');
-  const reason = b.status==='confirmed'?`<span class="pill green">Confirmed</span>`:'';
   row.innerHTML=`
-    <div class="thumb">IMG<span class="tb">${b.type}</span></div>
+    <div class="thumb">PREVIEW</div>
     <div class="br-main">
-      <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:16px;font-weight:700">${b.room}</span>${reason}
+      <div class="br-top"><span class="rn">${b.room}</span>
+        <span class="pill green">Confirmed</span>
         ${b.role==='member'?'<span class="pill blue">You are a member</span>':'<span class="pill amber">You created this</span>'}
       </div>
       <div class="br-cols">
+        <div class="br-col"><div class="k">Type</div><div class="v muted">${b.type}</div></div>
         <div class="br-col"><div class="k">Room code</div><div class="v code">${b.code}</div></div>
         <div class="br-col"><div class="k">Date</div><div class="v">${b.date} · ${b.day}</div></div>
         <div class="br-col"><div class="k">Time</div><div class="v">${m2t(b.from)} – ${m2t(b.to)}</div></div>
@@ -1145,19 +1060,16 @@ function bookingRow(b,kind){
         <div class="br-col"><div class="k">Booking ID</div><div class="v code">${b.bid}</div></div>
       </div>
     </div>`;
-  row.onclick=()=>openUpcomingDetail(b);
-  return row;
+  row.onclick=()=>openUpcomingDetail(b); return row;
 }
 function historyRow(h){
-  const row=el('div','booking-row');
-  const pill = h.end==='Cancelled'?'red':h.end==='Released'?'gray':'green';
+  const row=el('div','booking-row'); const pill=endPill(h.end);
   row.innerHTML=`
-    <div class="thumb">IMG<span class="tb">${h.type}</span></div>
+    <div class="thumb">PREVIEW</div>
     <div class="br-main">
-      <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:16px;font-weight:700">${h.room}</span><span class="pill ${pill}">${h.end}</span>
-      </div>
+      <div class="br-top"><span class="rn">${h.room}</span><span class="pill ${pill}">${h.end}</span></div>
       <div class="br-cols">
+        <div class="br-col"><div class="k">Type</div><div class="v muted">${h.type}</div></div>
         <div class="br-col"><div class="k">Room code</div><div class="v code">${h.code}</div></div>
         <div class="br-col"><div class="k">Date</div><div class="v">${h.date}</div></div>
         <div class="br-col"><div class="k">Time</div><div class="v">${m2t(h.from)} – ${m2t(h.to)}</div></div>
@@ -1165,135 +1077,192 @@ function historyRow(h){
         <div class="br-col"><div class="k">Booking ID</div><div class="v code">${h.bid}</div></div>
       </div>
     </div>`;
-  row.onclick=()=>openHistoryDetail(h);
-  return row;
+  row.onclick=()=>openHistoryDetail(h); return row;
 }
-
-/* upcoming detail (creator -> Modify, member -> view only) */
 function openUpcomingDetail(b){
-  const room=ROOMS.find(r=>r.code===b.code)||{location:'Building · Level',facilities:['Whiteboard','Projector'],capMin:2,capMax:8};
+  const room=ROOMS.find(r=>r.code===b.code)||{location:'Building · Level',capMin:'–',capMax:'–'};
   const p=el('div','panel');
   p.innerHTML=`
-    <div class="panel-head"><h3>Booking details</h3>
-      <span style="font-family:var(--fmono);color:var(--accent);font-size:13px">${b.bid}</span><div class="sp"></div>
-      <button class="panel-close" style="position:static">${ICON.close}</button></div>
+    <div class="panel-head"><h3>Booking details</h3><span class="code-tag">${b.bid}</span><div class="sp"></div></div>
     <div class="panel-body scroll">
-      <div class="detail-title"><span class="nm">${b.room}</span><span class="cd">${b.code}</span><span class="ty">${b.type}</span></div>
+      <div class="detail-title"><span class="nm">${b.room}</span><span class="cd">${b.code}</span><span class="type-badge ${TYPE_CLASS[b.type]}" style="margin:0">${b.type}</span></div>
       <div class="detail-grid">
         <div class="detail-cell"><div class="k">Date</div><div class="v">${b.date} · ${b.day}</div></div>
         <div class="detail-cell"><div class="k">Time</div><div class="v">${m2t(b.from)} – ${m2t(b.to)} (${b.to-b.from} min)</div></div>
-        <div class="detail-cell"><div class="k">Created by</div><div class="v" style="font-family:var(--fmono)">${b.createdBy}</div></div>
+        <div class="detail-cell"><div class="k">Capacity</div><div class="v">${room.capMin} - ${room.capMax} people</div></div>
         <div class="detail-cell"><div class="k">Location</div><div class="v">${room.location}</div></div>
+        <div class="detail-cell"><div class="k">Created by</div><div class="v" style="font-family:var(--fmono)">${b.createdBy}${b.createdBy===ME.sid&&!b.students.includes(ME.sid)?' · you, not in group':''}</div></div>
+        <div class="detail-cell"><div class="k">Booking ID</div><div class="v" style="font-family:var(--fmono)">${b.bid}</div></div>
       </div>
       <div class="subhead">Members (${b.students.length})</div>
       <div class="num-list">${b.students.map((s,i)=>`<div class="item"><span class="n">${i+1}</span><span class="sid">${s}</span><span class="nm">· ${KNOWN_IDS[s]||'Unknown'}</span></div>`).join('')}</div>
+      <div class="warn-note">Only the booking <b>creator (${b.createdBy})</b> can modify or cancel this booking. Members can view the details but can’t make changes.</div>
     </div>
     <div class="panel-foot">
       <button class="btn" id="viewRoom">View room details</button>
       <button class="btn" id="udClose">Close</button>
       ${b.role==='creator'?'<button class="btn solid" id="udMod">Modify booking</button>':''}
     </div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
   p.querySelector('#udClose').onclick=closePanel;
-  p.querySelector('#viewRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===b.code); if(rr)openRoomDetail(rr); };
+  p.querySelector('#viewRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===b.code); if(rr)swapPanel(()=>openRoomDetail(rr,{back:()=>swapPanel(()=>openUpcomingDetail(b))})); };
   if(b.role==='creator')p.querySelector('#udMod').onclick=()=>openModify(b);
   openPanel(p);
 }
 function openModify(b){
-  closePanel();
-  setTimeout(()=>{
-    let ids=[...b.students]; let date=b.date;
+  swapPanel(()=>{
+    const room=ROOMS.find(r=>r.code===b.code)||{name:b.room,code:b.code,capMin:1,capMax:8,bookings:[],status:'available'};
+    let ids=[...b.students],date=b.date,start=null,end=null;
+    const avail=room.status==='fully'?[]:availForModify(room,b);
+    const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
+    const fully=startOpts.length===0;
+    if(!fully&&startOpts.find(o=>o.v===b.from))start=b.from;
     const p=el('div','panel');
     p.innerHTML=`
-      <div class="panel-head"><h3>Modify booking</h3><span style="font-family:var(--fmono);color:var(--accent);font-size:13px">${b.bid}</span><div class="sp"></div>
-        <button class="panel-close" style="position:static">${ICON.close}</button></div>
+      <div class="panel-head"><h3>Modify booking</h3><span class="code-tag">${b.bid}</span><div class="sp"></div></div>
       <div class="panel-body scroll">
-        <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">You can change date, time and members, or cancel. The resource room can’t be changed. Cancelling releases the slot and refunds the time limit.</div>
+        <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">Change date, time and members, or cancel. The room can’t be changed. Cancelling releases the slot and refunds the daily limit.</div>
         <div class="detail-title"><span class="nm">${b.room}</span><span class="cd">${b.code}</span></div>
-        <div class="form-row">
-          <div class="fgroup"><label class="flabel">Date</label><div id="mDate"></div></div>
-          <div class="fgroup"><label class="flabel">Start</label><div id="mStart"></div></div>
-          <div class="fgroup"><label class="flabel">End</label><div id="mEnd"></div></div>
+        <div class="form-row"><div class="fgroup" style="flex:1"><label class="flabel">Date</label><div id="mDate"></div></div>
+          <div class="fgroup" style="flex:none;display:flex;align-items:flex-end"><button class="btn" id="mViewSched">View schedule</button></div></div>
+        <div class="form-row" style="margin-bottom:6px">
+          <div class="fgroup"><label class="flabel">Start time</label><div id="mStart"></div></div>
+          <div class="fgroup"><label class="flabel">End time</label><div id="mEnd"></div></div>
         </div>
+        <div class="field-tip ${fully?'':'hidden'}" id="mTip">This room is fully booked on the selected date. Pick another date to change the time, or only edit members below.</div>
+        <div class="dur-box" style="margin-top:14px"><span class="lab" id="mRange">Keeping ${m2t(b.from)} – ${m2t(b.to)}</span><span class="val" id="mDur">${b.to-b.from} min</span></div>
         <div class="subhead">Members</div>
         <div class="id-add"><input class="input" id="mIdIn" placeholder="Add student ID" maxlength="7"><button class="btn solid" id="mAdd">Add</button></div>
         <div class="id-list" id="mList"></div>
       </div>
-      <div class="panel-foot">
-        <button class="btn danger" id="mCancel">Cancel booking</button>
-        <div style="flex:1"></div>
-        <button class="btn" id="mBack">Back</button>
-        <button class="btn solid" id="mSave">Save changes</button>
-      </div>`;
-    p.querySelector('.panel-close').onclick=closePanel;
-    p.querySelector('#mBack').onclick=()=>openUpcomingDetail(b);
+      <div class="panel-foot"><button class="btn danger" id="mCancel">Cancel booking</button><div style="flex:1"></div><button class="btn" id="mBack">Back</button><button class="btn solid" id="mSave">Save changes</button></div>`;
+    p.querySelector('#mBack').onclick=()=>swapPanel(()=>openUpcomingDetail(b));
+    p.querySelector('#mViewSched').onclick=()=>openSchedule(room,{readonly:true,back:()=>openModify(b)});
     const dBtn=el('button','dd-trigger'); dBtn.innerHTML=`<span>${date}</span>${ICON.chev}`;
-    dBtn.onclick=e=>{e.stopPropagation();openDatePopover(dBtn,d=>{date=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});dBtn.querySelector('span').textContent=date;});};
+    dBtn.onclick=e=>{e.stopPropagation();datePopover(dBtn,d=>{date=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});dBtn.querySelector('span').textContent=date;},{blockWeekend:true});};
     p.querySelector('#mDate').appendChild(dBtn);
-    const tOpts=[];for(let m=480;m<=1320;m+=15)tOpts.push({v:m,l:m2t(m)});
-    p.querySelector('#mStart').appendChild(makeDropdown({value:b.from,options:tOpts}));
-    p.querySelector('#mEnd').appendChild(makeDropdown({value:b.to,options:tOpts}));
+
+    const endMount=p.querySelector('#mEnd');
+    function buildEnd(v,preset){
+      const slot=startOpts.find(o=>o.v===v); const endMax=Math.min(v+120,slot.slotEnd);
+      const eo=[]; for(let m=v+15;m<=endMax;m+=15)eo.push({v:m,l:m2t(m)});
+      end=(preset!=null&&eo.find(o=>o.v===preset))?preset:null;
+      const dd=makeDropdown({placeholder:'Please select',options:eo,value:end,onChange:ev=>{end=ev;dur();}});
+      endMount.innerHTML=''; endMount.appendChild(dd); dur();
+    }
+    const startDD=makeDropdown({placeholder:fully?'Fully booked':'Please select',options:startOpts,value:start,disabled:fully,onChange:v=>{start=v;buildEnd(v,null);}});
+    p.querySelector('#mStart').appendChild(startDD);
+    if(start!=null)buildEnd(start,b.to); else endMount.appendChild(makeDropdown({placeholder:'Please select',disabled:true}));
+    function dur(){ const rl=p.querySelector('#mRange'),dv=p.querySelector('#mDur');
+      if(start!=null&&end!=null){rl.textContent=`${m2t(start)} → ${m2t(end)}`;dv.textContent=`${end-start} min`;}
+      else if(start!=null){rl.textContent=`${m2t(start)} → select end`;dv.textContent='—';}
+      else{rl.textContent=`Keeping ${m2t(b.from)} – ${m2t(b.to)}`;dv.textContent=`${b.to-b.from} min`;} }
+
     const list=p.querySelector('#mList');
     function paint(){ list.innerHTML=''; ids.forEach((id,i)=>{ const c=el('div','id-chip');
-      c.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.close}</button>`;
+      c.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
       c.querySelector('.rm').onclick=()=>{ids.splice(i,1);paint();}; list.appendChild(c); }); }
     p.querySelector('#mAdd').onclick=()=>{ const v=p.querySelector('#mIdIn').value.trim();
-      if(!/^\d{7}$/.test(v))return shakeInput(p.querySelector('#mIdIn'));
+      if(!/^\d{7}$/.test(v))return shake(p.querySelector('#mIdIn'));
       if(ids.includes(v))return dupIdPanel(()=>openModify(b));
       if(!KNOWN_IDS[v])return idNotFoundPanel(()=>openModify(b));
+      if(ids.length>=room.capMax)return msgPanel({kind:'warn',title:'Room is full',text:`This room allows up to ${room.capMax} people.`,buttons:[{label:'Back',cls:'solid',onClick:()=>openModify(b)}]});
       ids.push(v);p.querySelector('#mIdIn').value='';paint(); };
-    p.querySelector('#mCancel').onclick=()=>msgPanel({kind:'warn',title:'Cancel this booking?',text:'The time slot will be released and the daily limit refunded to all members.',
-      buttons:[{label:'Keep booking',cls:'',onClick:()=>openModify(b)},{label:'Cancel booking',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Booking cancelled',text:'The slot has been released.',buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}]});
+    p.querySelector('#mCancel').onclick=()=>msgPanel({kind:'warn',title:'Cancel this booking?',text:'The time slot will be released and the daily limit refunded to all members.',buttons:[{label:'Keep booking',onClick:()=>openModify(b)},{label:'Cancel booking',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Booking cancelled',text:'The slot has been released.',buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}]});
     p.querySelector('#mSave').onclick=()=>msgPanel({kind:'ok',title:'Changes saved',text:'Your booking has been updated.',buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]});
     openPanel(p); paint();
-  },190);
+  });
 }
 function openHistoryDetail(h){
-  const p=el('div','panel');
-  const pill=h.end==='Cancelled'?'red':h.end==='Released'?'gray':'green';
+  const room=ROOMS.find(r=>r.code===h.code)||{capMin:'–',capMax:'–'};
+  const p=el('div','panel'); const pill=endPill(h.end);
   p.innerHTML=`
-    <div class="panel-head"><h3>Past booking</h3><span style="font-family:var(--fmono);color:var(--accent);font-size:13px">${h.bid}</span><div class="sp"></div>
-      <button class="panel-close" style="position:static">${ICON.close}</button></div>
+    <div class="panel-head"><h3>Past booking</h3><span class="code-tag">${h.bid}</span><div class="sp"></div></div>
     <div class="panel-body scroll">
-      <div class="detail-title"><span class="nm">${h.room}</span><span class="cd">${h.code}</span><span class="ty">${h.type}</span></div>
+      <div class="detail-title"><span class="nm">${h.room}</span><span class="cd">${h.code}</span><span class="type-badge ${TYPE_CLASS[h.type]}" style="margin:0">${h.type}</span></div>
       <div style="margin-bottom:16px"><span class="pill ${pill}">End reason: ${h.end}</span></div>
       <div class="detail-grid">
         <div class="detail-cell"><div class="k">Date</div><div class="v">${h.date}</div></div>
         <div class="detail-cell"><div class="k">Time</div><div class="v">${m2t(h.from)} – ${m2t(h.to)} (${h.to-h.from} min)</div></div>
+        <div class="detail-cell"><div class="k">Capacity</div><div class="v">${room.capMin} - ${room.capMax} people</div></div>
         <div class="detail-cell"><div class="k">Created by</div><div class="v" style="font-family:var(--fmono)">${h.createdBy}</div></div>
         <div class="detail-cell"><div class="k">Booking ID</div><div class="v" style="font-family:var(--fmono)">${h.bid}</div></div>
       </div>
       <div class="subhead">Students involved (${h.students.length})</div>
       <div class="num-list">${h.students.map((s,i)=>`<div class="item"><span class="n">${i+1}</span><span class="sid">${s}</span><span class="nm">· ${KNOWN_IDS[s]||'Unknown'}</span></div>`).join('')}</div>
     </div>
-    <div class="panel-foot">
-      <button class="btn" id="hdRoom">View room details</button>
-      <button class="btn solid" id="hdClose">Close</button>
-    </div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
+    <div class="panel-foot"><button class="btn" id="hdRoom">View room details</button><button class="btn solid" id="hdClose">Close</button></div>`;
   p.querySelector('#hdClose').onclick=closePanel;
-  p.querySelector('#hdRoom').onclick=()=>{const rr=ROOMS.find(r=>r.code===h.code);if(rr)openRoomDetail(rr);};
+  p.querySelector('#hdRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===h.code); if(rr)swapPanel(()=>openRoomDetail(rr,{back:()=>swapPanel(()=>openHistoryDetail(h))})); };
   openPanel(p);
 }
-function openRangePopover(anchor,onPick){
-  const pop=el('div','pop-menu'); pop.style.width='auto';
-  const cal=makeCalendar({mode:'range',allowPast:true,value:histRange,onSelect:rg=>{onPick(rg);pop.remove();}});
-  pop.appendChild(cal);
-  const r=anchor.getBoundingClientRect();
-  pop.style.left=Math.min(r.left,innerWidth-340)+'px'; pop.style.top=(r.bottom+6)+'px';
-  $('#popLayer').appendChild(pop);
-  setTimeout(()=>document.addEventListener('click',function hd(e){if(!pop.contains(e.target)){pop.remove();document.removeEventListener('click',hd);}}),0);
+function inProgressRow(b){
+  const row=el('div','booking-row');
+  row.innerHTML=`
+    <div class="thumb">PREVIEW</div>
+    <div class="br-main">
+      <div class="br-top"><span class="rn">${b.room}</span>
+        <span class="pill green">In progress · ends in ${fmtDur(b.endsIn)}</span>
+        ${b.role==='member'?'<span class="pill blue">You are a member</span>':'<span class="pill amber">You created this</span>'}
+      </div>
+      <div class="br-cols">
+        <div class="br-col"><div class="k">Type</div><div class="v muted">${b.type}</div></div>
+        <div class="br-col"><div class="k">Room code</div><div class="v code">${b.code}</div></div>
+        <div class="br-col"><div class="k">Date</div><div class="v">${b.date} · ${b.day}</div></div>
+        <div class="br-col"><div class="k">Time</div><div class="v">${m2t(b.from)} – ${m2t(b.to)}</div></div>
+        <div class="br-col"><div class="k">Created by</div><div class="v code">${b.createdBy}</div></div>
+        <div class="br-col"><div class="k">Booking ID</div><div class="v code">${b.bid}</div></div>
+      </div>
+    </div>`;
+  row.onclick=()=>openInProgressDetail(b); return row;
+}
+function openInProgressDetail(b){
+  const room=ROOMS.find(r=>r.code===b.code)||{location:'Building · Level',capMin:'–',capMax:'–'};
+  const p=el('div','panel');
+  p.innerHTML=`
+    <div class="panel-head"><h3>Booking in progress</h3><span class="code-tag">${b.bid}</span><div class="sp"></div></div>
+    <div class="panel-body scroll">
+      <div class="detail-title"><span class="nm">${b.room}</span><span class="cd">${b.code}</span><span class="type-badge ${TYPE_CLASS[b.type]}" style="margin:0">${b.type}</span></div>
+      <div style="margin-bottom:16px"><span class="pill green">In progress · ends in ${fmtDur(b.endsIn)}</span></div>
+      <div class="detail-grid">
+        <div class="detail-cell"><div class="k">Date</div><div class="v">${b.date} · ${b.day}</div></div>
+        <div class="detail-cell"><div class="k">Time</div><div class="v">${m2t(b.from)} – ${m2t(b.to)} (${b.to-b.from} min)</div></div>
+        <div class="detail-cell"><div class="k">Capacity</div><div class="v">${room.capMin} - ${room.capMax} people</div></div>
+        <div class="detail-cell"><div class="k">Location</div><div class="v">${room.location}</div></div>
+        <div class="detail-cell"><div class="k">Created by</div><div class="v" style="font-family:var(--fmono)">${b.createdBy}</div></div>
+        <div class="detail-cell"><div class="k">Booking ID</div><div class="v" style="font-family:var(--fmono)">${b.bid}</div></div>
+      </div>
+      <div class="subhead">Members (${b.students.length})</div>
+      <div class="num-list">${b.students.map((s,i)=>`<div class="item"><span class="n">${i+1}</span><span class="sid">${s}</span><span class="nm">· ${KNOWN_IDS[s]||'Unknown'}</span></div>`).join('')}</div>
+      <div class="warn-note">This booking is currently active, so it can no longer be modified. ${b.role==='creator'?`As the <b>creator (${b.createdBy})</b> you can release the room to end the booking early and free it for others.`:`Only the booking <b>creator (${b.createdBy})</b> can release the room early.`}</div>
+    </div>
+    <div class="panel-foot">
+      <button class="btn" id="ipRoom">View room details</button>
+      <button class="btn" id="ipClose">Close</button>
+      ${b.role==='creator'?'<button class="btn danger" id="ipRelease">Release room</button>':''}
+    </div>`;
+  p.querySelector('#ipClose').onclick=closePanel;
+  p.querySelector('#ipRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===b.code); if(rr)swapPanel(()=>openRoomDetail(rr,{back:()=>swapPanel(()=>openInProgressDetail(b))})); };
+  if(b.role==='creator')p.querySelector('#ipRelease').onclick=()=>releaseConfirm(b);
+  openPanel(p);
+}
+function releaseConfirm(b){
+  msgPanel({kind:'warn',title:'Release this room now?',
+    text:'Releasing ends the booking immediately for everyone in the group and frees the room for other students. This can’t be undone.',
+    buttons:[
+      {label:'Keep booking',onClick:()=>openInProgressDetail(b)},
+      {label:'Release room',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Room released',text:`${b.room} (${b.code}) has been released and the booking ended early. The remaining time is freed for others.`,buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}
+    ]});
 }
 
 /* =========================================================
-   PROFILE MENU + DETAILS
+   PROFILE
 ========================================================= */
 $('#avatarBtn').onclick=e=>{e.stopPropagation();toggleProfileMenu();};
 function toggleProfileMenu(){
   if($('#profMenu')){$('#profMenu').remove();return;}
   const m=el('div','pop-menu'); m.id='profMenu';
   m.innerHTML=`
-    <div class="pm-head"><div class="av">TH</div><div><div class="nm">${ME.name}</div><div class="sid">${ME.sid}</div><div class="role">${ME.role}</div></div></div>
+    <div class="pm-head"><div class="av">${ME.initials}</div><div><div class="nm">${ME.name}</div><div class="sid">${ME.sid}</div><div class="role">${ME.role}</div></div></div>
     <div class="pm-item" id="pmDetails">${ICON.user} Profile details</div>
     <div class="pm-item signout" id="pmOut">${ICON.out} Sign out</div>`;
   const r=$('#avatarBtn').getBoundingClientRect();
@@ -1304,15 +1273,17 @@ function toggleProfileMenu(){
   setTimeout(()=>document.addEventListener('click',function h(e){if(!m.contains(e.target)){m.remove();document.removeEventListener('click',h);}}),0);
 }
 function openProfile(){
-  const limits={'2026-06-23':{used:120,cap:240},'2026-06-25':{used:120,cap:240},'2026-06-26':{used:240,cap:240}};
+  const limits={'2026-06-09':{used:120,cap:240},'2026-06-11':{used:240,cap:240},'2026-06-16':{used:120,cap:240},'2026-06-19':{used:120,cap:240},'2026-06-22':{used:120,cap:240},'2026-06-23':{used:120,cap:240}};
   const p=el('div','panel wide');
   p.innerHTML=`
-    <div class="panel-head"><div class="av" style="width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,#2c6f88,#3fa9c9);color:#06222b;font-weight:800;display:flex;align-items:center;justify-content:center">TH</div>
-      <h3>${ME.name}</h3><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700">${ME.role}</span><div class="sp"></div>
-      <button class="panel-close" style="position:static">${ICON.close}</button></div>
+    <div class="panel-head"><div class="av" style="width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;font-weight:800;display:flex;align-items:center;justify-content:center">${ME.initials}</div>
+      <h3>${ME.name}</h3><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700">${ME.role}</span><div class="sp"></div></div>
     <div class="panel-body scroll">
-      <div style="color:var(--txt-3);font-size:13px;margin-bottom:16px">Read-only — managed by the main system.</div>
-      <div class="detail-grid" style="grid-template-columns:1fr 1fr">
+      <div id="bcalMount"></div>
+      <div style="color:var(--txt-3);font-size:13px;margin:-8px 0 16px">Daily booking limit 240 min (4h) per day · applies to every student in a booking · cancelling refunds the time.</div>
+      <div class="subhead">Profile details</div>
+      <div style="color:var(--txt-3);font-size:12.5px;margin:-6px 0 12px">Read-only — managed by the main system.</div>
+      <div class="detail-grid">
         <div class="detail-cell"><div class="k">Student ID</div><div class="v" style="font-family:var(--fmono)">${ME.sid}</div></div>
         <div class="detail-cell"><div class="k">Name</div><div class="v">${ME.name}</div></div>
         <div class="detail-cell"><div class="k">School email</div><div class="v">${ME.schoolEmail}</div></div>
@@ -1324,98 +1295,100 @@ function openProfile(){
         <div class="detail-cell"><div class="k">Last login</div><div class="v">${ME.lastLogin}</div></div>
         <div class="detail-cell"><div class="k">Joined</div><div class="v">${ME.joined}</div></div>
       </div>
-      <div class="subhead" style="margin-top:22px">Daily booking limit · 240 min / day</div>
-      <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">Applies to every student in a booking. Cancelling refunds the time. Dates with usage are marked below.</div>
-      <div id="limCal"></div>
     </div>
     <div class="panel-foot"><button class="btn solid" id="profClose">Close</button></div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
   p.querySelector('#profClose').onclick=closePanel;
-  p.querySelector('#limCal').appendChild(makeCalendar({mode:'single',allowPast:true,limits,onSelect:()=>{}}));
+  p.querySelector('#bcalMount').appendChild(makeBookingCalendar(limits));
   openPanel(p);
 }
 
 /* =========================================================
-   CHAT DRAWER (no blur, background clickable)
+   CHAT / HELP / TOOLTIP / DEBUG
 ========================================================= */
 $('#chatBtn').onclick=()=>$('#chatDrawer').classList.add('open');
 $('#chatClose').onclick=()=>$('#chatDrawer').classList.remove('open');
-$('#chatSend').onclick=sendChat;
-$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
-function sendChat(){
-  const v=$('#chatInput').value.trim(); if(!v)return;
-  $('#chatBody').appendChild(el('div','bubble me',v)); $('#chatInput').value='';
-  setTimeout(()=>{ $('#chatBody').appendChild(el('div','bubble bot','(Demo) The assistant would answer here using RAG over room data.')); $('#chatBody').scrollTop=1e9; },350);
-  $('#chatBody').scrollTop=1e9;
-}
+$('#chatSend').onclick=()=>sendChat($('#chatInput').value);
+$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat($('#chatInput').value);});
+document.querySelectorAll('#chatSuggest .chat-chip').forEach(c=>c.onclick=()=>{ c.dataset.q==='find'?chatFind():chatFull(); });
+function pushBubble(cls,html){ const b=el('div','bubble '+cls,html); $('#chatBody').appendChild(b); $('#chatBody').scrollTop=1e9; return b; }
+function sendChat(v){ v=(v||'').trim(); if(!v)return; pushBubble('me',v); $('#chatInput').value='';
+  const low=v.toLowerCase();
+  setTimeout(()=>{ if(/full|busy|lab/.test(low))chatFull(false); else if(/free|room|book|pod|avail|slot/.test(low))chatFind(false); else pushBubble('bot','(Demo) I can find an open room or check availability — try “find me a free room”.'); },300); }
+function chatFind(echo=true){ if(echo)pushBubble('me','Find me a free room');
+  setTimeout(()=>{ const b=pushBubble('bot','Study Pod Cedar (SP-210) in Building 2 is open from 11:00 today. Want to book it?');
+    const btn=el('button','act','Book Study Pod Cedar'); btn.onclick=()=>openRoomDetail(ROOMS[5]); b.appendChild(btn); },echo?320:0); }
+function chatFull(echo=true){ if(echo)pushBubble('me','Is the lab free now?');
+  setTimeout(()=>pushBubble('bot','Lab Workstation Cobalt (LW-309) is fully booked for the rest of today. The next free lab workstation is Quartz (LW-411) — shall I find a slot?'),echo?320:0); }
 
-/* =========================================================
-   HELP / RULES / TERMS / PRIVACY
-========================================================= */
 $('#helpBtn').onclick=openHelp;
 function openHelp(){
   const p=el('div','panel');
   p.innerHTML=`
-    <div class="panel-head"><h3>Help &amp; policies</h3><div class="sp"></div>
-      <button class="panel-close" style="position:static">${ICON.close}</button></div>
+    <div class="panel-head"><h3>Help &amp; policies</h3><div class="sp"></div></div>
     <div class="panel-body scroll">
       <div class="subhead">Rules &amp; regulations</div>
       <ul style="color:var(--txt-2);font-size:14.5px;line-height:1.9;padding-left:18px;margin-bottom:18px">
         <li>Bookable hours are 08:00–22:00, Monday to Friday. Closed weekends.</li>
         <li>Each student may create up to 240 minutes (4 hours) of bookings per day.</li>
-        <li>Single bookings run from 15 minutes up to 120 minutes.</li>
-        <li>A booking must meet the room's minimum group size to be confirmed.</li>
+        <li>Single bookings run from 15 up to 120 minutes.</li>
+        <li>A booking must meet the room's minimum group size to confirm.</li>
         <li>Only the creator can modify or cancel a booking.</li>
       </ul>
       <div class="subhead">Terms &amp; conditions</div>
-      <p style="color:var(--txt-2);font-size:14.5px;margin-bottom:18px">Resources are provided for academic use. Misuse, no-shows or damage may lead to suspension of booking privileges. Placeholder text for the wireframe.</p>
+      <p style="color:var(--txt-2);font-size:14.5px;margin-bottom:18px">Resources are for academic use. Misuse, no-shows or damage may suspend booking privileges. Placeholder text for the wireframe.</p>
       <div class="subhead">Privacy policy</div>
       <p style="color:var(--txt-2);font-size:14.5px">This sub-system reads student details from the main campus system and does not store edits. Booking records are retained for reporting. Placeholder text for the wireframe.</p>
     </div>
     <div class="panel-foot"><button class="btn solid" id="helpClose">Close</button></div>`;
-  p.querySelector('.panel-close').onclick=closePanel;
-  p.querySelector('#helpClose').onclick=closePanel;
-  openPanel(p);
+  p.querySelector('#helpClose').onclick=closePanel; openPanel(p);
 }
 
-/* =========================================================
-   TOOLTIPS
-========================================================= */
 const tip=$('#tip');
-function attachTip(node,html){
-  node.addEventListener('mousemove',e=>{ tip.innerHTML=html; tip.classList.add('show');
-    let x=e.clientX+14,y=e.clientY+14; if(x+260>innerWidth)x=e.clientX-260; tip.style.left=x+'px'; tip.style.top=y+'px'; });
-  node.addEventListener('mouseleave',()=>tip.classList.remove('show'));
-}
+function attachTip(node,html){ node.addEventListener('mousemove',e=>{tip.innerHTML=html;tip.classList.add('show');let x=e.clientX+14,y=e.clientY+14;if(x+260>innerWidth)x=e.clientX-260;tip.style.left=x+'px';tip.style.top=y+'px';}); node.addEventListener('mouseleave',()=>tip.classList.remove('show')); }
 
-/* =========================================================
-   DEBUG MENU
-========================================================= */
 $('#debugFab').onclick=e=>{e.stopPropagation();$('#debugMenu').classList.toggle('hidden');renderDebug();};
-document.addEventListener('click',e=>{ if(!$('#debugBubble').contains(e.target))$('#debugMenu').classList.add('hidden'); });
-function renderDebug(){
-  const list=$('#debugList'); if(list.dataset.done)return; list.dataset.done='1';
-  const items=[
-    ['Profile menu',()=>toggleProfileMenu()],
-    ['Profile details',()=>openProfile()],
-    ['Help / rules / policies',()=>openHelp()],
-    ['Chat assistant drawer',()=>$('#chatDrawer').classList.add('open')],
-    ['Room detail · Available',()=>openRoomDetail(ROOMS[0])],
-    ['Room detail · Occupied',()=>openRoomDetail(ROOMS[1])],
-    ['Room detail · Fully booked',()=>openRoomDetail(ROOMS[2])],
-    ['Schedule panel',()=>openSchedule(ROOMS[0])],
-    ['Schedule · split availability',()=>openSchedule(ROOMS[5])],
-    ['Time select panel',()=>openTimeSelect(ROOMS[0],{s:720,e:1320})],
-    ['Popup · Student ID not found',()=>idNotFoundPanel(closePanel)],
-    ['Popup · Duplicate ID',()=>dupIdPanel(closePanel)],
-    ['Popup · Daily limit reached',()=>limitPanel()],
-    ['Popup · Booking confirmed',()=>successPanel(ROOMS[0])],
-    ['Upcoming detail · creator',()=>openUpcomingDetail(UPCOMING[0])],
-    ['Upcoming detail · member',()=>openUpcomingDetail(UPCOMING[1])],
-    ['Modify booking',()=>openModify(UPCOMING[0])],
-    ['History detail',()=>openHistoryDetail(HISTORY[0])],
+document.addEventListener('click',e=>{if(!$('#debugBubble').contains(e.target))$('#debugMenu').classList.add('hidden');});
+function renderDebug(){ const list=$('#debugList'); if(list.dataset.done)return; list.dataset.done='1';
+  list.appendChild(el('div','note','Do not build this panel in Figma. It exists only so you can reach every screen and popup to confirm each one is designed.'));
+  const groups=[
+    ['Navigation & panels',[
+      ['Profile menu',()=>toggleProfileMenu()],
+      ['Profile details (calendar + info)',()=>openProfile()],
+      ['Help / rules / policies',()=>openHelp()],
+      ['Chat assistant drawer',()=>$('#chatDrawer').classList.add('open')],
+      ['Filters drawer',()=>{switchTab('book');toggleDrawer(true);}],
+    ]],
+    ['Room detail',[
+      ['Room detail · Available',()=>openRoomDetail(ROOMS[0])],
+      ['Room detail · Occupied',()=>openRoomDetail(ROOMS[1])],
+      ['Room detail · Fully booked',()=>openRoomDetail(ROOMS[2])],
+    ]],
+    ['Booking flow',[
+      ['Schedule · split availability',()=>openSchedule(ROOMS[5])],
+      ['Schedule · busy (multi-row, scrolls)',()=>openSchedule(ROOMS[6])],
+      ['Time select panel',()=>openTimeSelect(ROOMS[0],{s:720,e:1320})],
+      ['Popup · Student ID not found',()=>idNotFoundPanel(closePanel)],
+      ['Popup · Duplicate ID',()=>dupIdPanel(closePanel)],
+      ['Popup · Daily limit reached',()=>limitPanel()],
+      ['Popup · Booking confirmed',()=>successPanel(ROOMS[0])],
+    ]],
+    ['My bookings',[
+      ['In progress detail · creator (can release)',()=>openInProgressDetail(INPROGRESS[0])],
+      ['In progress detail · member (view only)',()=>openInProgressDetail(INPROGRESS[1])],
+      ['Release · confirm dialog',()=>releaseConfirm(INPROGRESS[0])],
+      ['Upcoming detail · default (creator)',()=>openUpcomingDetail(UPCOMING[0])],
+      ['Upcoming detail · member',()=>openUpcomingDetail(UPCOMING[1])],
+      ['Upcoming detail · fully-booked room',()=>openUpcomingDetail(UPCOMING[2])],
+      ['Upcoming detail · creator not in group',()=>openUpcomingDetail(UPCOMING[3])],
+      ['Modify · default (creator)',()=>openModify(UPCOMING[0])],
+      ['Modify · fully-booked room',()=>openModify(UPCOMING[2])],
+      ['Modify · creator not in group',()=>openModify(UPCOMING[3])],
+      ['History detail · session ended',()=>openHistoryDetail(HISTORY[0])],
+      ['History detail · no-show',()=>openHistoryDetail(HISTORY.find(h=>h.end==='No-show'))],
+    ]],
   ];
-  items.forEach(([label,fn])=>{ const d=el('div','di',label); d.onclick=()=>{$('#debugMenu').classList.add('hidden');fn();}; list.appendChild(d); });
+  groups.forEach(([g,items])=>{ list.appendChild(el('div','grp',g));
+    items.forEach(([l,fn])=>{const d=el('div','di',l);d.onclick=()=>{$('#debugMenu').classList.add('hidden');fn();};list.appendChild(d);}); });
 }
 
 </script>
