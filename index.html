@@ -428,10 +428,10 @@ input{font-family:inherit}
     </div>
     <div class="login-form">
       <h2>Sign in</h2>
-      <div class="sub">Use your campus Student ID</div>
+      <div class="sub">Enter your campus Student ID to continue</div>
       <div class="field"><label>Student ID</label><input id="loginId" type="text" placeholder="e.g. 1000001" maxlength="7" autocomplete="off"></div>
-      <div class="field"><label>Password</label><input id="loginPw" type="password" placeholder="••••••••"></div>
-      <button class="btn-primary" id="signInBtn">Sign in</button>
+      <button class="btn-primary" id="signInBtn">Continue</button>
+      <div id="loginErr" style="color:#ff6b6b;font-size:12.5px;min-height:16px;margin-top:10px"></div>
     </div>
   </div>
 </div>
@@ -446,13 +446,10 @@ input{font-family:inherit}
     <div class="hours-pill"><span class="d"></span> Open now · 08:00–22:00 (Mon–Fri)</div>
     <div class="top-spacer"></div>
     <div class="clock"><div class="t" id="clkTime">--:--:--</div><div class="d" id="clkDate">—</div></div>
-    <button class="icon-btn" id="helpBtn" title="Help, rules &amp; policies">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 4.5 2.6c-.9.5-1.6 1-1.6 2.1"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/></svg>
-    </button>
     <button class="icon-btn" id="chatBtn" title="Booking assistant">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.3-.5L3 21l1.6-4A8.4 8.4 0 1 1 21 11.5z"/></svg>
     </button>
-    <button class="avatar-btn" id="avatarBtn">AM</button>
+    <button class="avatar-btn" id="avatarBtn" title="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
   </div>
 
   <div class="body-row" id="bodyRow">
@@ -481,7 +478,7 @@ input{font-family:inherit}
 <!-- CHAT DRAWER -->
 <div id="chatDrawer">
   <div class="chat-head"><span class="dot"></span>
-    <div><h3>Booking assistant</h3><div class="sub">Ask about rooms, slots &amp; rules</div></div>
+    <div><h3>Booking assistant</h3><div class="sub">Ask about rooms, slots, rules &amp; campus policies</div></div>
     <div class="sp"></div>
     <button class="icon-btn" id="chatClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
@@ -764,9 +761,17 @@ function makeBookingCalendar(limits){
 /* =========================================================
    LOGIN + CLOCK
 ========================================================= */
-$('#signInBtn').onclick=()=>{ $('#loginPage').classList.add('hidden'); $('#dashPage').classList.remove('hidden'); renderFilters(); switchTab('book'); startClock(); };
-$('#loginId').addEventListener('keydown',e=>{if(e.key==='Enter')$('#loginPw').focus();});
-$('#loginPw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#signInBtn').click();});
+$('#signInBtn').onclick=()=>{
+  const id=($('#loginId').value||'').trim();
+  if(!/^\d{7}$/.test(id)){ $('#loginErr').textContent='Enter a valid 7-digit Student ID.'; $('#loginId').focus(); return; }
+  $('#loginErr').textContent=''; ME.sid=id;
+  $('#loginPage').classList.add('hidden'); $('#dashPage').classList.remove('hidden'); renderFilters(); switchTab('book'); startClock();
+};
+$('#loginId').addEventListener('keydown',e=>{if(e.key==='Enter')$('#signInBtn').click();});
+function signOut(){
+  $('#dashPage').classList.add('hidden'); $('#loginPage').classList.remove('hidden');
+  $('#loginId').value=''; if($('#loginErr'))$('#loginErr').textContent=''; ME.sid='';
+}
 function startClock(){ const u=()=>{const d=new Date(); $('#clkTime').textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; $('#clkDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'short',year:'numeric'});}; u(); setInterval(u,1000); }
 
 /* =========================================================
@@ -1262,39 +1267,31 @@ function toggleProfileMenu(){
   if($('#profMenu')){$('#profMenu').remove();return;}
   const m=el('div','pop-menu'); m.id='profMenu';
   m.innerHTML=`
-    <div class="pm-head"><div class="av">${ME.initials}</div><div><div class="nm">${ME.name}</div><div class="sid">${ME.sid}</div><div class="role">${ME.role}</div></div></div>
-    <div class="pm-item" id="pmDetails">${ICON.user} Profile details</div>
+    <div class="pm-head"><div class="av">${ICON.user}</div><div><div class="sid">${ME.sid}</div><div class="role">Signed in</div></div></div>
+    <div class="pm-item" id="pmLimit">${ICON.user} Daily limit</div>
     <div class="pm-item signout" id="pmOut">${ICON.out} Sign out</div>`;
   const r=$('#avatarBtn').getBoundingClientRect();
   m.style.right=(innerWidth-r.right)+'px'; m.style.top=(r.bottom+8)+'px';
   $('#popLayer').appendChild(m);
-  m.querySelector('#pmDetails').onclick=()=>{m.remove();openProfile();};
-  m.querySelector('#pmOut').onclick=()=>location.reload();
+  m.querySelector('#pmLimit').onclick=()=>{m.remove();openDailyLimit();};
+  m.querySelector('#pmOut').onclick=()=>{m.remove();signOut();};
   setTimeout(()=>document.addEventListener('click',function h(e){if(!m.contains(e.target)){m.remove();document.removeEventListener('click',h);}}),0);
 }
-function openProfile(){
+function openDailyLimit(){
   const limits={'2026-06-09':{used:120,cap:240},'2026-06-11':{used:240,cap:240},'2026-06-16':{used:120,cap:240},'2026-06-19':{used:120,cap:240},'2026-06-22':{used:120,cap:240},'2026-06-23':{used:120,cap:240}};
+  const today='2026-06-23'; const t=limits[today]||{used:0,cap:240};
   const p=el('div','panel wide');
   p.innerHTML=`
-    <div class="panel-head"><div class="av" style="width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;font-weight:800;display:flex;align-items:center;justify-content:center">${ME.initials}</div>
-      <h3>${ME.name}</h3><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700">${ME.role}</span><div class="sp"></div></div>
+    <div class="panel-head"><div class="av" style="width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+      <h3>Daily limit</h3><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700;font-family:var(--fmono)">${ME.sid}</span><div class="sp"></div></div>
     <div class="panel-body scroll">
-      <div id="bcalMount"></div>
-      <div style="color:var(--txt-3);font-size:13px;margin:-8px 0 16px">Daily booking limit 240 min (4h) per day · applies to every student in a booking · cancelling refunds the time.</div>
-      <div class="subhead">Profile details</div>
-      <div style="color:var(--txt-3);font-size:12.5px;margin:-6px 0 12px">Read-only — managed by the main system.</div>
       <div class="detail-grid">
-        <div class="detail-cell"><div class="k">Student ID</div><div class="v" style="font-family:var(--fmono)">${ME.sid}</div></div>
-        <div class="detail-cell"><div class="k">Name</div><div class="v">${ME.name}</div></div>
-        <div class="detail-cell"><div class="k">School email</div><div class="v">${ME.schoolEmail}</div></div>
-        <div class="detail-cell"><div class="k">Personal email</div><div class="v">${ME.personalEmail}</div></div>
-        <div class="detail-cell"><div class="k">Role</div><div class="v">${ME.role}</div></div>
-        <div class="detail-cell"><div class="k">Faculty</div><div class="v">${ME.faculty}</div></div>
-        <div class="detail-cell"><div class="k">School</div><div class="v">${ME.school}</div></div>
-        <div class="detail-cell"><div class="k">Programme</div><div class="v">${ME.programme}</div></div>
-        <div class="detail-cell"><div class="k">Last login</div><div class="v">${ME.lastLogin}</div></div>
-        <div class="detail-cell"><div class="k">Joined</div><div class="v">${ME.joined}</div></div>
+        <div class="detail-cell"><div class="k">Today · ${today}</div><div class="v">${fmtDur(t.used)} of ${fmtDur(t.cap)} used</div></div>
+        <div class="detail-cell"><div class="k">Remaining today</div><div class="v">${fmtDur(Math.max(0,t.cap-t.used))}</div></div>
       </div>
+      <div style="color:var(--txt-3);font-size:13px;margin:14px 0 18px">Daily booking limit is 240 min (4h) per day and applies to every student in a booking. This is <b>not stored</b> — it is checked live from the day's booking records. Cancelling or releasing a booking frees the time back up.</div>
+      <div class="subhead">Usage this month</div>
+      <div id="bcalMount"></div>
     </div>
     <div class="panel-foot"><button class="btn solid" id="profClose">Close</button></div>`;
   p.querySelector('#profClose').onclick=closePanel;
@@ -1320,28 +1317,6 @@ function chatFind(echo=true){ if(echo)pushBubble('me','Find me a free room');
 function chatFull(echo=true){ if(echo)pushBubble('me','Is the lab free now?');
   setTimeout(()=>pushBubble('bot','Lab Workstation Cobalt (LW-309) is fully booked for the rest of today. The next free lab workstation is Quartz (LW-411) — shall I find a slot?'),echo?320:0); }
 
-$('#helpBtn').onclick=openHelp;
-function openHelp(){
-  const p=el('div','panel');
-  p.innerHTML=`
-    <div class="panel-head"><h3>Help &amp; policies</h3><div class="sp"></div></div>
-    <div class="panel-body scroll">
-      <div class="subhead">Rules &amp; regulations</div>
-      <ul style="color:var(--txt-2);font-size:14.5px;line-height:1.9;padding-left:18px;margin-bottom:18px">
-        <li>Bookable hours are 08:00–22:00, Monday to Friday. Closed weekends.</li>
-        <li>Each student may create up to 240 minutes (4 hours) of bookings per day.</li>
-        <li>Single bookings run from 15 up to 120 minutes.</li>
-        <li>A booking must meet the room's minimum group size to confirm.</li>
-        <li>Only the creator can modify or cancel a booking.</li>
-      </ul>
-      <div class="subhead">Terms &amp; conditions</div>
-      <p style="color:var(--txt-2);font-size:14.5px;margin-bottom:18px">Resources are for academic use. Misuse, no-shows or damage may suspend booking privileges. Placeholder text for the wireframe.</p>
-      <div class="subhead">Privacy policy</div>
-      <p style="color:var(--txt-2);font-size:14.5px">This sub-system reads student details from the main campus system and does not store edits. Booking records are retained for reporting. Placeholder text for the wireframe.</p>
-    </div>
-    <div class="panel-foot"><button class="btn solid" id="helpClose">Close</button></div>`;
-  p.querySelector('#helpClose').onclick=closePanel; openPanel(p);
-}
 
 const tip=$('#tip');
 function attachTip(node,html){ node.addEventListener('mousemove',e=>{tip.innerHTML=html;tip.classList.add('show');let x=e.clientX+14,y=e.clientY+14;if(x+260>innerWidth)x=e.clientX-260;tip.style.left=x+'px';tip.style.top=y+'px';}); node.addEventListener('mouseleave',()=>tip.classList.remove('show')); }
@@ -1352,9 +1327,8 @@ function renderDebug(){ const list=$('#debugList'); if(list.dataset.done)return;
   list.appendChild(el('div','note','Do not build this panel in Figma. It exists only so you can reach every screen and popup to confirm each one is designed.'));
   const groups=[
     ['Navigation & panels',[
-      ['Profile menu',()=>toggleProfileMenu()],
-      ['Profile details (calendar + info)',()=>openProfile()],
-      ['Help / rules / policies',()=>openHelp()],
+      ['Account menu (daily limit + sign out)',()=>toggleProfileMenu()],
+      ['Daily limit panel',()=>openDailyLimit()],
       ['Chat assistant drawer',()=>$('#chatDrawer').classList.add('open')],
       ['Filters drawer',()=>{switchTab('book');toggleDrawer(true);}],
     ]],
