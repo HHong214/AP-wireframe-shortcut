@@ -261,6 +261,9 @@ input{font-family:inherit}
 .slot.booked{background:var(--red-soft);border-color:rgba(232,93,84,.4)}
 .slot.booked .st{color:#ff9089}
 .slot.booked .bid{font-family:var(--fmono);font-size:11.5px;color:var(--bookid);margin-top:5px}
+.slot.avail.ref{cursor:default}
+.slot.avail.ref:hover{background:var(--green-soft);transform:none}
+.sched-full{border-radius:12px;padding:20px 16px;text-align:center;font-weight:700;background:var(--red-soft);border:1px solid rgba(232,93,84,.4);color:#ff9089}
 
 .form-row{display:flex;gap:14px;margin-bottom:16px}
 .form-row .fgroup{flex:1}
@@ -734,9 +737,9 @@ function makeBookingCalendar(limits){
     Object.keys(limits).forEach(k=>{ const d=new Date(k); if(d.getMonth()===view.getMonth()&&d.getFullYear()===view.getFullYear()){ usedMin+=limits[k].used; daysBooked++; } });
     const sum=el('div','bcal-sum');
     sum.innerHTML=`
-      <div class="s"><div class="k">Booked this month</div><div class="v">${(usedMin/60).toFixed(1)}h</div></div>
+      <div class="s"><div class="k">Booked this month</div><div class="v">${usedMin} min</div></div>
       <div class="s"><div class="k">Days with bookings</div><div class="v">${daysBooked}</div></div>
-      <div class="s"><div class="k">Daily cap</div><div class="v">4h / day</div></div>`;
+      <div class="s"><div class="k">Daily cap</div><div class="v">240 min / day</div></div>`;
     wrap.appendChild(sum);
 
     const grid=el('div','bcal-grid'); DOW.forEach(d=>grid.appendChild(el('div','bcal-dow',d)));
@@ -750,7 +753,7 @@ function makeBookingCalendar(limits){
       if(key===ymd(TODAY))cell.classList.add('today');
       if(wknd)cell.classList.add('weekend');
       const L=limits[key];
-      if(L){ const full=L.used>=L.cap; cell.classList.add(full?'full':'part'); cell.innerHTML+=`<div class="used">used ${L.used/60}h / ${L.cap/60}h</div>`; }
+      if(L){ const full=L.used>=L.cap; cell.classList.add(full?'full':'part'); cell.innerHTML+=`<div class="used">${L.used}/${L.cap} min</div>`; }
       grid.appendChild(cell); // display only — intentionally not clickable
     }
     wrap.appendChild(grid);
@@ -888,9 +891,9 @@ function openRoomDetail(r,opts={}){
     </div>
     <div class="panel-foot"></div>`;
   const foot=p.querySelector('.panel-foot');
-  if(opts.back){ const back=el('button','btn solid','Back'); back.onclick=opts.back; foot.appendChild(back); }
+  if(opts.back){ const back=el('button','btn','Back'); back.onclick=opts.back; foot.appendChild(back); }
   else{ const close=el('button','btn','Close'); close.onclick=closePanel; foot.appendChild(close);
-    if(r.status!=='fully'){ const s=el('button','btn solid','Schedule'); s.onclick=()=>openSchedule(r); foot.appendChild(s); } }
+    if(r.status!=='fully'){ const s=el('button','btn solid','Schedule'); s.onclick=()=>openTimeSelect(r); foot.appendChild(s); } }
   openPanel(p);
 }
 
@@ -899,7 +902,7 @@ function buildSlots(r){ const out=[]; let t=480; for(const b of [...r.bookings].
 function availSlotsOnly(r){ return buildSlots(r).filter(s=>s.type==='avail'); }
 function availForModify(room,b){ const others=(room.bookings||[]).filter(x=>!(x.s<b.to&&x.e>b.from)); return availSlotsOnly({bookings:others}); }
 function slotBox(r,s,interactive){
-  const box=el('div','slot '+(s.type==='avail'?'avail':'booked'));
+  const box=el('div','slot '+(s.type==='avail'?'avail':'booked')+(interactive?'':' ref'));
   if(s.type==='avail'){
     box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">Available</div><div class="range">${Math.round((s.e-s.s)/6)/10} h window</div>`;
     if(interactive){ box.onclick=()=>openTimeSelect(r,s); } else { box.style.cursor='default'; }
@@ -924,68 +927,73 @@ function openSchedule(r,opts={}){
     const rows=p.querySelector('#schedRows');
     for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(s=>row.appendChild(slotBox(r,s,!opts.readonly))); rows.appendChild(row); }
     const foot=p.querySelector('.panel-foot');
-    if(opts.back){ const b=el('button','btn solid','Back'); b.onclick=opts.back; foot.appendChild(b); }
-    else { const c=el('button','btn solid','Close'); c.onclick=closePanel; foot.appendChild(c); }
+    if(opts.back){ const b=el('button','btn','Back'); b.onclick=opts.back; foot.appendChild(b); }
+    else { const c=el('button','btn','Close'); c.onclick=closePanel; foot.appendChild(c); }
     openPanel(p);
   });
 }
 
 /* time select */
 let BK=null;
-function openTimeSelect(r,clicked){ swapPanel(()=>{ BK={r,ids:[ME.sid],start:null,end:null}; renderTimeSelect(clicked); }); }
+function openTimeSelect(r,clicked){ swapPanel(()=>{ BK={r,ids:[ME.sid],start:null,end:null,date:'Tue, 23 Jun 2026'}; renderTimeSelect(clicked); }); }
 function renderTimeSelect(clicked){
   const r=BK.r, avail=availSlotsOnly(r);
   const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
-  const p=el('div','panel');
+  const slots=buildSlots(r); const fully=startOpts.length===0;
+  const p=el('div','panel wide');
   p.innerHTML=`
     <div class="panel-head"><h3>Choose your time</h3><div class="sp"></div></div>
     <div class="panel-body scroll">
       <div class="info-strip">
-        <div class="it"><div class="k">Room</div><div class="v">${r.name}</div></div>
+        <div class="it"><div class="k">Resource</div><div class="v">${r.name}</div></div>
         <div class="it"><div class="k">Code</div><div class="v code">${r.code}</div></div>
-        <div class="it"><div class="k">Location</div><div class="v">${r.location||'—'}</div></div>
+        <div class="it"><div class="k">Location</div><div class="v">${r.location||'\u2014'}</div></div>
         <div class="it"><div class="k">Capacity</div><div class="v">${r.capMin} - ${r.capMax} people</div></div>
-        <div class="it"><div class="k">Date</div><div class="v">Tue, 23 Jun 2026</div></div>
       </div>
-      <div class="form-row">
+      <div id="schedMount"></div>
+      <div class="fgroup" style="margin:14px 0"><label class="flabel">Date</label><div id="bkDate"></div></div>
+      <div class="form-row" style="align-items:flex-end">
         <div class="fgroup"><label class="flabel">Start time</label><div id="startMount"></div></div>
         <div class="fgroup"><label class="flabel">End time</label><div id="endMount"></div></div>
+        <div class="fgroup" style="flex:none"><label class="flabel">Duration</label><div class="dur-box" style="margin:0;min-width:96px;justify-content:center"><span class="val" id="durVal">\u2014</span></div></div>
       </div>
-      <div class="dur-box"><span class="lab" id="rangeLab">Select a start and end time</span><span class="val" id="durVal">—</span></div>
-      <div class="subhead">Group members · need ${r.capMin}–${r.capMax} people</div>
-      <div class="cap-hint">Add student IDs (7 digits). You're added by default. Add at least <b>${r.capMin}</b> to enable booking.</div>
-      <div class="id-add"><input class="input" id="idInput" placeholder="e.g. 1000002" maxlength="7" inputmode="numeric"><button class="btn solid" id="idAddBtn">Add</button></div>
-      <div class="id-hint">Demo IDs that exist: 1000002 · 1000003 · 1000004 · 1000005 · 1000006</div>
+      <div class="subhead">Group members <span id="memCount" style="color:var(--txt-3);font-weight:600;font-size:13px">1 / ${r.capMin}</span></div>
+      <div class="id-add"><input class="input" id="idInput" placeholder="Enter Student ID here" maxlength="7" inputmode="numeric"><button class="btn solid" id="idAddBtn">Add</button></div>
       <div class="id-list" id="idList"></div>
     </div>
     <div class="panel-foot"><button class="btn" id="bkBack">Back</button><button class="btn solid" id="bkReserve" disabled>Reserve booking</button></div>`;
-  p.querySelector('#bkBack').onclick=()=>openSchedule(r);
+  const sched=makeSection({title:'Availability',count:'',open:true});
+  if(fully){ const fb=el('div','sched-full'); fb.textContent='Fully booked on this date'; sched.body.appendChild(fb); }
+  else { for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(sl=>row.appendChild(slotBox(r,sl,false))); sched.body.appendChild(row); } }
+  p.querySelector('#schedMount').appendChild(sched.wrap);
+  const dBtn=el('button','dd-trigger'); dBtn.innerHTML=`<span>${BK.date}</span>${ICON.chev}`;
+  dBtn.onclick=e=>{e.stopPropagation();datePopover(dBtn,d=>{BK.date=d.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});dBtn.querySelector('span').textContent=BK.date;},{blockWeekend:true});};
+  p.querySelector('#bkDate').appendChild(dBtn);
   const endMount=p.querySelector('#endMount');
-  endMount.appendChild(makeDropdown({placeholder:'Please select',disabled:true}));
-  const startDD=makeDropdown({placeholder:'Please select',options:startOpts,onChange:v=>{
+  endMount.appendChild(makeDropdown({placeholder:fully?'Fully booked':'Please select',disabled:true}));
+  const startDD=makeDropdown({placeholder:fully?'Fully booked':'Please select',options:startOpts,disabled:fully,onChange:v=>{
     BK.start=v; BK.end=null; const slot=startOpts.find(o=>o.v===v); const endMax=Math.min(v+120,slot.slotEnd);
     const eo=[]; for(let m=v+15;m<=endMax;m+=15)eo.push({v:m,l:m2t(m)});
     const fresh=makeDropdown({placeholder:'Please select',options:eo,onChange:ev=>{BK.end=ev;updateDur();}});
     endMount.innerHTML=''; endMount.appendChild(fresh); updateDur();
   }});
   p.querySelector('#startMount').appendChild(startDD);
-  function updateDur(){ const rl=p.querySelector('#rangeLab'),dv=p.querySelector('#durVal');
-    if(BK.start!=null&&BK.end!=null){rl.textContent=`${m2t(BK.start)} → ${m2t(BK.end)}`;dv.textContent=`${BK.end-BK.start} min`;}
-    else if(BK.start!=null){rl.textContent=`${m2t(BK.start)} → select end`;dv.textContent='—';}
-    else{rl.textContent='Select a start and end time';dv.textContent='—';} refresh(); }
+  function updateDur(){ const dv=p.querySelector('#durVal'); dv.textContent=(BK.start!=null&&BK.end!=null)?`${BK.end-BK.start} min`:'\u2014'; refresh(); }
   const idList=p.querySelector('#idList');
   function renderIds(){ idList.innerHTML='';
     BK.ids.forEach((id,i)=>{ const chip=el('div','id-chip');
-      chip.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
-      chip.querySelector('.rm').onclick=()=>{BK.ids.splice(i,1);renderIds();refresh();}; idList.appendChild(chip); }); refresh(); }
+      chip.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">\u00b7 ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
+      chip.querySelector('.rm').onclick=()=>{BK.ids.splice(i,1);renderIds();refresh();}; idList.appendChild(chip); });
+    const mc=p.querySelector('#memCount'); if(mc)mc.textContent=BK.ids.length+' / '+r.capMin; refresh(); }
   function refresh(){ p.querySelector('#bkReserve').disabled=!(BK.ids.length>=r.capMin&&BK.ids.length<=r.capMax&&BK.start!=null&&BK.end!=null); }
   p.querySelector('#idAddBtn').onclick=()=>{ const v=p.querySelector('#idInput').value.trim();
     if(!/^\d{7}$/.test(v))return shake(p.querySelector('#idInput'));
     if(BK.ids.includes(v))return dupIdPanel(()=>renderTimeSelect(clicked));
     if(r.scenario==='idnotfound'||!KNOWN_IDS[v])return idNotFoundPanel(()=>renderTimeSelect(clicked));
-    if(BK.ids.length>=r.capMax)return msgPanel({kind:'warn',title:'Room is full',text:`This room allows up to ${r.capMax} people.`,buttons:[{label:'Back to booking',cls:'solid',onClick:()=>renderTimeSelect(clicked)}]});
+    if(BK.ids.length>=r.capMax)return msgPanel({kind:'warn',title:'Resource is full',text:`This resource allows up to ${r.capMax} people.`,buttons:[{label:'Back to booking',cls:'solid',onClick:()=>renderTimeSelect(clicked)}]});
     BK.ids.push(v); p.querySelector('#idInput').value=''; renderIds(); };
   p.querySelector('#idInput').addEventListener('keydown',e=>{if(e.key==='Enter')p.querySelector('#idAddBtn').click();});
+  p.querySelector('#bkBack').onclick=()=>swapPanel(()=>openRoomDetail(r));
   p.querySelector('#bkReserve').onclick=()=>{ if(r.scenario==='limithit')return limitPanel(); successPanel(r); };
   openPanel(p); renderIds();
   if(BK.start!=null)startDD._set(BK.start);
@@ -1003,6 +1011,7 @@ let histType='all',histRange={from:new Date(2026,5,1),to:TODAY};
 let upShow='all',upSort='soonest',histSort='recent';
 function sortBookings(list,mode){ const a=[...list];
   if(mode==='az')return a.sort((x,y)=>x.room.localeCompare(y.room));
+  if(mode==='za')return a.sort((x,y)=>y.room.localeCompare(x.room));
   if(mode==='latest'||mode==='recent')return a.sort((x,y)=>new Date(y.date)-new Date(x.date));
   return a.sort((x,y)=>new Date(x.date)-new Date(y.date)); }
 function endPill(end){ if(/Cancelled|No-show/.test(end))return 'red'; if(/Released/.test(end))return 'gray'; return 'green'; }
@@ -1018,10 +1027,10 @@ function renderMine(){
     body.appendChild(ip.wrap);
   }
 
-  const up=makeSection({title:'Upcoming &amp; confirmed',count:`${UPCOMING.length}`,open:true});
+  const up=makeSection({title:'Confirmed',count:`${UPCOMING.length}`,open:true});
   const upCtl=el('div','sec-controls');
   const u1=el('div','ctl'); u1.innerHTML=`<label class="flabel">Show</label>`; u1.appendChild(makeDropdown({value:upShow,options:[{v:'all',l:'All bookings'},{v:'creator',l:'Created by me'},{v:'member',l:'I am a member'}],onChange:v=>{upShow=v;paintUp();}}));
-  const u2=el('div','ctl'); u2.innerHTML=`<label class="flabel">Sort by</label>`; u2.appendChild(makeDropdown({value:upSort,options:[{v:'soonest',l:'Soonest first'},{v:'latest',l:'Latest first'},{v:'az',l:'Room A–Z'}],onChange:v=>{upSort=v;paintUp();}}));
+  const u2=el('div','ctl'); u2.innerHTML=`<label class="flabel">Sort by</label>`; u2.appendChild(makeDropdown({value:upSort,options:[{v:'soonest',l:'Soonest first'},{v:'latest',l:'Latest first'},{v:'az',l:'Room A–Z'},{v:'za',l:'Room Z–A'}],onChange:v=>{upSort=v;paintUp();}}));
   upCtl.append(u1,u2); up.body.appendChild(upCtl);
   const uw=el('div'); up.body.appendChild(uw);
   function paintUp(){ uw.innerHTML=''; const f=UPCOMING.filter(b=>upShow==='all'||(upShow==='creator'&&b.role==='creator')||(upShow==='member'&&b.role==='member')); const s=sortBookings(f,upSort); if(!s.length){uw.innerHTML='<div class="empty-state">No bookings match.</div>';return;} s.forEach(b=>uw.appendChild(bookingRow(b))); }
@@ -1038,7 +1047,7 @@ function renderMine(){
   const tW=el('div','ctl'); tW.innerHTML=`<label class="flabel">End reason</label>`;
   tW.appendChild(makeDropdown({value:histType,options:[{v:'all',l:'All reasons'},{v:'Session ended',l:'Session ended'},{v:'Cancelled by user',l:'Cancelled by user'},{v:'Cancelled by admin',l:'Cancelled by admin'},{v:'Released by user',l:'Released by user'},{v:'Released by admin',l:'Released by admin'},{v:'No-show',l:'No-show'}],onChange:v=>{histType=v;paintHist();}}));
   const hS=el('div','ctl'); hS.innerHTML=`<label class="flabel">Sort by</label>`;
-  hS.appendChild(makeDropdown({value:histSort,options:[{v:'recent',l:'Most recent'},{v:'oldest',l:'Oldest first'},{v:'az',l:'Room A–Z'}],onChange:v=>{histSort=v;paintHist();}}));
+  hS.appendChild(makeDropdown({value:histSort,options:[{v:'recent',l:'Most recent'},{v:'oldest',l:'Oldest first'},{v:'az',l:'Room A–Z'},{v:'za',l:'Room Z–A'}],onChange:v=>{histSort=v;paintHist();}}));
   fr.append(dF,tW,hS); hs.body.appendChild(fr);
   const hw=el('div'); hs.body.appendChild(hw);
   function paintHist(){ hw.innerHTML=''; const f=HISTORY.filter(h=>histType==='all'||h.end===histType); const s=sortBookings(f,histSort); if(!s.length){hw.innerHTML='<div class="empty-state">No history matches.</div>';return;} s.forEach(h=>hw.appendChild(historyRow(h))); }
@@ -1104,7 +1113,7 @@ function openUpcomingDetail(b){
       <div class="warn-note">Only the booking <b>creator (${b.createdBy})</b> can modify or cancel this booking. Members can view the details but can’t make changes.</div>
     </div>
     <div class="panel-foot">
-      <button class="btn" id="viewRoom">View room details</button>
+      <button class="btn" id="viewRoom">View resource details</button>
       <button class="btn" id="udClose">Close</button>
       ${b.role==='creator'?'<button class="btn solid" id="udMod">Modify booking</button>':''}
     </div>`;
@@ -1121,56 +1130,53 @@ function openModify(b){
     const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
     const fully=startOpts.length===0;
     if(!fully&&startOpts.find(o=>o.v===b.from))start=b.from;
-    const p=el('div','panel');
+    const slots=buildSlots(room);
+    const p=el('div','panel wide');
     p.innerHTML=`
       <div class="panel-head"><h3>Modify booking</h3><span class="code-tag">${b.bid}</span><div class="sp"></div></div>
       <div class="panel-body scroll">
-        <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">Change date, time and members, or cancel. The room can’t be changed. Cancelling releases the slot and refunds the daily limit.</div>
+        <div style="color:var(--txt-3);font-size:13px;margin-bottom:14px">Change date, time and members, or cancel. The resource can\u2019t be changed. Cancelling releases the slot and refunds the daily limit.</div>
         <div class="detail-title"><span class="nm">${b.room}</span><span class="cd">${b.code}</span></div>
-        <div class="form-row"><div class="fgroup" style="flex:1"><label class="flabel">Date</label><div id="mDate"></div></div>
-          <div class="fgroup" style="flex:none;display:flex;align-items:flex-end"><button class="btn" id="mViewSched">View schedule</button></div></div>
-        <div class="form-row" style="margin-bottom:6px">
+        <div id="mSchedMount"></div>
+        <div class="fgroup" style="margin:14px 0"><label class="flabel">Date</label><div id="mDate"></div></div>
+        <div class="form-row" style="align-items:flex-end">
           <div class="fgroup"><label class="flabel">Start time</label><div id="mStart"></div></div>
           <div class="fgroup"><label class="flabel">End time</label><div id="mEnd"></div></div>
+          <div class="fgroup" style="flex:none"><label class="flabel">Duration</label><div class="dur-box" style="margin:0;min-width:96px;justify-content:center"><span class="val" id="mDur">${b.to-b.from} min</span></div></div>
         </div>
-        <div class="field-tip ${fully?'':'hidden'}" id="mTip">This room is fully booked on the selected date. Pick another date to change the time, or only edit members below.</div>
-        <div class="dur-box" style="margin-top:14px"><span class="lab" id="mRange">Keeping ${m2t(b.from)} – ${m2t(b.to)}</span><span class="val" id="mDur">${b.to-b.from} min</span></div>
-        <div class="subhead">Members</div>
-        <div class="id-add"><input class="input" id="mIdIn" placeholder="Add student ID" maxlength="7"><button class="btn solid" id="mAdd">Add</button></div>
+        <div class="subhead">Members <span id="mCount" style="color:var(--txt-3);font-weight:600;font-size:13px">${ids.length} / ${room.capMin}</span></div>
+        <div class="id-add"><input class="input" id="mIdIn" placeholder="Enter Student ID here" maxlength="7"><button class="btn solid" id="mAdd">Add</button></div>
         <div class="id-list" id="mList"></div>
       </div>
       <div class="panel-foot"><button class="btn danger" id="mCancel">Cancel booking</button><div style="flex:1"></div><button class="btn" id="mBack">Back</button><button class="btn solid" id="mSave">Save changes</button></div>`;
+    const sched=makeSection({title:'Availability',count:'',open:true});
+    if(fully){ const fb=el('div','sched-full'); fb.textContent='Fully booked on this date'; sched.body.appendChild(fb); }
+    else { for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(sl=>row.appendChild(slotBox(room,sl,false))); sched.body.appendChild(row); } }
+    p.querySelector('#mSchedMount').appendChild(sched.wrap);
     p.querySelector('#mBack').onclick=()=>swapPanel(()=>openUpcomingDetail(b));
-    p.querySelector('#mViewSched').onclick=()=>openSchedule(room,{readonly:true,back:()=>openModify(b)});
     const dBtn=el('button','dd-trigger'); dBtn.innerHTML=`<span>${date}</span>${ICON.chev}`;
     dBtn.onclick=e=>{e.stopPropagation();datePopover(dBtn,d=>{date=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});dBtn.querySelector('span').textContent=date;},{blockWeekend:true});};
     p.querySelector('#mDate').appendChild(dBtn);
-
     const endMount=p.querySelector('#mEnd');
-    function buildEnd(v,preset){
-      const slot=startOpts.find(o=>o.v===v); const endMax=Math.min(v+120,slot.slotEnd);
+    function buildEnd(v,preset){ const slot=startOpts.find(o=>o.v===v); const endMax=Math.min(v+120,slot.slotEnd);
       const eo=[]; for(let m=v+15;m<=endMax;m+=15)eo.push({v:m,l:m2t(m)});
       end=(preset!=null&&eo.find(o=>o.v===preset))?preset:null;
       const dd=makeDropdown({placeholder:'Please select',options:eo,value:end,onChange:ev=>{end=ev;dur();}});
-      endMount.innerHTML=''; endMount.appendChild(dd); dur();
-    }
+      endMount.innerHTML=''; endMount.appendChild(dd); dur(); }
     const startDD=makeDropdown({placeholder:fully?'Fully booked':'Please select',options:startOpts,value:start,disabled:fully,onChange:v=>{start=v;buildEnd(v,null);}});
     p.querySelector('#mStart').appendChild(startDD);
-    if(start!=null)buildEnd(start,b.to); else endMount.appendChild(makeDropdown({placeholder:'Please select',disabled:true}));
-    function dur(){ const rl=p.querySelector('#mRange'),dv=p.querySelector('#mDur');
-      if(start!=null&&end!=null){rl.textContent=`${m2t(start)} → ${m2t(end)}`;dv.textContent=`${end-start} min`;}
-      else if(start!=null){rl.textContent=`${m2t(start)} → select end`;dv.textContent='—';}
-      else{rl.textContent=`Keeping ${m2t(b.from)} – ${m2t(b.to)}`;dv.textContent=`${b.to-b.from} min`;} }
-
+    if(start!=null)buildEnd(start,b.to); else endMount.appendChild(makeDropdown({placeholder:fully?'Fully booked':'Please select',disabled:true}));
+    function dur(){ const dv=p.querySelector('#mDur'); if(start!=null&&end!=null)dv.textContent=`${end-start} min`; else dv.textContent=`${b.to-b.from} min`; }
     const list=p.querySelector('#mList');
     function paint(){ list.innerHTML=''; ids.forEach((id,i)=>{ const c=el('div','id-chip');
-      c.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">· ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
-      c.querySelector('.rm').onclick=()=>{ids.splice(i,1);paint();}; list.appendChild(c); }); }
+      c.innerHTML=`<span class="num">${i+1}</span><span class="sid">${id}</span><span class="nm">\u00b7 ${KNOWN_IDS[id]||'Unknown'}</span>${id===ME.sid?'<span class="you">You</span>':''}<span class="sp"></span><button class="rm">${ICON.x}</button>`;
+      c.querySelector('.rm').onclick=()=>{ids.splice(i,1);paint();}; list.appendChild(c); });
+      const mc=p.querySelector('#mCount'); if(mc)mc.textContent=ids.length+' / '+room.capMin; }
     p.querySelector('#mAdd').onclick=()=>{ const v=p.querySelector('#mIdIn').value.trim();
       if(!/^\d{7}$/.test(v))return shake(p.querySelector('#mIdIn'));
       if(ids.includes(v))return dupIdPanel(()=>openModify(b));
       if(!KNOWN_IDS[v])return idNotFoundPanel(()=>openModify(b));
-      if(ids.length>=room.capMax)return msgPanel({kind:'warn',title:'Room is full',text:`This room allows up to ${room.capMax} people.`,buttons:[{label:'Back',cls:'solid',onClick:()=>openModify(b)}]});
+      if(ids.length>=room.capMax)return msgPanel({kind:'warn',title:'Resource is full',text:`This resource allows up to ${room.capMax} people.`,buttons:[{label:'Back',cls:'solid',onClick:()=>openModify(b)}]});
       ids.push(v);p.querySelector('#mIdIn').value='';paint(); };
     p.querySelector('#mCancel').onclick=()=>msgPanel({kind:'warn',title:'Cancel this booking?',text:'The time slot will be released and the daily limit refunded to all members.',buttons:[{label:'Keep booking',onClick:()=>openModify(b)},{label:'Cancel booking',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Booking cancelled',text:'The slot has been released.',buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}]});
     p.querySelector('#mSave').onclick=()=>msgPanel({kind:'ok',title:'Changes saved',text:'Your booking has been updated.',buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]});
@@ -1195,7 +1201,7 @@ function openHistoryDetail(h){
       <div class="subhead">Students involved (${h.students.length})</div>
       <div class="num-list">${h.students.map((s,i)=>`<div class="item"><span class="n">${i+1}</span><span class="sid">${s}</span><span class="nm">· ${KNOWN_IDS[s]||'Unknown'}</span></div>`).join('')}</div>
     </div>
-    <div class="panel-foot"><button class="btn" id="hdRoom">View room details</button><button class="btn solid" id="hdClose">Close</button></div>`;
+    <div class="panel-foot"><button class="btn" id="hdRoom">View resource details</button><button class="btn" id="hdClose">Close</button></div>`;
   p.querySelector('#hdClose').onclick=closePanel;
   p.querySelector('#hdRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===h.code); if(rr)swapPanel(()=>openRoomDetail(rr,{back:()=>swapPanel(()=>openHistoryDetail(h))})); };
   openPanel(p);
@@ -1238,12 +1244,13 @@ function openInProgressDetail(b){
       </div>
       <div class="subhead">Members (${b.students.length})</div>
       <div class="num-list">${b.students.map((s,i)=>`<div class="item"><span class="n">${i+1}</span><span class="sid">${s}</span><span class="nm">· ${KNOWN_IDS[s]||'Unknown'}</span></div>`).join('')}</div>
-      <div class="warn-note">This booking is currently active, so it can no longer be modified. ${b.role==='creator'?`As the <b>creator (${b.createdBy})</b> you can release the room to end the booking early and free it for others.`:`Only the booking <b>creator (${b.createdBy})</b> can release the room early.`}</div>
+      <div class="warn-note">This booking is currently active, so it can no longer be modified. ${b.role==='creator'?`As the <b>creator (${b.createdBy})</b> you can release the resource to end the booking early and free it for others.`:`Only the booking <b>creator (${b.createdBy})</b> can release the resource early.`}</div>
     </div>
     <div class="panel-foot">
-      <button class="btn" id="ipRoom">View room details</button>
+      ${b.role==='creator'?'<button class="btn danger" id="ipRelease">Release resource</button>':''}
+      <div style="flex:1"></div>
+      <button class="btn" id="ipRoom">View resource details</button>
       <button class="btn" id="ipClose">Close</button>
-      ${b.role==='creator'?'<button class="btn danger" id="ipRelease">Release room</button>':''}
     </div>`;
   p.querySelector('#ipClose').onclick=closePanel;
   p.querySelector('#ipRoom').onclick=()=>{ const rr=ROOMS.find(r=>r.code===b.code); if(rr)swapPanel(()=>openRoomDetail(rr,{back:()=>swapPanel(()=>openInProgressDetail(b))})); };
@@ -1251,11 +1258,11 @@ function openInProgressDetail(b){
   openPanel(p);
 }
 function releaseConfirm(b){
-  msgPanel({kind:'warn',title:'Release this room now?',
-    text:'Releasing ends the booking immediately for everyone in the group and frees the room for other students. This can’t be undone.',
+  msgPanel({kind:'warn',title:'Release this resource now?',
+    text:'Releasing ends the booking immediately for everyone in the group and frees the resource for other students. This can’t be undone.',
     buttons:[
       {label:'Keep booking',onClick:()=>openInProgressDetail(b)},
-      {label:'Release room',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Room released',text:`${b.room} (${b.code}) has been released and the booking ended early. The remaining time is freed for others.`,buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}
+      {label:'Release resource',cls:'danger',onClick:()=>msgPanel({kind:'ok',title:'Resource released',text:`${b.room} (${b.code}) has been released and the booking ended early. The remaining time is freed for others.`,buttons:[{label:'Back to dashboard',cls:'solid',onClick:()=>{closePanel();switchTab('mine');}}]})}
     ]});
 }
 
@@ -1267,7 +1274,7 @@ function toggleProfileMenu(){
   if($('#profMenu')){$('#profMenu').remove();return;}
   const m=el('div','pop-menu'); m.id='profMenu';
   m.innerHTML=`
-    <div class="pm-head"><div class="av">${ICON.user}</div><div><div class="sid">${ME.sid}</div><div class="role">Signed in</div></div></div>
+    <div class="pm-head"><div class="av">${ICON.user}</div><div><div class="sid">${KNOWN_IDS[ME.sid]||ME.name}</div><div class="role">${ME.sid} · Signed in</div></div></div>
     <div class="pm-item" id="pmLimit">${ICON.user} Daily limit</div>
     <div class="pm-item signout" id="pmOut">${ICON.out} Sign out</div>`;
   const r=$('#avatarBtn').getBoundingClientRect();
@@ -1283,17 +1290,17 @@ function openDailyLimit(){
   const p=el('div','panel wide');
   p.innerHTML=`
     <div class="panel-head"><div class="av" style="width:42px;height:42px;border-radius:11px;background:linear-gradient(150deg,#2c6f88,#46a6d6);color:#04222d;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
-      <h3>Daily limit</h3><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700;font-family:var(--fmono)">${ME.sid}</span><div class="sp"></div></div>
+      <div><h3 style="margin:0 0 2px">Daily limit</h3><span style="font-size:12.5px;color:var(--txt-2)">${KNOWN_IDS[ME.sid]||ME.name}</span></div><span class="role" style="font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:20px;font-weight:700;font-family:var(--fmono)">${ME.sid}</span><div class="sp"></div></div>
     <div class="panel-body scroll">
       <div class="detail-grid">
-        <div class="detail-cell"><div class="k">Today · ${today}</div><div class="v">${fmtDur(t.used)} of ${fmtDur(t.cap)} used</div></div>
-        <div class="detail-cell"><div class="k">Remaining today</div><div class="v">${fmtDur(Math.max(0,t.cap-t.used))}</div></div>
+        <div class="detail-cell"><div class="k">Today · ${today}</div><div class="v">${t.used} min of ${t.cap} min used</div></div>
+        <div class="detail-cell"><div class="k">Remaining today</div><div class="v">${Math.max(0,t.cap-t.used)} min</div></div>
       </div>
       <div style="color:var(--txt-3);font-size:13px;margin:14px 0 18px">Daily booking limit is 240 min (4h) per day and applies to every student in a booking. This is <b>not stored</b> — it is checked live from the day's booking records. Cancelling or releasing a booking frees the time back up.</div>
       <div class="subhead">Usage this month</div>
       <div id="bcalMount"></div>
     </div>
-    <div class="panel-foot"><button class="btn solid" id="profClose">Close</button></div>`;
+    <div class="panel-foot"><button class="btn" id="profClose">Close</button></div>`;
   p.querySelector('#profClose').onclick=closePanel;
   p.querySelector('#bcalMount').appendChild(makeBookingCalendar(limits));
   openPanel(p);
