@@ -111,6 +111,7 @@ input{font-family:inherit}
 .sec{margin-bottom:4px}
 .sec-head{display:flex;align-items:center;gap:12px;padding:14px 2px;cursor:pointer;user-select:none;position:relative}
 .sec-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.sec-head.no-line::after{display:none}
 .sec-head .caret{width:28px;height:28px;border-radius:8px;background:var(--bg-3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--txt-2);transition:.2s;flex:none}
 .sec-head .caret svg{width:16px;height:16px;transition:.2s}
 .sec-head.collapsed .caret svg{transform:rotate(-90deg)}
@@ -187,14 +188,16 @@ input{font-family:inherit}
 .status-tag.available{background:var(--green-soft);color:#86e0ad;border:1px solid rgba(72,189,126,.4)}
 .status-tag.occupied{background:var(--red-soft);color:#ff9089;border:1px solid rgba(232,93,84,.45)}
 .status-tag.fully{background:rgba(120,130,148,.18);color:#9aa6ba;border:1px solid #3a4254}
-.room-body{padding:15px 16px 14px;display:flex;flex-direction:column;flex:1}
+.room-body{padding:15px 16px 46px;display:flex;flex-direction:column;flex:1}
 .room-title{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .room-title .nm{font-size:16.5px;font-weight:700;color:var(--txt)}
 .room-title .cd{font-size:13px;color:var(--accent);font-family:var(--fmono);background:var(--accent-soft);padding:2px 8px;border-radius:6px}
 .room-meta{margin-top:11px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--txt-2)}
 .occ-line{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:13px;color:#ff9089;font-weight:600}
+.occ-rem{color:#ffc2bd;font-weight:600}
 .occ-bid{display:block;margin-top:4px;color:var(--bookid);font-family:var(--fmono);font-size:12.5px;font-weight:400}
 .type-badge{align-self:flex-start;margin-top:13px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:8px;letter-spacing:.01em}
+.room-card .type-badge{position:absolute;left:16px;bottom:14px;margin-top:0}
 .tb-discussion{background:var(--blue-soft);color:#8fb6f5;border:1px solid rgba(91,148,238,.35)}
 .tb-pod{background:var(--green-soft);color:#86e0ad;border:1px solid rgba(72,189,126,.35)}
 .tb-lab{background:var(--violet-soft);color:#c3a3f0;border:1px solid rgba(166,121,230,.35)}
@@ -248,8 +251,9 @@ input{font-family:inherit}
 
 /* schedule slots */
 .sched-date{font-size:15.5px;font-weight:700;margin-bottom:14px;color:var(--txt)}
-.sched-rows{display:flex;flex-direction:column;gap:10px}
-.sched-row{display:flex;gap:10px}
+.sched-rows{display:flex;flex-direction:column;gap:0}
+.sched-row{display:flex;gap:16px;margin-bottom:16px}
+.sched-row:last-child{margin-bottom:0}
 .field-tip{font-size:12.5px;color:#eec888;margin-top:9px}
 .slot{flex:1 1 158px;min-width:158px;border-radius:12px;padding:13px 15px;border:1px solid;transition:.15s}
 .slot .time{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
@@ -518,7 +522,7 @@ const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=nu
 const pad=n=>String(n).padStart(2,'0');
 const m2t=m=>`${pad(Math.floor(m/60))}:${pad(m%60)}`;
 function nowMin(){ const d=new Date(); let m=d.getHours()*60+d.getMinutes(); if(m<=480||m>=1320)m=600; return m; }
-function fmtDur(m){ const h=Math.floor(m/60),mm=m%60; return h?(mm?`${h}h ${mm}m`:`${h}h`):`${mm}m`; }
+function fmtDur(m){ const h=Math.floor(m/60),mm=m%60; const p=[]; if(h)p.push(h+' h'); if(mm)p.push(mm+' min'); return p.length?p.join(' '):'0 min'; }
 const ICON={
   x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>',
@@ -552,15 +556,15 @@ let ROOMS=[
 
   {id:'R2',name:'Study Pod Birch',code:'SP-204',type:'Study Pod',building:'Building 2',
    location:'Building 2 · Level 1 · Quiet Zone',capMin:1,capMax:4,status:'occupied',
-   occUntil:780,occBid:'CRBS_13209',
+   occUntil:780,occBid:'CRBS_13209',occRem:84,
    facilities:['Whiteboard','Power outlets','Wi-Fi 6','Air-con'],
-   bookings:[{s:480,e:780,bid:'CRBS_13209'}],
-   scenario:'normal',tip:'<b>Occupied state.</b> In use now — shows occupied-until in red + booking ID on its own line.'},
+   bookings:[{s:660,e:780,bid:'CRBS_13209'}],
+   scenario:'normal',tip:'<b>Occupied state.</b> In use now — shows occupied-until in red with remaining time.'},
 
   {id:'R3',name:'Lab Workstation Cobalt',code:'LW-309',type:'Lab Workstation',building:'Building 3',
    location:'Building 3 · Level 3 · Computing Lab',capMin:1,capMax:2,status:'fully',
    facilities:['Dual monitors','Adjustable desks','Power outlets','Wi-Fi 6'],
-   bookings:[{s:480,e:1320,bid:'—'}],
+   bookings:[{s:480,e:600,bid:'CRBS_BK01'},{s:600,e:720,bid:'CRBS_BK02'},{s:720,e:840,bid:'CRBS_BK03'},{s:840,e:960,bid:'CRBS_BK04'},{s:960,e:1080,bid:'CRBS_BK05'},{s:1080,e:1200,bid:'CRBS_BK06'},{s:1200,e:1320,bid:'CRBS_BK07'}],
    scenario:'normal',tip:'<b>Fully booked.</b> Dimmed & not clickable — detail panel shows only a Close button.'},
 
   {id:'R4',name:'Discussion Room Delta',code:'DR-118',type:'Discussion Room',building:'Building 1',
@@ -823,9 +827,9 @@ $('#applyFilter').onclick=()=>{renderRooms();toggleDrawer(false);};
 $('#resetFilter').onclick=()=>{renderFilters();renderRooms();};
 
 /* reusable collapsible section (used by book resource + my bookings) */
-function makeSection({title,count='',open=true}){
+function makeSection({title,count='',open=true,line=true}){
   const wrap=el('div','sec');
-  wrap.innerHTML=`<div class="sec-head${open?'':' collapsed'}"><span class="caret">${ICON.chev}</span><h3>${title}</h3><span class="count">${count}</span><div class="sp"></div></div><div class="sec-body${open?'':' collapsed'}"></div>`;
+  wrap.innerHTML=`<div class="sec-head${open?'':' collapsed'}${line?'':' no-line'}"><span class="caret">${ICON.chev}</span><h3>${title}</h3><span class="count">${count}</span><div class="sp"></div></div><div class="sec-body${open?'':' collapsed'}"></div>`;
   const head=wrap.querySelector('.sec-head'),body=wrap.querySelector('.sec-body');
   head.onclick=e=>{ if(e.target.closest('.dd')||e.target.closest('.dd-trigger'))return; body.classList.toggle('collapsed'); head.classList.toggle('collapsed'); };
   return {wrap,head,body};
@@ -861,7 +865,7 @@ function renderRooms(){
 function statusTag(r){ return r.status==='available'?`<span class="status-tag available">AVAILABLE</span>`:r.status==='occupied'?`<span class="status-tag occupied">OCCUPIED</span>`:`<span class="status-tag fully">FULLY BOOKED</span>`; }
 function roomCard(r){
   const card=el('div','room-card'+(r.status==='fully'?' fully':''));
-  let occ=''; if(r.status==='occupied')occ=`<div class="occ-line">Occupied until ${m2t(r.occUntil)}<span class="occ-bid">${r.occBid}</span></div>`;
+  let occ=''; if(r.status==='occupied'){ const rem=(r.occRem!=null?r.occRem:Math.max(0,r.occUntil-nowMin())); occ=`<div class="occ-line">Occupied until ${m2t(r.occUntil)} <span class="occ-rem">· ends in ${fmtDur(rem)}</span></div>`; }
   card.innerHTML=`
     <div class="room-pic">PREVIEW IMAGE${statusTag(r)}</div>
     <div class="room-body">
@@ -900,6 +904,7 @@ function openRoomDetail(r,opts={}){
 /* schedule */
 function buildSlots(r){ const out=[]; let t=480; for(const b of [...r.bookings].sort((a,b)=>a.s-b.s)){ if(t<b.s)out.push({type:'avail',s:t,e:b.s}); out.push({type:'booked',s:b.s,e:b.e,bid:b.bid}); t=Math.max(t,b.e);} if(t<1320)out.push({type:'avail',s:t,e:1320}); if(!out.length)out.push({type:'avail',s:480,e:1320}); return out; }
 function availSlotsOnly(r){ return buildSlots(r).filter(s=>s.type==='avail'); }
+function displaySlots(r){ const out=[]; for(const s of buildSlots(r)){ if(s.type==='booked'){ let t=s.s; while(t<s.e){ const e=Math.min(t+120,s.e); out.push({type:'booked',s:t,e,bid:s.bid}); t=e; } } else out.push(s); } return out; }
 function availForModify(room,b){ const others=(room.bookings||[]).filter(x=>!(x.s<b.to&&x.e>b.from)); return availSlotsOnly({bookings:others}); }
 function slotBox(r,s,interactive){
   const box=el('div','slot '+(s.type==='avail'?'avail':'booked')+(interactive?'':' ref'));
@@ -908,8 +913,9 @@ function slotBox(r,s,interactive){
     if(interactive){ box.onclick=()=>openTimeSelect(r,s); } else { box.style.cursor='default'; }
   }else{
     const now=nowMin(), live=now>=s.s&&now<s.e;
-    const st=live?`In progress · ends in ${fmtDur(s.e-now)}`:'Booked';
-    box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">${st}</div><div class="bid">${s.bid}</div>`;
+    const st=live?'In progress':'Booked';
+    const sub=live?`ends in ${fmtDur(s.e-now)}`:`${fmtDur(s.e-s.s)} duration`;
+    box.innerHTML=`<div class="time">${m2t(s.s)} – ${m2t(s.e)}</div><div class="st">${st}</div><div class="range">${sub}</div>`;
   }
   return box;
 }
@@ -939,7 +945,7 @@ function openTimeSelect(r,clicked){ swapPanel(()=>{ BK={r,ids:[ME.sid],start:nul
 function renderTimeSelect(clicked){
   const r=BK.r, avail=availSlotsOnly(r);
   const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
-  const slots=buildSlots(r); const fully=startOpts.length===0;
+  const slots=displaySlots(r); const fully=startOpts.length===0;
   const p=el('div','panel wide');
   p.innerHTML=`
     <div class="panel-head"><h3>Choose your time</h3><div class="sp"></div></div>
@@ -957,12 +963,12 @@ function renderTimeSelect(clicked){
         <div class="fgroup"><label class="flabel">End time</label><div id="endMount"></div></div>
         <div class="fgroup" style="flex:none"><label class="flabel">Duration</label><div class="dur-box" style="margin:0;min-width:96px;justify-content:center"><span class="val" id="durVal">\u2014</span></div></div>
       </div>
-      <div class="subhead">Group members <span id="memCount" style="color:var(--txt-3);font-weight:600;font-size:13px">1 / ${r.capMin}</span></div>
+      <div class="subhead">Group members <span id="memCount" style="margin-left:10px;color:var(--txt-3);font-weight:600;font-size:13px">1 / ${r.capMin}</span></div>
       <div class="id-add"><input class="input" id="idInput" placeholder="Enter Student ID here" maxlength="7" inputmode="numeric"><button class="btn solid" id="idAddBtn">Add</button></div>
       <div class="id-list" id="idList"></div>
     </div>
     <div class="panel-foot"><button class="btn" id="bkBack">Back</button><button class="btn solid" id="bkReserve" disabled>Reserve booking</button></div>`;
-  const sched=makeSection({title:'Availability',count:'',open:true});
+  const sched=makeSection({title:'Availability',count:'',open:true,line:false});
   if(fully){ const fb=el('div','sched-full'); fb.textContent='Fully booked on this date'; sched.body.appendChild(fb); }
   else { for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(sl=>row.appendChild(slotBox(r,sl,false))); sched.body.appendChild(row); } }
   p.querySelector('#schedMount').appendChild(sched.wrap);
@@ -1130,7 +1136,7 @@ function openModify(b){
     const startOpts=[]; avail.forEach(s=>{ for(let m=s.s;m<=s.e-15;m+=15)startOpts.push({v:m,l:m2t(m),slotEnd:s.e}); });
     const fully=startOpts.length===0;
     if(!fully&&startOpts.find(o=>o.v===b.from))start=b.from;
-    const slots=buildSlots(room);
+    const slots=displaySlots(room);
     const p=el('div','panel wide');
     p.innerHTML=`
       <div class="panel-head"><h3>Modify booking</h3><span class="code-tag">${b.bid}</span><div class="sp"></div></div>
@@ -1144,12 +1150,12 @@ function openModify(b){
           <div class="fgroup"><label class="flabel">End time</label><div id="mEnd"></div></div>
           <div class="fgroup" style="flex:none"><label class="flabel">Duration</label><div class="dur-box" style="margin:0;min-width:96px;justify-content:center"><span class="val" id="mDur">${b.to-b.from} min</span></div></div>
         </div>
-        <div class="subhead">Members <span id="mCount" style="color:var(--txt-3);font-weight:600;font-size:13px">${ids.length} / ${room.capMin}</span></div>
+        <div class="subhead">Members <span id="mCount" style="margin-left:10px;color:var(--txt-3);font-weight:600;font-size:13px">${ids.length} / ${room.capMin}</span></div>
         <div class="id-add"><input class="input" id="mIdIn" placeholder="Enter Student ID here" maxlength="7"><button class="btn solid" id="mAdd">Add</button></div>
         <div class="id-list" id="mList"></div>
       </div>
       <div class="panel-foot"><button class="btn danger" id="mCancel">Cancel booking</button><div style="flex:1"></div><button class="btn" id="mBack">Back</button><button class="btn solid" id="mSave">Save changes</button></div>`;
-    const sched=makeSection({title:'Availability',count:'',open:true});
+    const sched=makeSection({title:'Availability',count:'',open:true,line:false});
     if(fully){ const fb=el('div','sched-full'); fb.textContent='Fully booked on this date'; sched.body.appendChild(fb); }
     else { for(let i=0;i<slots.length;i+=5){ const row=el('div','sched-row'); slots.slice(i,i+5).forEach(sl=>row.appendChild(slotBox(room,sl,false))); sched.body.appendChild(row); } }
     p.querySelector('#mSchedMount').appendChild(sched.wrap);
